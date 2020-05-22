@@ -3,12 +3,12 @@ import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 
 const Search = () => {
-    return(
-        <>
-            <SearchBar />
-            <SearchResults />
-        </>
-    );
+  return (
+    <>
+      <SearchBar />
+      <SearchResults />
+    </>
+  );
 };
 
 export default Search;
