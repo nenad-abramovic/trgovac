@@ -1,11 +1,11 @@
-const express = require('express');
-const router = express.Router();
 const { body, validationResult } = require('express-validator');
-const pool = require('../db');
+const pool = require('../../db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+const SALT = 10;
 
-// Register
-router.post('/', [
+let registerValidation = [
   body("email", "Е-маил није валидан.")
     .isEmail(),
   body("password", "Шифра мора садржати минимум 8 карактера. Једно мало, једно велико слово и један број.")
@@ -14,7 +14,9 @@ router.post('/', [
   body("confirmPassword", "Шифре се не подударају.").custom(
     (value, { req }) => value === req.body.password
   ),
-], async (req, res, next) => {
+];
+
+let register = async (req, res, next) => {
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -24,13 +26,22 @@ router.post('/', [
   }
 
   try {
+    let password = await bcrypt.hash(req.body.password, SALT);
     await pool.query({
-      text: 'INSERT INTO users(email, password) VALUES($1, $2)', 
-      values: [req.body.email, req.body.password]
+      text: 'INSERT INTO users(email, password) VALUES($1, $2)',
+      values: [req.body.email, password]
     });
-    return res.json({
+
+    let token = jwt.sign(
+      { email: req.body.email },
+      password,
+      { expiresIn: "2 minutes" }
+    );
+
+    return res.status(200).json({
       success: true,
-      token: '1234'
+      token,
+      email: req.body.email
     });
   } catch (e) {
     return res.status(500).json({
@@ -38,17 +49,9 @@ router.post('/', [
       errors: e
     });
   }
-});
+};
 
-
-// Login
-router.get('/', async (req, res, next) => {
-
-});
-
-// Update user data
-router.put('/', async (req, res, next) => {
-
-});
-
-module.exports = router;
+module.exports = {
+  registerValidation,
+  register
+}

@@ -1,8 +1,8 @@
 const express = require('express');
 const pool = require('./db');
 const cors = require('cors');
-const usersRouter = require('./routes/users');
-const adsRouter = require('./routes/ads');
+const usersRouter = require('./routes/users/users');
+const adsRouter = require('./routes/ads/ads');
 
 const app = express();
 app.use(express.json());
