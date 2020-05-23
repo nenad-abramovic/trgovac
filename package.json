@@ -2,7 +2,6 @@
   "name": "trgovac",
   "version": "0.1.0",
   "private": true,
-  "main": "./api/server.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -18,7 +17,7 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "node ./api/server.js --port $PORT",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -37,8 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": "12.x"
   }
 }
