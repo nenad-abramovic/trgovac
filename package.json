@@ -1,6 +1,7 @@
 {
   "name": "trgovac",
   "version": "0.1.0",
+  "main": "api/server.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -17,7 +18,8 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node api/server.js",
+    "start-front": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
