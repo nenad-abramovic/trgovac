@@ -1,6 +1,7 @@
 {
   "name": "trgovac",
   "version": "0.1.0",
+  "main": "api/server.js",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -37,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": "12.16.x"
   }
 }
