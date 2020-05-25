@@ -1,9 +1,7 @@
 .container {
   display: flex;
   margin: 0.5rem;
-  border: 1px solid rgba(255, 0, 0, 0.4);;
-}
-
-.title:hover {
-  color: rgba(255, 0, 0, 0.7);
+  border: 1px solid aquamarine;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
 }

@@ -27,13 +27,13 @@ const Login = () => {
 
   return (
     <form className={styles.form} onSubmit={e => e.preventDefault()}>
-      <h2>Пријави се</h2>
+      <h2>пријавите се</h2>
       <p>{userData.message}</p>
       <input type="email" placeholder="Унесите е-маил..." value={userData.email} onChange={e => setUserData({ ...userData, email: e.target.value })} />
       <input type="password" placeholder="Унесите шифру..." value={userData.password} onChange={e => setUserData({ ...userData, password: e.target.value })} />
       <div>
-        <Link to="/register">Региструј се</Link>
-        <button type="submit" onClick={handleClick} >Пријави се</button>
+        <Link to="/register">региструјте се</Link>
+        <button type="submit" onClick={handleClick} >пријавите се</button>
       </div>
     </form>
   );

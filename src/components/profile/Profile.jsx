@@ -4,7 +4,7 @@ import styles from './Profile.module.css';
 const Profile = () => {
   return (
     <div>
-      <h2>Ваш профил</h2>
+      <h2 className={styles.title}>Ваш профил</h2>
     </div>
   );
 }

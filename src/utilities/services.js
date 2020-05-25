@@ -1,6 +1,5 @@
 const BASE_URL = 'http://localhost:4000';
 const ADS = '/ads';
-const COMMENT = '/comments';
 const USERS = '/users';
 
 const getAds = async (category='%', place='%') => {
@@ -22,7 +21,6 @@ const getAd = async (ad_uuid) => {
     console.error(e);
   }
 }
-
 
 const registerUser = async (userData) => {
   try {

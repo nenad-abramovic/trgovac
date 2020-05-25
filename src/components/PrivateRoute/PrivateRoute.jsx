@@ -8,10 +8,10 @@ const PrivateRoute = ({ component: Component, ...props }) => {
   const location = useLocation();
 
   return (
-    <Route {...rest}>
+    <Route {...props}>
       {
         user.user
-          ? <Redirect to={{ pathname: '/login', state={ from: location } }} />
+          ? <Redirect to={{ pathname: '/login', state:{ from: location } }} />
           : <Component {...props} />
       }
     </Route>

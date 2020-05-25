@@ -6,16 +6,13 @@ import UserContext from '../utilities/user';
 const links = [
   {
     to: '',
-    text: 'Најновији огласи'
+    text: 'најновији огласи'
   }, {
     to: 'new_ad',
-    text: 'Поставите оглас'
+    text: 'поставите оглас'
   }, {
     to: 'profile',
-    text: 'Профил'
-  }, {
-    to: 'pricelist',
-    text: 'Ценовник'
+    text: 'профил'
   }
 ];
 
@@ -33,8 +30,8 @@ const Header = () => {
         <ul>
           {
             user
-              ? <button onClick={logout}>Одјавите се</button>
-              : <Link to="/login">Пријавите се</Link>
+              ? <li><Link to="/" onClick={logout}>одјавите се</Link></li>
+              :<li><Link to="/login">пријавите се</Link></li>
           }
           {
             links.map(link => (

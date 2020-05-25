@@ -28,14 +28,14 @@ const Register = () => {
 
   return (
     <form className={styles.form} onSubmit={e => e.preventDefault()}>
-      <h2>Региструј се</h2>
+      <h2>региструјте се</h2>
       <p>{userData.message}</p>
       <input type="email" placeholder="Унесите е-маил..." value={userData.email} onChange={e => setUserData({ ...userData, email: e.target.value })} />
       <input type="password" placeholder="Унесите шифру..." value={userData.password} onChange={e => setUserData({ ...userData, password: e.target.value })} />
       <input type="password" placeholder="Поновите шифру..." value={userData.confirmPassword} onChange={e => setUserData({ ...userData, confirmPassword: e.target.value })} />
       <div>
-        <Link to="/login">Пријави се</Link>
-        <button type="submit" onClick={handleClick} >Региструј се</button>
+        <Link to="/login">пријавите се</Link>
+        <button type="submit" onClick={handleClick} >региструјте се</button>
       </div>
     </form>
   );

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
-    <footer>
-      <a href="http://localhost:4000">АПИ Документација</a>
+    <footer className={styles.footer}>
       <Link to="/register">Региструјте се</Link>
+      <Link to="/pricelist">Ценовник</Link>
       <label>&copy;Абрамовић Ненад 2020</label>
-      <span onClick={() => window.scrollTo(0, 0)}>На врх</span>
+      <a href="http://localhost:4000">АПИ Документација</a>
+      <span onClick={() => window.scrollTo(0, 0)}>на врх</span>
     </footer>
   );
 };

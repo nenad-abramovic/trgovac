@@ -1,0 +1,13 @@
+.container {
+  padding: 1rem 0 2rem 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container select {
+  padding: 0.5rem;
+  background-color: aquamarine;
+  border: 0;
+  font-weight: bold;
+  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+}

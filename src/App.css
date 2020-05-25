@@ -6,9 +6,21 @@
   justify-content: space-between;
   min-height: 100vh;
   text-align: center;
+  padding: 1rem;
 }
 
 .container {
   display: flex;
+  flex: 1;
   align-items: flex-start;
+}
+
+a {
+  text-decoration: none;
+  text-transform: lowercase;
+  color: aquamarine;
+}
+
+a:hover {
+  text-transform: uppercase;
 }

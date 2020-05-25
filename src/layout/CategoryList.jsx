@@ -7,7 +7,7 @@ const CategoryList = () => {
   const categories = useCategories();
   return (
     <nav className={styles.categories}>
-      <h3 className={styles.title}>Категорије</h3>
+      <h3 className={styles.title}>категорије</h3>
       <ul>
         {
           categories.map(category => (

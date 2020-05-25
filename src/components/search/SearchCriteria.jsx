@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import usePlaces from '../../utilities/places';
 import useCategories from '../../utilities/categories';
 import { useHistory } from 'react-router-dom';
+import styles from './SearchCriteria.module.css';
 
 const SearchCriteria = () => {
   const places = usePlaces();
@@ -15,7 +16,7 @@ const SearchCriteria = () => {
       pathname: '/', 
       state: {
         category: e.target.value, 
-        place: e.target.value 
+        place: criteria.place 
       }
     });
   }
@@ -23,32 +24,34 @@ const SearchCriteria = () => {
     history.push({
       pathname: '/', 
       state: {
-        category: e.target.value, 
+        category: criteria.category, 
         place: e.target.value 
       }
     });
   }
 
   return (
-    <div>
-      <label htmlFor="category">Категорија</label>
+    <div className={styles.container}>
+      <div>
       <select id="category" onChange={selectCategory}>
-        <option value="%">Изабери категорију</option>
+        <option value="%">изабери категорију</option>
         {
           categories.map(category => (
-            <option key={category.category_uuid} value={category.category_uuid}>{category.name}</option>
+            <option key={category.category_uuid} value={category.category_uuid}>{category.name.toLowerCase()}</option>
           ))
         }
       </select>
-      <label htmlFor="place">Место</label>
+      </div>
+      <div>
       <select id="place" onChange={selectPlace}>
-        <option value="%">Изабери место</option>
+        <option value="%">изабери место</option>
       {
           places.map(place => (
-            <option key={place.place_uuid} value={place.place_uuid}>{place.name}</option>
+            <option key={place.place_uuid} value={place.place_uuid}>{place.name.toLowerCase()}</option>
           ))
         }
       </select>
+      </div>
     </div>
   );
 };
