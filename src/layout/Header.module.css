@@ -21,18 +21,31 @@
 
 .navigation {
   flex: 1;
+  text-align: right;
 }
 
 .navigation ul {
-  display: flex;
-  justify-content: space-between;
+  margin: 0;
   list-style-type: none;
 }
 
-.navigation a:hover {
+.navigation li {
+  display: inline-block;
+  padding: 0 0.3rem;
+  line-height: 2rem;
+  border-right: 2px solid aquamarine;
+}
+
+.navigation li:last-child {
+  border-right: 0;
+}
+
+.navigation li:hover {
+  background-color: rgba(127, 255, 212, 0.2);
+  box-shadow: 0 0 0.5rem 0.5rem rgba(127, 255, 212, 0.2);
   text-transform: uppercase;
 }
 
 .navigation a {
-  color: aquamarine;
+  text-transform: inherit;
 }

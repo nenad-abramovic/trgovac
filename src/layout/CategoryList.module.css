@@ -23,3 +23,7 @@
   padding: 0.5rem;
   border: 1px solid aquamarine;
 }
+
+.categories a:hover {
+  background-color: rgba(127, 255, 212, 0.2);
+}

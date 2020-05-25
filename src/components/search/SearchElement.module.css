@@ -1,7 +1,18 @@
 .container {
-  display: flex;
-  margin: 0.5rem;
+  align-items: center;
   border: 1px solid aquamarine;
   border-radius: 0.5rem;
   box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+  display: flex;
+  margin: 0.5rem;
+  justify-content: space-between;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.container img {
+  border: 1px solid aquamarine;
+  height: 150px;
+  padding: 0.5rem;
+  width: 150px;
 }
