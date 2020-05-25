@@ -1,15 +1,12 @@
 import React from 'react';
-import Search from '../components/search/Search';
-import Register from '../components/auth/Register';
-import Login from '../components/auth/Login';
+import styles from './Main.module.css';
 
-const Main = () => {
+const Main = ({ children }) => {
   return (
-    <main>
-      <p>огласи</p>
-      <Search />
-      <Register />
-      <Login />
+    <main className={styles.main}>
+      {
+        children
+      }
     </main>
   );
 };

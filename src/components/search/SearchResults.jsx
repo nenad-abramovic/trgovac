@@ -1,8 +1,16 @@
 import React from 'react';
+import SearchElement from './SearchElement';
 
-const SearchResults = () => {
+const SearchResults = ({ ads }) => {
   return (
-    <p>резултати претраге</p>
+    <div>
+      <p>резултати претраге</p>
+      {
+        ads.map(ad => (
+          <SearchElement key={ad.ad_uuid} ad={ad} />
+        ))
+      }
+    </div>
   );
 };
 

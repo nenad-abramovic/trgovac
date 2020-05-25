@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+.title {
+  color: rgba(255, 255, 255, 1);
+  margin: 0;
+  line-height: 1rem;
+  height: 2rem;
+  text-shadow: -4px -4px 1px rgba(255, 255, 255, 0.5);
+}
+.navigation li {
+  display: inline-block;
+  padding-left: 1rem;
+}
+
+.navigation {
+  margin: 0;
+}
+
+.navigation ul {
+  margin: 0;
+}

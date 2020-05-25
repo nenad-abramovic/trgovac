@@ -3,22 +3,17 @@ const pool = require('../../db');
 module.exports = async (req, res, next) => {
   try {
     let data = await pool.query({
-      text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image) 
-            VALUES($1, $2, $3, $4, $5, decode($6, 'base64'))
-      `,
-      values: [
-        req.body.title,
-        req.body.description,
-        req.body.price,
-        req.body.category_uuid,
-        user_uuid,
-        image
-      ]
+      text: `SELECT ad_uuid, created_at, title, description, price, category_uuid, user_uuid, image, place_uuid, fullname, phone_number 
+        FROM ads
+        JOIN users USING(user_uuid) 
+        JOIN categories USING(category_uuid)
+        JOIN places USING(place_uuid)
+        WHERE categories.name ILIKE COALESCE($1, '%') AND places.name ILIKE COALESCE($2, '%')`,
+      values: [req.query.category, req.query.place]
     });
-
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
-      ...data.rows[0]
+      data: data.rows
     });
   } catch (e) {
     return res.status(500).json({

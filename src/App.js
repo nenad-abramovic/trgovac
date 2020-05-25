@@ -4,14 +4,35 @@ import Header from './layout/Header';
 import Main from './layout/Main';
 import CategoryList from './layout/CategoryList';
 import Footer from './layout/Footer';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Search from './components/search/Search';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import { useState } from "react";
+import UserContext from './utilities/user';
+
 
 function App() {
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('userData')));
+  
   return (
     <div className="App">
-      <Header />
-      <Main />
-      <CategoryList />
-      <Footer />
+      <UserContext.Provider value={{ user, setUser }}>
+      <Router>
+        <Header />
+        <div className="container">
+          <CategoryList />
+          <Main>
+            <Switch>
+              <Route exact path="/" component={Search} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+            </Switch>
+          </Main>
+        </div>
+        <Footer />
+      </Router>
+      </UserContext.Provider>
     </div>
   );
 }

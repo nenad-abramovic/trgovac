@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 module.exports = async (req, res, next) => {
   try {
     let data = await pool.query({
-      text: 'SELECT email, fullname, place_of_residence, phone_number, password FROM users WHERE email=$1',
+      text: 'SELECT email, fullname, place_uuid, phone_number, password FROM users WHERE email=$1',
       values: [req.body.email]
     });
-
+    console.log(data.rows);
     if (data.rows.length === 0) {
       return res.status(400).json({
         success: false,
@@ -31,7 +31,7 @@ module.exports = async (req, res, next) => {
       return res.status(201).json({
         success: true,
         token,
-        ...data.rows[0]
+        data: data.rows[0]
       });
     }
 

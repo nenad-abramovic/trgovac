@@ -1,8 +1,16 @@
 import React from 'react';
+import styles from './SearchBar.module.css';
 
-const SearchBar = () => {
+const SearchBar = ({ ads, filterAds }) => {
+  const handleChange = (e) => {
+    let regex = new RegExp(e.target.value, 'gi')
+    let tmp = ads.filter(ad => regex.test(ad.title));
+    filterAds({ all: ads, filtered: tmp });
+  }
   return (
-    <p>претрага</p>
+    <div>
+      <input type="search" className={styles.search} placeholder="Тражи..." onChange={handleChange} />
+    </div>
   );
 };
 

@@ -1,3 +1,7 @@
+# [Trgovac](https://trgovac.herokuapp.com)
+
+Documentation can be found on this [link](https://trgovac.herokuapp.com).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,0 +1,31 @@
+.form {
+  text-align: left;
+}
+
+.form input {
+  width: calc(100% - 2rem);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.form div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.form button {
+  margin: 1rem 0;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.form h2 {
+  margin: 0;
+}
+
+.form a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold; 
+}

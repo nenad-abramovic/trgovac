@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
+import { getAds } from '../../utilities/services';
+import SearchCriteria from './SearchCriteria';
 
 const Search = () => {
+  const [ads, setAds] = useState({all:[], filtered: []});
+  useEffect(() => {
+    getAds()
+    .then(data => {
+      if(data.success) {
+      setAds({ all: data.data, filtered: data.data });
+      }
+    });
+  }, []);
+
   return (
     <>
-      <SearchBar />
-      <SearchResults />
+      <SearchBar ads={ads.all} filterAds={setAds} />
+      <SearchCriteria setAds={setAds} />
+      <SearchResults ads={ads.filtered} />
     </>
   );
 };

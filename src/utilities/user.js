@@ -1,5 +1,25 @@
-let token = window.localStorage.getItem('token');
+import { createContext } from "react";
 
-let isLoggedIn = () => token !== null;
+const UserContext = createContext();
+export default UserContext;
 
-export default isLoggedIn;
+// const useUser = () => {
+//   const history = useHistory();
+//   const [user, setUserData] = useState(JSON.parse(window.localStorage.getItem('userData')));
+  
+//   const setUser = (userData) => {
+//     console.log(userData);
+//     setUserData(userData);
+//     history.push('/');
+//   };
+
+//   useEffect(() => {
+//     user === null
+//     ? window.localStorage.removeItem('userData')
+//     : window.localStorage.setItem('userData', JSON.stringify(user));
+//   }, [user])
+
+//   return { user, setUser };
+// };
+
+// export default UserContext;
