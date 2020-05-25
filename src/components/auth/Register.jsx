@@ -20,7 +20,7 @@ const Register = () => {
       delete data.success;
       user.setUser(data);
       window.localStorage.setItem('userData', JSON.stringify(data));
-      history.push('/');
+      history.push('/profile');
     } else {
       setUserData({ ...userData, message: data.message });
     }

@@ -10,6 +10,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import { useState } from "react";
 import UserContext from './utilities/user';
+import Ad from './components/ad/CommentList';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
 function App() {
@@ -27,6 +29,9 @@ function App() {
               <Route exact path="/" component={Search} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/ad/:ad_uuid" component={Ad} />
+              <Route path="/user_ads/:user_uuid" component={Search} />
+              <PrivateRoute path="/profile" component={Profile} />
             </Switch>
           </Main>
         </div>

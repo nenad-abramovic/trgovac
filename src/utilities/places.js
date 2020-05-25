@@ -13,11 +13,10 @@ const usePlaces = () => {
           setPlaces(['Нема категорија...']);
         }
       })
-      .catch(e => console.error(e));
+      .catch(() => setPlaces(['Нема категорија...']));
   }, []);
 
   return places;
 }
-
 
 export default usePlaces;

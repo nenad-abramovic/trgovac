@@ -13,11 +13,10 @@ const useCategories = () => {
           setCategories(['Нема категорија...']);
         }
       })
-      .catch(e => console.error(e));
+      .catch(() => setCategories(['Нема категорија...']));
   }, []);
 
   return categories;
 }
-
 
 export default useCategories;

@@ -1,5 +1,6 @@
 const BASE_URL = 'http://localhost:4000';
 const ADS = '/ads';
+const COMMENT = '/comments';
 const USERS = '/users';
 
 const getAds = async (category='%', place='%') => {
@@ -11,6 +12,17 @@ const getAds = async (category='%', place='%') => {
     console.error(e);
   }
 }
+
+const getAd = async (ad_uuid) => {
+  try {
+    let data = await fetch(`${BASE_URL}${ADS}/${ad_uuid}`);
+    let json = await data.json();
+    return json;
+  } catch(e) {
+    console.error(e);
+  }
+}
+
 
 const registerUser = async (userData) => {
   try {
@@ -44,6 +56,7 @@ const loginUser = async (userData) => {
 
 export {
   getAds,
+  getAd,
   registerUser,
   loginUser,
 }
