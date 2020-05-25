@@ -18,7 +18,7 @@ const Search = () => {
   return (
     <>
       <SearchBar ads={ads.all} filterAds={setAds} />
-      <SearchCriteria setAds={setAds} />
+      <SearchCriteria ads={ads.all} filterAds={setAds} />
       <SearchResults ads={ads.filtered} />
     </>
   );

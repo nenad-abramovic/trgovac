@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { registerUser } from '../../utilities/services';
 import UserContext from '../../utilities/user';
 import { useHistory, Link } from 'react-router-dom';
-import styles from './Login.module.css';
+import styles from './Register.module.css';
 
 const Register = () => {
   const history = useHistory();

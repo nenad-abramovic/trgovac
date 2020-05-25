@@ -1,39 +1,31 @@
 import React, { useState } from 'react';
 import usePlaces from '../../utilities/places';
 import useCategories from '../../utilities/categories';
-import { useHistory } from 'react-router-dom';
 import styles from './SearchCriteria.module.css';
+import { getAds } from '../../utilities/services';
 
-const SearchCriteria = () => {
+const SearchCriteria = ({ ads, filterAds }) => {
   const places = usePlaces();
   const categories = useCategories();
-  const history = useHistory();
-  const [criteria, setCriteria] = useState({category: '%', place: '%'}); 
+  const [criteria, setCriteria] = useState({ category: '%', place: '%' });
 
-  const selectCategory = (e) => {
-    setCriteria()
-    history.push({
-      pathname: '/', 
-      state: {
-        category: e.target.value, 
-        place: criteria.place 
-      }
-    });
-  }
-  const selectPlace = (e) => {
-    history.push({
-      pathname: '/', 
-      state: {
-        category: criteria.category, 
-        place: e.target.value 
-      }
-    });
+  const selectCriteria = (e) => {
+    let tmp = { ...criteria };
+    tmp[e.target.id] = e.target.value;
+    setCriteria(tmp);
+    getAds(criteria.category, criteria.place)
+      .then(data => {
+        if(data.success){
+          console.log(data);
+          filterAds({ all: ads, filtered: data.data });
+        }
+      })
   }
 
   return (
     <div className={styles.container}>
       <div>
-      <select id="category" onChange={selectCategory}>
+      <select id="category" onChange={selectCriteria}>
         <option value="%">изабери категорију</option>
         {
           categories.map(category => (
@@ -43,7 +35,7 @@ const SearchCriteria = () => {
       </select>
       </div>
       <div>
-      <select id="place" onChange={selectPlace}>
+      <select id="place" onChange={selectCriteria}>
         <option value="%">изабери место</option>
       {
           places.map(place => (
