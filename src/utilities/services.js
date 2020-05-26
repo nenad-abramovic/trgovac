@@ -3,7 +3,7 @@ const USERS = '/users';
 
 const getAds = async (category='%', place='%') => {
   try {
-    let data = await fetch(`${ADS}?category=${category}&place=${place}`);
+    let data = await fetch(encodeURI(`${ADS}?category=${category}&place=${place}`));
     let json = await data.json();
     return json;
   } catch(e) {
