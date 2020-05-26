@@ -11,3 +11,7 @@
   font-weight: bold;
   box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
 }
+
+.container select:hover {
+  box-shadow: 0rem 0rem 1rem 0.7rem rgba(127, 255, 212, 0.4);
+}

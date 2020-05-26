@@ -1,10 +1,9 @@
-const BASE_URL = 'http://localhost:4000';
 const ADS = '/ads';
 const USERS = '/users';
 
 const getAds = async (category='%', place='%') => {
   try {
-    let data = await fetch(`${BASE_URL}${ADS}?category=${category}&place=${place}`);
+    let data = await fetch(`${ADS}?category=${category}&place=${place}`);
     let json = await data.json();
     return json;
   } catch(e) {
@@ -14,7 +13,7 @@ const getAds = async (category='%', place='%') => {
 
 const getAd = async (ad_uuid) => {
   try {
-    let data = await fetch(`${BASE_URL}${ADS}/${ad_uuid}`);
+    let data = await fetch(`${ADS}/${ad_uuid}`);
     let json = await data.json();
     return json;
   } catch(e) {
@@ -24,7 +23,7 @@ const getAd = async (ad_uuid) => {
 
 const registerUser = async (userData) => {
   try {
-    let data = await fetch(`${BASE_URL}${USERS}`, {
+    let data = await fetch(`${USERS}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(userData)
@@ -38,7 +37,7 @@ const registerUser = async (userData) => {
 
 const loginUser = async (userData) => {
   try {
-    let data = await fetch(`${BASE_URL}${USERS}/login`, {
+    let data = await fetch(`${USERS}/login`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(userData)
@@ -49,8 +48,6 @@ const loginUser = async (userData) => {
     console.error(e);
   }
 };
-
-
 
 export {
   getAds,

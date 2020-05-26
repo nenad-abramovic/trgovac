@@ -4,7 +4,7 @@ import useCategories from '../../utilities/categories';
 import styles from './SearchCriteria.module.css';
 import { getAds } from '../../utilities/services';
 
-const SearchCriteria = ({ ads, filterAds }) => {
+const SearchCriteria = ({ filterAds }) => {
   const places = usePlaces();
   const categories = useCategories();
   const [criteria, setCriteria] = useState({ category: '%', place: '%' });
@@ -13,11 +13,11 @@ const SearchCriteria = ({ ads, filterAds }) => {
     let tmp = { ...criteria };
     tmp[e.target.id] = e.target.value;
     setCriteria(tmp);
-    getAds(criteria.category, criteria.place)
+    getAds(tmp.category, tmp.place)
       .then(data => {
         if(data.success){
           console.log(data);
-          filterAds({ all: ads, filtered: data.data });
+          filterAds({ all: data.data, filtered: data.data });
         }
       })
   }
@@ -29,7 +29,7 @@ const SearchCriteria = ({ ads, filterAds }) => {
         <option value="%">изабери категорију</option>
         {
           categories.map(category => (
-            <option key={category.category_uuid} value={category.category_uuid}>{category.name.toLowerCase()}</option>
+            <option key={category.category_uuid} value={category.name}>{category.name.toLowerCase()}</option>
           ))
         }
       </select>
@@ -39,7 +39,7 @@ const SearchCriteria = ({ ads, filterAds }) => {
         <option value="%">изабери место</option>
       {
           places.map(place => (
-            <option key={place.place_uuid} value={place.place_uuid}>{place.name.toLowerCase()}</option>
+            <option key={place.place_uuid} value={place.name}>{place.name.toLowerCase()}</option>
           ))
         }
       </select>

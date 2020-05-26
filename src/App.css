@@ -24,3 +24,32 @@ a {
 a:hover {
   text-transform: uppercase;
 }
+
+input {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: aquamarine;
+  border: 0;
+  font-size: 1.5rem;
+  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+  border-radius: 0.5rem;
+}
+
+button {
+  margin: 1rem 0;
+  padding: 1rem;  
+  cursor: pointer;  
+  background-color: aquamarine;
+  border: 0;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+  cursor: pointer;
+}
+
+button:hover,
+input:hover,
+input:focus {
+  box-shadow: 0rem 0rem 1rem 0.7rem rgba(127, 255, 212, 0.4);
+}

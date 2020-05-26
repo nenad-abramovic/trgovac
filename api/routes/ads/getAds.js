@@ -1,7 +1,8 @@
 const pool = require('../../db');
 
 module.exports = async (req, res, next) => {
-  if (req.param.user_uuid !== '') {
+  console.log(req.param);
+  if (req.param.user_uuid) {
     try {
       let data = await pool.query({
         text: `SELECT ad_uuid, created_at, title, description, price, category_uuid, user_uuid, image, place_uuid, fullname, phone_number 

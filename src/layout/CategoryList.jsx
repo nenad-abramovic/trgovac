@@ -11,7 +11,7 @@ const CategoryList = () => {
       <ul>
         {
           categories.map(category => (
-            <Link to={{pathname:'/', query: { category: category.name}}} key={category.category_uuid}>{category.name}</Link>
+            <Link to={{pathname:'/', state: { category: category.name }}} key={category.category_uuid}>{category.name}</Link>
           ))
         }
       </ul>

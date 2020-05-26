@@ -3,11 +3,11 @@
   justify-content: space-between;
 }
 
-.footer span {
+.totop {
   color: aquamarine;
   cursor: pointer;
 }
 
-.footer span:hover {
-  color: rgba(255, 0, 0, 0.6);
+.totop:hover {
+  text-transform: uppercase;
 }

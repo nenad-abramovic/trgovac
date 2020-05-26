@@ -5,6 +5,10 @@
   box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
 }
 
+.categories:hover {
+  box-shadow: 0rem 0rem 1rem 0.7rem rgba(127, 255, 212, 0.4);
+}
+
 .title {
   color: black;
   margin: 0;
