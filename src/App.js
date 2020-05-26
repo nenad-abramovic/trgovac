@@ -14,6 +14,7 @@ import Ad from './components/ad/CommentList';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Profile from './components/profile/Profile';
 import PriceList from './components/pricelist/Pricelist';
+import NewAd from './components/newAd/NewAd';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               <Route path="/user_ads/:user_uuid" component={Search} />
               <Route path="/pricelist" component={PriceList} />
               <PrivateRoute path="/profile" component={Profile} />
+              <PrivateRoute path="/new_ad" component={NewAd} />
             </Switch>
           </Main>
         </div>

@@ -4,7 +4,7 @@ const useCategories = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/categories')
+    fetch('/categories')
       .then(data => data.json())
       .then(json => {
         if (json.success) {

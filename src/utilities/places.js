@@ -4,7 +4,7 @@ const usePlaces = () => {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/places')
+    fetch('/places')
       .then(data => data.json())
       .then(json => {
         if (json.success) {
