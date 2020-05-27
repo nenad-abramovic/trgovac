@@ -50,4 +50,4 @@ let register = async (req, res, next) => {
 module.exports = {
   registerValidation,
   register
-}
+};

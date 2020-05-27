@@ -3,13 +3,13 @@ const router = express.Router();
 const { addAd, addValidator } = require('./addAd');
 const deleteAd = require('./deleteAd');
 const commentAd = require('./commentAd');
-const getAds = require('./getAds');
-const getComments = require('./getComments');
+const { adsValidation, getAds} = require('./getAds');
+const { commentsValidation, getComments } = require('./getComments');
 
 router.post('/', addValidator, addAd);
 router.delete('/', deleteAd);
 router.post('/comments', commentAd);
-router.get('/', getAds);
-router.get('/comments', getComments);
+router.get('/', adsValidation, getAds);
+router.get('/comments', commentsValidation, getComments);
 
 module.exports = router;

@@ -1,4 +1,12 @@
 const pool = require('../../db');
+const { body, validationResult } = require('express-validator');
+
+const loginValidation = [
+  body('email', 'Е-маил није валидан')
+  .isEmail(),
+  body('password', 'Шифра није прослеђена')
+  .exists()
+];
 
 module.exports = async (req, res, next) => {
   try {

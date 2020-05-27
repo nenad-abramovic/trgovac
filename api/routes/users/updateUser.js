@@ -46,4 +46,4 @@ let updateUser = async (req, res, next) => {
 module.exports = {
   updateUserValidation,
   updateUser
-}
+};

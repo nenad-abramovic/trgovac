@@ -8,7 +8,7 @@ const loginValidation = [
   .isEmail(),
   body('password', 'Шифра није прослеђена')
   .exists()
-]
+];
 
 const login = async (req, res, next) => {
   let errors = validationResult(req);
@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
     const match = await bcrypt.compare(req.body.password, data.rows[0].password);
 
     if (match) {
-      let token = token.sign(data.rows[0].email);
+      let token = signToken(data.rows[0].email);
 
       delete data.rows[0].password;
 
@@ -60,4 +60,4 @@ const login = async (req, res, next) => {
 module.exports = {
   loginValidation,
   login
-}
+};
