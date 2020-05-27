@@ -6,7 +6,7 @@ const addAdValidator = [
     .exists(),
   body('title', 'Наслов огласа није испоручен.')
     .exists()
-    .isLenght({ min: 2 }),
+    .isLength({ min: 2 }),
   body('description', 'Опис огласа није испоручен.')
     .exists(),
   body('price', 'Износ није испоручен.')
