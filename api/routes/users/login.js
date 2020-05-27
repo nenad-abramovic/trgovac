@@ -5,9 +5,9 @@ const { signToken } = require('../../utilities/token');
 
 const loginValidation = [
   body('email', 'Е-маил није валидан')
-  .isEmail(),
+    .isEmail(),
   body('password', 'Шифра није прослеђена')
-  .exists()
+    .exists()
 ];
 
 const login = async (req, res, next) => {
@@ -30,7 +30,7 @@ const login = async (req, res, next) => {
         message: 'Е-маил или шифра нису валидни.'
       });
     }
-    
+
     const match = await bcrypt.compare(req.body.password, data.rows[0].password);
 
     if (match) {

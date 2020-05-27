@@ -11,7 +11,7 @@ const signToken = (email) => {
 const verifyToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET_KEY).sub;
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 }

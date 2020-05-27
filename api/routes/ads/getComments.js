@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 
 const commentsValidation = [
   body('adUUID', 'Није прослеђен оглас.')
-  .exists()
+    .exists()
 ];
 
 const getComments = async (req, res, next) => {
@@ -17,8 +17,8 @@ const getComments = async (req, res, next) => {
 
   try {
     let data = await pool.query({
-      text: 'SELECT * FROM comments WHERE ad_uuid=$1',
-      values: [ req.body.adUUID ]
+      text: 'SELECT text, created_at, fullname, user_uuid FROM comments JOIN users USING(user_uuid) WHERE ad_uuid=$1',
+      values: [req.body.adUUID]
     });
 
     return res.status(200).json({

@@ -14,7 +14,7 @@ const newCommentValidation = [
 const commentAd = async (req, res, next) => {
   let email = verifyToken(req.header['Authorization'].split(' ')[1]);
   let errors = validationResult(req);
-  
+
   if (!(errors.isEmpty() && email)) {
     return res.status(400).json({
       success: false,
@@ -25,7 +25,7 @@ const commentAd = async (req, res, next) => {
   try {
     let userData = await pool.query({
       text: 'SELECT user_uuid FROM users WHERE email=$1',
-      values: [ email ]
+      values: [email]
     });
 
     await pool.query({

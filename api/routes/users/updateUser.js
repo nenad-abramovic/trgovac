@@ -17,7 +17,7 @@ const updateUserValidation = [
 const updateUser = async (req, res, next) => {
   let email = verifyToken(req.header['Authorization'].split(' ')[1]);
   let errors = validationResult(req);
-  
+
   if (!(errors.isEmpty() && email)) {
     return res.status(400).json({
       success: false,

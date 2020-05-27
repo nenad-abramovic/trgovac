@@ -1,8 +1,11 @@
 import React from 'react';
 
-const Comment = () => {
+const Comment = ({ comment }) => {
   return (
-    <p>Коментар</p>
+    <div>
+      <p>{comment.fullname} - {comment.created_at}</p>
+      <p>{comment.text}</p>
+    </div>
   );
 }
 

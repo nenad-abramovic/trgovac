@@ -11,7 +11,7 @@ const deleteAdValidation = [
 const deleteAd = async (req, res, next) => {
   let email = verifyToken(req.header['Authorization'].split(' ')[1]);
   let errors = validationResult(req);
-  
+
   if (!(errors.isEmpty() && email)) {
     return res.status(400).json({
       success: false,
@@ -22,7 +22,7 @@ const deleteAd = async (req, res, next) => {
   try {
     await pool.query({
       text: 'DELETE FROM ads JOIN users USING(user_uuid) WHERE ad_uuid=$1 AND email=$2',
-      values: [ req.body.adUUID, email ]
+      values: [req.body.adUUID, email]
     });
 
     return res.status(200).json({

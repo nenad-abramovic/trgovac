@@ -1,11 +1,13 @@
 import React from 'react';
 import Comment from './Comment';
 
-const CommentList = () => {
+const CommentList = ({ comments }) => {
   return (
     <div>
     <p>Коментари</p>
-    <Comment />
+    {
+      comments.map(comment => <Comment key={comment.comment_uuid} comment={comment} />)
+    }
     </div>
   );
 }
