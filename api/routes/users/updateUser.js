@@ -1,26 +1,24 @@
-const { body, validationResult } = require('express-validator');
+const { header, body, validationResult } = require('express-validator');
 const pool = require('../../db');
-const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../../utilities/token');
 
 let updateUserValidation = [
-  body("token", "Токен није испоручен.")
-    .isJWT(),
-  body("email", "Е-маил није валидан.")
-    .isEmail(),
-  body("fullname", "Име је неисправно.")
+  header('Authorization', 'Токен није испоручен.')
+    .exists(),
+  body('fullname', 'Име је неисправно.')
+    .matches(/^.{3,}$/),
+  body('placeUUID', 'Место пребивалишта је неисправно.')
+    .isUUID(),
+  body('phoneNumber', 'Број телефона је неисправан')
     .optional({ checkFalsy: true })
-    .matches(/^[A-Za-z][A-Za-z.]{2,}$/),
-  body("placeOfResidence", "Место пребивалишта је неисправно.")
-    .optional({ checkFalsy: true })
-    .matches(/^[A-Za-z][A-Za-z.]{2,}$/),
-  body("phoneNumber", "Број телефона је неисправан")
-    .optional({ checkFalsy: true })
-    .isMobilePhone("sr-RS")
+    .isMobilePhone('sr-RS')
 ];
 
 let updateUser = async (req, res, next) => {
+  let email = verifyToken(req.header['Authorization'].split(' ')[1]);
   let errors = validationResult(req);
-  if (!errors.isEmpty()) {
+  
+  if (!errors.isEmpty() && email) {
     return res.status(400).json({
       success: false,
       errors: errors.array()
@@ -29,8 +27,8 @@ let updateUser = async (req, res, next) => {
 
   try {
     let data = await pool.query({
-      text: 'UPDATE users SET fullname=$2, place_of_residence=$3, phone_number=$4 WHERE email=$1 RETURNING *',
-      values: [req.body.email, req.body.fullname, req.body.placeOfBirth, req.body.phoneNumber]
+      text: 'UPDATE users SET fullname=$2, place_uuid=$3, phone_number=$4 WHERE email=$1 RETURNING *',
+      values: [email, req.body.fullname, req.body.placeUUID, req.body.phoneNumber]
     });
 
     return res.status(200).json({

@@ -1,17 +1,17 @@
 const { body, validationResult } = require('express-validator');
 const pool = require('../../db');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { signToken } = require('../../utilities/token');
 
 const SALT = 10;
 
 let registerValidation = [
-  body("email", "Е-маил није валидан.")
+  body('email', 'Е-маил није валидан.')
     .isEmail(),
-  body("password", "Шифра мора садржати минимум 8 карактера. Једно мало, једно велико слово и један број.")
+  body('password', 'Шифра мора садржати минимум 8 карактера. Једно мало, једно велико слово и један број.')
     .isLength({ min: 8 })
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/),
-  body("confirmPassword", "Шифре се не подударају.").custom(
+  body('confirmPassword', 'Шифре се не подударају.').custom(
     (value, { req }) => value === req.body.password
   ),
 ];
@@ -32,11 +32,7 @@ let register = async (req, res, next) => {
       values: [req.body.email, password]
     });
 
-    let token = jwt.sign(
-      { email: req.body.email },
-      password,
-      { expiresIn: "2 minutes" }
-    );
+    let token = signToken(data.rows[0].email);
 
     return res.status(200).json({
       success: true,
