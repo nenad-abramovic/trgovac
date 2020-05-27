@@ -4,11 +4,9 @@ const adsRouter = require('./routes/ads/adsRouter');
 const categoriesRouter = require('./routes/categories/categoriesRouter');
 const placesRouter = require('./routes/places/placesRouter');
 
-const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
 app.use(express.static('build'));
 
@@ -39,6 +37,9 @@ app.use('/data', async (req, res) => {
   }
 });
 
+app.use((req, res, next) => {
+  res.redirect('back');
+});
 
 app.listen(process.env.PORT, () => {
   console.log('server started');
