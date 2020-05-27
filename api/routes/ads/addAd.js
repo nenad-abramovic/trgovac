@@ -1,31 +1,39 @@
-const { body, validationResult, header } = require('express-validator');
+const { header, body, validationResult } = require('express-validator');
 const pool = require('../../db');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
-const addValidator = [
-  header("Authorization")
+const addAdValidator = [
+  header('Authorization', 'Токен није испоручен.')
+    .exists(),
+  body('title', 'Наслов огласа није испоручен.')
     .exists()
-    .bail()
-    .custom(value => {
-      jwt.verify(value.split(" ")[1],)
-    })
-];
-
-
-let registerValidation = [
-  body("email", "Е-маил није валидан.")
-    .isEmail(),
-  body("password", "Шифра мора садржати минимум 8 карактера. Једно мало, једно велико слово и један број.")
-    .isLength({ min: 8 })
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/),
-  body("confirmPassword", "Шифре се не подударају.").custom(
-    (value, { req }) => value === req.body.password
-  ),
+    .isLenght({ min: 2 }),
+  body('description', 'Опис огласа није испоручен.')
+    .exists(),
+  body('price', 'Износ није испоручен.')
+    .isCurrency(),
+  body('categoryUUID', 'Категорија огласа није испоручена.')
+  .exists(),
+  body('image', 'Слика није испоручена.')
+    .isBase64()
 ];
 
 const addAd = async (req, res, next) => {
+  let email = verifyToken(req.header['Authorization'].split(' ')[1]);
+  let errors = validationResult(req);
+  
+  if (!(errors.isEmpty() && email)) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array()
+    });
+  }
+
   try {
+    let userData = await pool.query({
+      text: 'SELECT user_uuid FROM users WHERE email=$1',
+      values: [ email ]
+    });
+
     await pool.query({
       text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image) 
             VALUES($1, $2, $3, $4, $5, decode($6, 'base64'))`,
@@ -34,7 +42,7 @@ const addAd = async (req, res, next) => {
         req.body.description,
         req.body.price,
         req.body.category_uuid,
-        req.body.user_uuid,
+        userData.rows[0].user_uuid,
         req.body.image
       ]
     });
@@ -51,6 +59,6 @@ const addAd = async (req, res, next) => {
 };
 
 module.exports = {
-  addAd,
-  addValidator
-}
+  addAdValidator,
+  addAd
+};

@@ -51,4 +51,4 @@ const commentAd = async (req, res, next) => {
 module.exports = {
   newCommentValidation,
   commentAd
-}
+};
