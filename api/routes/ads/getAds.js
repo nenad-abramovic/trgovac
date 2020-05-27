@@ -7,7 +7,7 @@ const adsValidation = [
     .isUUID(),
   query('category')
     .optional({ checkFalsy: true })
-    .custom(value => {
+    .custom(async value => {
       let data = await pool.query({
         text: 'SELECT * FROM categories WHERE name=$1',
         values: [value]
@@ -19,7 +19,7 @@ const adsValidation = [
     }),
   query('place')
     .optional({ checkFalsy: true })
-    .custom(value => {
+    .custom(async value => {
       let data = await pool.query({
         text: 'SELECT * FROM places WHERE name=$1',
         values: [value]
