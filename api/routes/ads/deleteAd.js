@@ -1,18 +1,28 @@
 const pool = require('../../db');
-const { body, validationResult } = require('express-validator');
+const { header, body, validationResult } = require('express-validator');
 
-const loginValidation = [
-  body('email', 'Е-маил није валидан')
-  .isEmail(),
-  body('password', 'Шифра није прослеђена')
-  .exists()
+const deleteAdValidation = [
+  header('Authorization', 'Токен није испоручен.')
+    .exists(),
+  body('adUUID', 'Оглас није испоручен.')
+    .isUUID(),
 ];
 
-module.exports = async (req, res, next) => {
+const deleteAd = async (req, res, next) => {
+  let email = verifyToken(req.header['Authorization'].split(' ')[1]);
+  let errors = validationResult(req);
+  
+  if (!(errors.isEmpty() && email)) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array()
+    });
+  }
+
   try {
     await pool.query({
-      text: 'DELETE FROM ads WHERE email=$1',
-      values: [ req.body.email ]
+      text: 'DELETE FROM ads JOIN users USING(user_uuid) WHERE ad_uuid=$1 AND email=$2',
+      values: [ req.body.adUUID, email ]
     });
 
     return res.status(200).json({
@@ -25,4 +35,9 @@ module.exports = async (req, res, next) => {
       errors: e
     });
   }
+};
+
+module.exports = {
+  deleteAdValidation,
+  deleteAd
 };

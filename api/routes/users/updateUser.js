@@ -2,7 +2,7 @@ const { header, body, validationResult } = require('express-validator');
 const pool = require('../../db');
 const { verifyToken } = require('../../utilities/token');
 
-let updateUserValidation = [
+const updateUserValidation = [
   header('Authorization', 'Токен није испоручен.')
     .exists(),
   body('fullname', 'Име је неисправно.')
@@ -14,11 +14,11 @@ let updateUserValidation = [
     .isMobilePhone('sr-RS')
 ];
 
-let updateUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   let email = verifyToken(req.header['Authorization'].split(' ')[1]);
   let errors = validationResult(req);
   
-  if (!errors.isEmpty() && email) {
+  if (!(errors.isEmpty() && email)) {
     return res.status(400).json({
       success: false,
       errors: errors.array()

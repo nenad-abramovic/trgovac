@@ -5,7 +5,7 @@ const { signToken } = require('../../utilities/token');
 
 const SALT = 10;
 
-let registerValidation = [
+const registerValidation = [
   body('email', 'Е-маил није валидан.')
     .isEmail(),
   body('password', 'Шифра мора садржати минимум 8 карактера. Једно мало, једно велико слово и један број.')
@@ -16,7 +16,7 @@ let registerValidation = [
   ),
 ];
 
-let register = async (req, res, next) => {
+const register = async (req, res, next) => {
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
