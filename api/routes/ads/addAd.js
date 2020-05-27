@@ -14,6 +14,7 @@ const addAdValidator = [
   body('categoryUUID', 'Категорија огласа није испоручена.')
   .exists(),
   body('image', 'Слика није испоручена.')
+    .optional()
     .isBase64()
 ];
 
