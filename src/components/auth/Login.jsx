@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { loginUser } from "../../utilities/services";
 import UserContext from "../../utilities/user";
 import { useHistory, Link } from "react-router-dom";
@@ -6,30 +6,20 @@ import styles from "./Login.module.css";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
   const user = useContext(UserContext);
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-    message: "",
-  });
-  const { register, handleSubmit, errors } = useForm();
+  const history = useHistory();
 
-  const onSubmit = async (userData, e) => {
-    console.log(userData);
-    console.log(e);
+  const onSubmit = async (userData) => {
     try {
-      let data = await loginUser({
-        email: userData.email,
-        password: userData.password,
-      });
+      let data = await loginUser(userData);
       if (data.success) {
         delete data.success;
         user.setUser(data);
         window.localStorage.setItem("userData", JSON.stringify(data));
         history.push("/");
       } else {
-        setUserData({ ...userData, message: data.message });
+        alert("Грешка са сервером. Покушајте поново.");
       }
     } catch (e) {
       alert("Грешка са сервером. Покушајте поново.");
@@ -39,7 +29,6 @@ const Login = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h2>пријавите се</h2>
-      <p>{userData.message}</p>
       <input
         type="email"
         placeholder="Унесите е-маил..."

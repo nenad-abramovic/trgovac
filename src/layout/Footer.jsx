@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <Link to="/register">Региструјте се</Link>
       <Link to="/pricelist">Ценовник</Link>
-      <label>&copy;Абрамовић Ненад 2020</label>
+      <label>&copy;абрамовић ненад 2020</label>
       <a href="http://localhost:4000">АПИ Документација</a>
       <span className={styles.totop} onClick={() => window.scrollTo(0, 0)}>
         на врх

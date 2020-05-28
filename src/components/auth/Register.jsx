@@ -1,60 +1,74 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { registerUser } from "../../utilities/services";
 import UserContext from "../../utilities/user";
 import { useHistory, Link } from "react-router-dom";
 import styles from "./Register.module.css";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const history = useHistory();
-  const user = useContext(UserContext);
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    message: "",
+  const { register, handleSubmit, errors, watch } = useForm({
+    mode: "onChange",
   });
+  const user = useContext(UserContext);
+  const history = useHistory();
+  const watchPassword = watch("password");
 
-  const handleClick = async () => {
-    let data = await registerUser(userData);
-    if (data.success) {
-      delete data.success;
-      user.setUser(data);
-      window.localStorage.setItem("userData", JSON.stringify(data));
-      history.push("/profile");
-    } else {
-      setUserData({ ...userData, message: data.message });
+  const onSubmit = async (userData) => {
+    try {
+      let data = await registerUser(userData);
+      if (data.success) {
+        delete data.success;
+        user.setUser(data);
+        window.localStorage.setItem("userData", JSON.stringify(data));
+        history.push("/profile");
+      } else {
+        alert("Грешка са сервером. Покушајте поново.");
+      }
+    } catch (e) {
+      alert("Грешка са сервером. Покушајте поново.");
     }
   };
 
   return (
-    <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h2>региструјте се</h2>
-      <p>{userData.message}</p>
       <input
         type="email"
         placeholder="Унесите е-маил..."
-        value={userData.email}
-        onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+        name="email"
+        ref={register({
+          required: "Поље је обавезно.",
+          pattern: { value: /^.+@.+\..+$/, message: "Унесите валидан емаил." },
+        })}
       />
+      {errors.email && <p>{errors.email.message}</p>}
       <input
         type="password"
         placeholder="Унесите шифру..."
-        value={userData.password}
-        onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+        name="password"
+        ref={register({
+          required: "Поље је обавезно.",
+          pattern: {
+            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/,
+            message:
+              "Шифра мора имати минимум 8 карактера, барем једно мало и велико слово и један број.",
+          },
+        })}
       />
+      {errors.password && <p>{errors.password.message}</p>}
       <input
         type="password"
         placeholder="Поновите шифру..."
-        value={userData.confirmPassword}
-        onChange={(e) =>
-          setUserData({ ...userData, confirmPassword: e.target.value })
-        }
+        name="confirmPassword"
+        ref={register({
+          required: "Поље је обавезно.",
+          validate: (value) => value === watchPassword,
+        })}
       />
+      {errors.confirmPassword && <p>Поновите шифру.</p>}
       <div>
         <Link to="/login">пријавите се</Link>
-        <button type="submit" onClick={handleClick}>
-          региструјте се
-        </button>
+        <button type="submit">региструјте се</button>
       </div>
     </form>
   );
