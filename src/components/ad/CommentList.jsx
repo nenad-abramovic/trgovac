@@ -6,11 +6,11 @@ const CommentList = ({ comments }) => {
     <div>
       <p>Коментари</p>
       {comments ? (
-        <p>Нема коментара.</p>
-      ) : (
         comments.map((comment) => (
           <Comment key={comment.comment_uuid} comment={comment} />
         ))
+      ) : (
+        <p>Нема коментара.</p>
       )}
     </div>
   );
