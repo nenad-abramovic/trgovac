@@ -3,9 +3,9 @@ import React from "react";
 const Comment = ({ comment }) => {
   return (
     <div>
-      <p>
+      <h4>
         {comment.fullname} - {comment.created_at}
-      </p>
+      </h4>
       <p>{comment.text}</p>
     </div>
   );

@@ -5,9 +5,13 @@ const CommentList = ({ comments }) => {
   return (
     <div>
       <p>Коментари</p>
-      {comments.map((comment) => (
-        <Comment key={comment.comment_uuid} comment={comment} />
-      ))}
+      {comments.length === 0 ? (
+        <p>Нема коментара.</p>
+      ) : (
+        comments.map((comment) => (
+          <Comment key={comment.comment_uuid} comment={comment} />
+        ))
+      )}
     </div>
   );
 };
