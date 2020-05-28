@@ -22,7 +22,7 @@
   padding: 0;
 }
 
-.categories a {
+.categories li {
   display: block;
   padding: 0.5rem;
   border: 1px solid aquamarine;

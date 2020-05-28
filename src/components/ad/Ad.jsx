@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import CommentList from './CommentList';
-import NewComment from './NewComment';
+import React, { useEffect, useState } from "react";
+import CommentList from "./CommentList";
+import NewComment from "./NewComment";
 
 const Ad = ({ props }) => {
   const [ad, setAd] = useState({});
   useEffect(() => {
-    getAd(props.match.params.ad_uuid)
-      .then(data => {
-        if(data.success) {
-          
-        }
-      })
+    getAd(props.match.params.ad_uuid).then((data) => {
+      if (data.success) {
+      }
+    });
   }, []);
   return (
     <div>
@@ -23,6 +21,6 @@ const Ad = ({ props }) => {
       <NewComment />
     </div>
   );
-}
+};
 
 export default Ad;

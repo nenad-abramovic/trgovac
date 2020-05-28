@@ -1,22 +1,27 @@
 import { useState, useEffect } from "react";
 
 const useCategories = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState({ data: [], success: false });
+  const message = "Грешка при добављању категорија са сервера.";
 
-  useEffect(() => {
-    fetch('/categories')
-      .then(data => data.json())
-      .then(json => {
+  const getCategories = () => {
+    fetch("/categories")
+      .then((data) => data.json())
+      .then((json) => {
         if (json.success) {
-          setCategories(json.data);
+          setCategories({ data: json.data, success: true });
         } else {
-          setCategories(['Нема категорија...']);
+          setCategories({ message, success: false });
         }
       })
-      .catch(() => setCategories(['Нема категорија...']));
+      .catch(() => setCategories({ message, success: false }));
+  };
+
+  useEffect(() => {
+    getCategories();
   }, []);
 
   return categories;
-}
+};
 
 export default useCategories;

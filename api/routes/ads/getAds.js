@@ -1,34 +1,34 @@
-const pool = require('../../db');
-const { body, query, validationResult } = require('express-validator');
+const pool = require("../../db");
+const { body, query, validationResult } = require("express-validator");
 
 const adsValidation = [
-  body('userUUID', 'Није прослеђен оглас.')
+  body("userUUID", "Није прослеђен оглас.")
     .optional({ checkFalsy: true })
     .isUUID(),
-  query('category')
+  query("category")
     .optional({ checkFalsy: true })
-    .custom(async value => {
+    .custom(async (value) => {
       let data = await pool.query({
-        text: 'SELECT * FROM categories WHERE name=$1',
-        values: [value]
+        text: "SELECT * FROM categories WHERE name=$1",
+        values: [value],
       });
       if (data.rows.length !== 0) {
-        return true
+        return true;
       }
       return false;
     }),
-  query('place')
+  query("place")
     .optional({ checkFalsy: true })
-    .custom(async value => {
+    .custom(async (value) => {
       let data = await pool.query({
-        text: 'SELECT * FROM places WHERE name=$1',
-        values: [value]
+        text: "SELECT * FROM places WHERE name=$1",
+        values: [value],
       });
       if (data.rows.length !== 0) {
-        return true
+        return true;
       }
       return false;
-    })
+    }),
 ];
 
 const getAds = async (req, res, next) => {
@@ -42,7 +42,7 @@ const getAds = async (req, res, next) => {
         JOIN categories USING(category_uuid)
         JOIN places USING(place_uuid)
         WHERE user_uuid=$1`,
-        values: [req.param.userUUID]
+        values: [req.param.userUUID],
       });
     } else {
       data = await pool.query({
@@ -52,22 +52,22 @@ const getAds = async (req, res, next) => {
           JOIN categories USING(category_uuid)
           JOIN places USING(place_uuid)
           WHERE categories.name ILIKE COALESCE($1, '%') AND places.name ILIKE COALESCE($2, '%')`,
-        values: [req.query.category, req.query.place]
+        values: [req.query.category, req.query.place],
       });
     }
     return res.status(200).json({
       success: true,
-      data: data.rows
+      data: data.rows,
     });
   } catch (e) {
     return res.status(500).json({
       success: false,
-      errors: e
+      errors: e,
     });
   }
 };
 
 module.exports = {
   adsValidation,
-  getAds
+  getAds,
 };

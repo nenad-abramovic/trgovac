@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Footer.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
@@ -9,7 +9,9 @@ const Footer = () => {
       <Link to="/pricelist">Ценовник</Link>
       <label>&copy;Абрамовић Ненад 2020</label>
       <a href="http://localhost:4000">АПИ Документација</a>
-      <span className={styles.totop} onClick={() => window.scrollTo(0, 0)}>на врх</span>
+      <span className={styles.totop} onClick={() => window.scrollTo(0, 0)}>
+        на врх
+      </span>
     </footer>
   );
 };

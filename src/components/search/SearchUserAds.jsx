@@ -1,11 +1,11 @@
-import React from 'react';
-import SearchResults from './SearchResults';
+import React from "react";
+import SearchResults from "./SearchResults";
 
 const SearchUserAds = () => {
   return (
     <div>
       <p>Остали огласи</p>
-    <SearchResults />
+      <SearchResults />
     </div>
   );
 };

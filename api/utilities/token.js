@@ -1,12 +1,10 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const signToken = (email) => {
-  return jwt.sign(
-    { sub: email },
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: '2 minutes' }
-  );
-}
+  return jwt.sign({ sub: email }, process.env.JWT_SECRET_KEY, {
+    expiresIn: "2 minutes",
+  });
+};
 
 const verifyToken = (token) => {
   try {
@@ -14,9 +12,9 @@ const verifyToken = (token) => {
   } catch (e) {
     return false;
   }
-}
+};
 
 module.exports = {
   signToken,
-  verifyToken
-}
+  verifyToken,
+};

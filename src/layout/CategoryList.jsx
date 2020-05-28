@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './CategoryList.module.css';
-import useCategories from '../utilities/categories';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styles from "./CategoryList.module.css";
+import useCategories from "../utilities/categories";
+import { Link } from "react-router-dom";
 
 const CategoryList = () => {
   const categories = useCategories();
@@ -9,14 +9,23 @@ const CategoryList = () => {
     <nav className={styles.categories}>
       <h3 className={styles.title}>категорије</h3>
       <ul>
-        {
-          categories.map(category => (
-            <Link to={{pathname:'/', state: { category: category.name }}} key={category.category_uuid}>{category.name}</Link>
+        {categories.success ? (
+          categories.map((category) => (
+            <li>
+              <Link
+                to={{ pathname: "/", state: { category: category.name } }}
+                key={category.category_uuid}
+              >
+                {category.name}
+              </Link>
+            </li>
           ))
-        }
+        ) : (
+          <li>{categories.message}</li>
+        )}
       </ul>
     </nav>
   );
-}
+};
 
 export default CategoryList;
