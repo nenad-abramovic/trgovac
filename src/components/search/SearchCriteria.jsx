@@ -26,7 +26,7 @@ const SearchCriteria = ({ filterAds }) => {
       <div>
         <select id="category" onChange={selectCriteria}>
           <option value="%">изабери категорију</option>
-          {categories.map((category) => (
+          {categories.data.map((category) => (
             <option key={category.category_uuid} value={category.name}>
               {category.name.toLowerCase()}
             </option>
@@ -36,7 +36,7 @@ const SearchCriteria = ({ filterAds }) => {
       <div>
         <select id="place" onChange={selectCriteria}>
           <option value="%">изабери место</option>
-          {places.map((place) => (
+          {places.data.map((place) => (
             <option key={place.place_uuid} value={place.name}>
               {place.name.toLowerCase()}
             </option>

@@ -10,7 +10,7 @@ const CategoryList = () => {
       <h3 className={styles.title}>категорије</h3>
       <ul>
         {categories.success ? (
-          categories.map((category) => (
+          categories.data.map((category) => (
             <li>
               <Link
                 to={{ pathname: "/", state: { category: category.name } }}
