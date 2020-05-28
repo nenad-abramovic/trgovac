@@ -5,7 +5,7 @@ const CommentList = ({ comments }) => {
   return (
     <div>
       <p>Коментари</p>
-      {comments.length === 0 ? (
+      {comments ? (
         <p>Нема коментара.</p>
       ) : (
         comments.map((comment) => (
