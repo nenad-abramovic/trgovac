@@ -13,9 +13,12 @@ const Ad = ({ props }) => {
   });
   useEffect(() => {
     getAd(props.match.params.ad_uuid).then((data) => {
+      console.log("a", data);
+      console.log("b", ad);
       if (data.success) {
         setAd({ ...ad, ...data.data });
       }
+      console.log("c", ad);
     });
   }, []);
   return (
