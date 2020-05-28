@@ -13,12 +13,18 @@ const SearchCriteria = ({ filterAds }) => {
     let tmp = { ...criteria };
     tmp[e.target.id] = e.target.value;
     setCriteria(tmp);
-    getAds(tmp.category, tmp.place).then((data) => {
-      if (data.success) {
-        console.log(data);
-        filterAds({ all: data.data, filtered: data.data });
-      }
-    });
+    try {
+      getAds(tmp.category, tmp.place).then((data) => {
+        if (data.success) {
+          console.log(data);
+          filterAds({ all: data.data, filtered: data.data, success: true });
+        } else {
+          filterAds((prevState) => ({ ...prevState, success: false }));
+        }
+      });
+    } catch (e) {
+      filterAds((prevState) => ({ ...prevState, success: false }));
+    }
   };
 
   return (
