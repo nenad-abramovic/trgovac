@@ -13,19 +13,24 @@ const Search = () => {
       getAds(location.state.category)
         .then((data) => {
           if (data.success) {
-            setAds({ all: data.data, filtered: data.data });
+            setAds({ all: data.data, filtered: data.data, success: true });
+          } else {
+            setAds((prevState) => ({ ...prevState, success: false }));
           }
         })
-        .catch((e) => console.log(e));
+        .catch(() => setAds((prevState) => ({ ...prevState, success: false })));
     }
     getAds()
       .then((data) => {
         if (data.success) {
-          setAds({ all: data.data, filtered: data.data });
+          setAds({ all: data.data, filtered: data.data, success: true });
+        } else {
+          setAds((prevState) => ({ ...prevState, success: false }));
         }
       })
-      .catch((e) => console.log(e));
-  }, []);
+      .catch(() => setAds((prevState) => ({ ...prevState, success: false })));
+  }, [location.state]);
+
   if (ads.success)
     return (
       <div>

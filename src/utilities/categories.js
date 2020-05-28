@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 
 const useCategories = () => {
-  const [categories, setCategories] = useState({ data: [], success: false });
   const message = "Грешка при добављању категорија са сервера.";
+  const [categories, setCategories] = useState({
+    message,
+    success: false,
+  });
 
   const getCategories = () => {
     fetch("/categories")

@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 
 const usePlaces = () => {
-  const [places, setPlaces] = useState([]);
+  const message = "Места нису добављена са сервера.";
+  const [places, setPlaces] = useState({ message, success: false });
 
   useEffect(() => {
     fetch("/places")
       .then((data) => data.json())
       .then((json) => {
         if (json.success) {
-          setPlaces(json.data);
+          setPlaces({ data: json.data, success: true });
         } else {
-          setPlaces(["Нема категорија..."]);
+          setPlaces({ message, success: false });
         }
       })
-      .catch(() => setPlaces(["Нема категорија..."]));
+      .catch(() => setPlaces({ message, success: false }));
   }, []);
 
   return places;
