@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const CategoryList = () => {
   const categories = useCategories();
+
   return (
     <nav className={styles.categories}>
       <h3 className={styles.title}>категорије</h3>

@@ -9,6 +9,7 @@ const Search = () => {
   const location = useLocation();
   const [ads, setAds] = useState({ all: [], filtered: [], success: false });
   useEffect(() => {
+    console.log(location.state);
     if (location.state) {
       getAds(location.state.category)
         .then((data) => {
