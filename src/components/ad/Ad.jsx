@@ -3,10 +3,18 @@ import CommentList from "./CommentList";
 import NewComment from "./NewComment";
 
 const Ad = ({ props }) => {
-  const [ad, setAd] = useState({});
+  const [ad, setAd] = useState({
+    title: "",
+    price: "",
+    fullname: "",
+    place: "",
+    description: "",
+    comments: [],
+  });
   useEffect(() => {
     getAd(props.match.params.ad_uuid).then((data) => {
       if (data.success) {
+        setAd({ ...ad, ...data.data });
       }
     });
   }, []);
