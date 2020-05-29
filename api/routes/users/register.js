@@ -29,17 +29,19 @@ const register = async (req, res, next) => {
 
   try {
     let password = await bcrypt.hash(req.body.password, SALT);
-    await pool.query({
-      text: "INSERT INTO users(email, password) VALUES($1, $2)",
+    let data = await pool.query({
+      text: "INSERT INTO users(email, password) VALUES($1, $2) RETURNING *",
       values: [req.body.email, password],
     });
 
     let token = signToken(data.rows[0].email);
 
+    delete data.rows[0].password;
+
     return res.status(200).json({
       success: true,
       token,
-      email: req.body.email,
+      data: data.rows[0],
     });
   } catch (e) {
     return res.status(500).json({
