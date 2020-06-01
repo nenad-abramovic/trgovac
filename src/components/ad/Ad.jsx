@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CommentList from "./CommentList";
 import NewComment from "./NewComment";
 import { useLocation } from "react-router-dom";
+import { getComments } from "../../utilities/services";
 
 const Ad = ({ match }) => {
   const { ad } = useLocation().state;
@@ -11,7 +12,11 @@ const Ad = ({ match }) => {
   });
 
   useEffect(() => {
-    console.log(match, ad, "asd");
+    getComments().then((data) => {
+      if (data.success) {
+        setAdComments(data.data);
+      }
+    });
   }, []);
 
   return (

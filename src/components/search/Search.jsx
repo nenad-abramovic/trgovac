@@ -9,8 +9,8 @@ import SortResults from "./SortResults";
 
 const Search = () => {
   const [ads, setAds] = useState({ all: [], filtered: [], success: false });
-  const [places, setPlaces] = usePlaces();
-  const [categories, setCategories] = useCategories();
+  const [places] = usePlaces();
+  const [categories] = useCategories();
 
   useEffect(() => {
     getAds(categories.currentCategory, places.currentPlace)
@@ -22,7 +22,7 @@ const Search = () => {
         }
       })
       .catch(() => setAds((prevState) => ({ ...prevState, success: false })));
-  }, []);
+  }, [categories.currentCategory, places.currentPlace]);
 
   if (ads.success)
     return (

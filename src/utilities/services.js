@@ -54,7 +54,7 @@ const loginUser = async (userData) => {
 
 const getComments = async (ad_uuid) => {
   try {
-    let data = await fetch(`${ADS}/${ad_uuid}`);
+    let data = await fetch(`${ADS}${COMMENTS}/${ad_uuid}`);
     let json = await data.json();
     return json;
   } catch (e) {
@@ -83,4 +83,4 @@ const addComment = async (text, adUUID) => {
   }
 };
 
-export { getAds, getAd, registerUser, loginUser, addComment };
+export { getAds, getAd, registerUser, loginUser, addComment, getComments };

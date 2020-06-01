@@ -3,7 +3,6 @@ import usePlaces from "../../utilities/places";
 import useCategories from "../../utilities/categories";
 import styles from "./SearchCriteria.module.css";
 import { getAds } from "../../utilities/services";
-import SortResults from "./SortResults";
 
 const SearchCriteria = ({ filterAds }) => {
   const [places] = usePlaces();
