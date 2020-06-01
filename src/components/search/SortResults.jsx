@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./SortResults.module.css";
 
 const SortResults = ({ ads, sortAds }) => {
   const handleChange = (e) => {
@@ -21,12 +22,14 @@ const SortResults = ({ ads, sortAds }) => {
   };
 
   return (
-    <div>
-      <span>сортирај према</span>
-      <select onChange={handleChange}>
-        <option value="created_at">датум објављивања</option>
-        <option value="num_price">цена</option>
-      </select>
+    <div className={styles.container}>
+      <div>
+        <p>сортирај према</p>
+        <select onChange={handleChange}>
+          <option value="created_at">датум објављивања</option>
+          <option value="num_price">цена</option>
+        </select>
+      </div>
       <button onClick={reverseAds}>
         <b>&#x21C5;</b>
       </button>

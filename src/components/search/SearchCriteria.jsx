@@ -29,6 +29,7 @@ const SearchCriteria = ({ filterAds }) => {
   return (
     <div className={styles.container}>
       <div>
+        <p>категорија</p>
         {categories.success ? (
           <select id="category" onChange={selectCriteria}>
             <option value="%">изабери категорију</option>
@@ -43,6 +44,7 @@ const SearchCriteria = ({ filterAds }) => {
         )}
       </div>
       <div>
+        <p>место</p>
         {places.success ? (
           <select id="place" onChange={selectCriteria}>
             <option value="%">изабери место</option>
