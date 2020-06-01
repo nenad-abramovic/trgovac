@@ -1,12 +1,12 @@
 .categories {
   border: 1px solid rgba(127, 255, 212, 0.4);
   width: 200px;
-  margin: 1rem 2rem 0 0;
-  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+  margin: 2rem 2rem 0 0;
+  box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
 }
 
 .categories:hover {
-  box-shadow: 0rem 0rem 1rem 0.7rem rgba(127, 255, 212, 0.4);
+  box-shadow: 0rem 0rem 1rem 3px rgba(127, 255, 212, 0.4);
 }
 
 .title {
@@ -26,8 +26,4 @@
   display: block;
   padding: 0.5rem;
   border: 1px solid aquamarine;
-}
-
-.categories a:hover {
-  background-color: rgba(127, 255, 212, 0.2);
 }

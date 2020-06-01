@@ -1,30 +1,26 @@
 .container {
   align-items: center;
-  border: 2px solid aquamarine;
-  border-radius: 10px;
-  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
-  column-gap: 100px;
+  border: 1px solid aquamarine;
+  border-radius: 2px;
+  box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .container:hover {
-  box-shadow: 0rem 0rem 1rem 0.7rem rgba(127, 255, 212, 0.4);
+  box-shadow: 0rem 0rem 1rem 3px rgba(127, 255, 212, 0.4);
 }
 
 .title {
   color: aquamarine;
   font-style: italic;
   letter-spacing: 4px;
-  line-height: 2rem;
   margin: 0;
-  text-shadow: -0.8rem -0.8rem 1px rgba(127, 255, 212, 0.5);
+  text-shadow: -0.3rem -0.3rem 1px rgba(127, 255, 212, 0.5);
 }
 
 .navigation {
-  flex: 1;
   text-align: right;
 }
 
@@ -37,19 +33,9 @@
   display: inline-block;
   padding: 0 0.3rem;
   line-height: 2rem;
-  border-right: 2px solid aquamarine;
+  border-right: 1px solid aquamarine;
 }
 
 .navigation li:last-child {
   border-right: 0;
-}
-
-.navigation li:hover {
-  background-color: rgba(127, 255, 212, 0.2);
-  box-shadow: 0 0 0.5rem 0.5rem rgba(127, 255, 212, 0.2);
-  text-transform: uppercase;
-}
-
-.navigation a {
-  text-transform: inherit;
 }

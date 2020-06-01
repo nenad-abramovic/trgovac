@@ -1,12 +1,8 @@
 .container {
-  padding: 1rem 0 2rem 0;
+  display: inline-block;
 }
 
 .container > div {
   display: inline-block;
-  margin-right: 2rem;
-}
-
-.container div p {
-  margin-bottom: 0.4rem;
+  margin-right: 1rem;
 }

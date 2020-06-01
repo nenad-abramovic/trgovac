@@ -1,7 +1,11 @@
 .container {
-  padding: 1rem 0 2rem 0;
-  display: flex;
-  justify-content: space-evenly;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.container div {
+  display: inline-block;
+  margin-right: 1rem;
 }
 
 .container div p {

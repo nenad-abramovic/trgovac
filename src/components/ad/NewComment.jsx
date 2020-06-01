@@ -1,16 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { addComment } from "../../utilities/services";
 
-const NewComment = ({ ad_uuid }) => {
+const NewComment = ({ adUUID }) => {
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({ text }) => {
     try {
-      let data = await addComment(data);
+      let data = await addComment(text, adUUID);
       if (data.success) {
-        history.push(`/ad/${ad_uuid}`);
+        history.push(`/ad/${adUUID}`);
       } else {
         alert("Грешка. Коментар није послат.");
       }

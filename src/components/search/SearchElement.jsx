@@ -7,7 +7,9 @@ const SearchElement = ({ ad }) => {
     <div className={styles.container}>
       <div>
         <h3>
-          <Link to={`/ad/${ad.ad_uuid}`}>{ad.title}</Link>
+          <Link to={{ pathname: `/ad/${ad.ad_uuid}`, state: { ad } }}>
+            {ad.title}
+          </Link>
         </h3>
         <p>цена: {ad.price}</p>
         <p>

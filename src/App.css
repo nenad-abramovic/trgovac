@@ -17,7 +17,6 @@
 
 a {
   text-decoration: none;
-  text-transform: lowercase;
   color: aquamarine;
 }
 
@@ -26,36 +25,32 @@ a:hover {
 }
 
 input,
-button {
-  margin: 1rem 0;
+button,
+select {
   background-color: aquamarine;
   border: 0;
-  font-size: 1.1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+  font-size: 1rem;
+  border-radius: 2px;
+  box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
 }
 
 input {
-  padding: 0.5rem;
   width: 100%;
 }
 
-button {
-  padding: 1rem;
-  cursor: pointer;
-}
-
+input,
+button,
 select {
   padding: 0.5rem;
-  background-color: aquamarine;
-  border: 0;
-  font-weight: bold;
-  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+}
+
+button {
+  cursor: pointer;
 }
 
 button:hover,
 input:hover,
 input:focus,
 select:hover {
-  box-shadow: 0rem 0rem 1rem 0.7rem rgba(127, 255, 212, 0.4);
+  box-shadow: 0rem 0rem 1rem 3px rgba(127, 255, 212, 0.4);
 }

@@ -10,7 +10,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import { useState } from "react";
 import UserContext from "./utilities/user";
-import Ad from "./components/ad/CommentList";
+import Ad from "./components/ad/Ad";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Profile from "./components/profile/Profile";
 import PriceList from "./components/pricelist/Pricelist";

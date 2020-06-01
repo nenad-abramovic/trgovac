@@ -1,18 +1,21 @@
 .container {
   align-items: center;
   border: 1px solid aquamarine;
-  border-radius: 0.5rem;
-  box-shadow: 0rem 0rem 1rem 0.5rem rgba(127, 255, 212, 0.4);
+  border-radius: 2px;
+  box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
   display: flex;
-  margin: 0.5rem 0;
+  margin: 2rem 0;
   justify-content: space-between;
   padding: 0.5rem;
   text-align: left;
 }
 
+.container:hover {
+  box-shadow: 0rem 0rem 1rem 3px rgba(127, 255, 212, 0.4);
+}
+
 .container img {
   border: 1px solid aquamarine;
-  height: 150px;
-  padding: 0.5rem;
-  width: 150px;
+  height: 100px;
+  width: 100px;
 }

@@ -36,7 +36,7 @@ const getAds = async (req, res, next) => {
     let data;
     if (req.param.user_uuid) {
       data = await pool.query({
-        text: `SELECT ad_uuid, created_at, title, description, price, category_uuid, user_uuid, image, place_uuid, fullname, phone_number 
+        text: `SELECT ad_uuid, created_at, title, description, price::money::numeric::float8 as price, category_uuid, user_uuid, image, place_uuid, fullname, phone_number 
         FROM ads
         JOIN users USING(user_uuid) 
         JOIN categories USING(category_uuid)

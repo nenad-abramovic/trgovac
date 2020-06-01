@@ -10,13 +10,8 @@ const SearchBar = ({ ads, filterAds }) => {
   };
 
   return (
-    <div>
-      <input
-        type="search"
-        className={styles.search}
-        placeholder="тражи..."
-        onChange={handleChange}
-      />
+    <div className={styles.container}>
+      <input type="search" placeholder="тражи..." onChange={handleChange} />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 const ADS = "/ads";
 const USERS = "/users";
+const COMMENTS = "/comments";
 
 const getAds = async (category = "%", place = "%") => {
   try {
@@ -51,4 +52,25 @@ const loginUser = async (userData) => {
   }
 };
 
-export { getAds, getAd, registerUser, loginUser };
+const addComment = async (text, adUUID) => {
+  try {
+    let { token } = JSON.parse(window.localStorage.getItem("userData"));
+    let data = await fetch(`${COMMENTS}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        text,
+        adUUID,
+      }),
+    });
+    let json = await data.json();
+    return json;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export { getAds, getAd, registerUser, loginUser, addComment };
