@@ -1,7 +1,7 @@
 const pool = require("../../db");
-const { body, validationResult } = require("express-validator");
+const { param, validationResult } = require("express-validator");
 
-const commentsValidation = [body("adUUID", "Није прослеђен оглас.").exists()];
+const commentsValidation = [param("adUUID", "Није прослеђен оглас.").exists()];
 
 const getComments = async (req, res, next) => {
   let errors = validationResult(req);
@@ -16,7 +16,7 @@ const getComments = async (req, res, next) => {
     let data = await pool.query({
       text:
         "SELECT text, created_at, fullname, user_uuid FROM comments JOIN users USING(user_uuid) WHERE ad_uuid=$1",
-      values: [req.body.adUUID],
+      values: [req.param.adUUID],
     });
 
     return res.status(200).json({

@@ -6,3 +6,7 @@
   display: inline-block;
   margin-right: 1rem;
 }
+
+.container p {
+  margin-bottom: 0.4rem;
+}

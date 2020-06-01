@@ -11,7 +11,7 @@ const Ad = ({ match }) => {
   });
 
   useEffect(() => {
-    console.log(match, ad);
+    console.log(match, ad, "asd");
   }, []);
 
   return (

@@ -52,10 +52,20 @@ const loginUser = async (userData) => {
   }
 };
 
+const getComments = async (ad_uuid) => {
+  try {
+    let data = await fetch(`${ADS}/${ad_uuid}`);
+    let json = await data.json();
+    return json;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const addComment = async (text, adUUID) => {
   try {
     let { token } = JSON.parse(window.localStorage.getItem("userData"));
-    let data = await fetch(`${COMMENTS}`, {
+    let data = await fetch(`${ADS}${COMMENTS}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
