@@ -6,9 +6,9 @@ const SearchElement = ({ ad }) => {
   return (
     <div className={styles.container}>
       <div>
-        <Link to={`/ad/${ad.ad_uuid}`}>
-          <h3 className={styles.title}>{ad.title}</h3>
-        </Link>
+        <h3>
+          <Link to={`/ad/${ad.ad_uuid}`}>{ad.title}</Link>
+        </h3>
         <p>цена: {ad.price}</p>
         <p>
           датум објављивања: {new Date(ad.created_at).toLocaleString("sr-Cyrl")}

@@ -1,23 +1,36 @@
 import { useState, useEffect } from "react";
 
 const usePlaces = () => {
-  const message = "Места нису добављена са сервера.";
-  const [places, setPlaces] = useState({ message, success: false });
+  const [places, setPlaces] = useState({
+    data: [],
+    success: false,
+    currentValue: "%",
+  });
 
   useEffect(() => {
     fetch("/places")
       .then((data) => data.json())
       .then((json) => {
         if (json.success) {
-          setPlaces({ data: json.data, success: true });
+          setPlaces((prevState) => ({
+            ...prevState,
+            data: json.data,
+            success: true,
+          }));
         } else {
-          setPlaces({ message, success: false });
+          setPlaces((prevState) => ({
+            ...prevState,
+            data: [],
+            success: false,
+          }));
         }
       })
-      .catch(() => setPlaces({ message, success: false }));
+      .catch(() =>
+        setPlaces((prevState) => ({ ...prevState, data: [], success: false }))
+      );
   }, []);
 
-  return places;
+  return [places, setPlaces];
 };
 
 export default usePlaces;

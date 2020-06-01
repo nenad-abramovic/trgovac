@@ -4,7 +4,14 @@ import useCategories from "../utilities/categories";
 import { Link } from "react-router-dom";
 
 const CategoryList = () => {
-  const categories = useCategories();
+  const [categories, setCategories] = useCategories();
+
+  const handleClick = (currentValue) => {
+    setCategories((prevState) => ({
+      ...prevState,
+      currentValue,
+    }));
+  };
 
   return (
     <nav className={styles.categories}>
@@ -12,17 +19,14 @@ const CategoryList = () => {
       <ul>
         {categories.success ? (
           categories.data.map((category) => (
-            <li>
-              <Link
-                to={{ pathname: "/", state: { category: category.name } }}
-                key={category.category_uuid}
-              >
+            <li key={category.category_uuid}>
+              <Link to="/" onClick={() => handleClick(category.name)}>
                 {category.name}
               </Link>
             </li>
           ))
         ) : (
-          <li>{categories.message}</li>
+          <li>Сачекајте...</li>
         )}
       </ul>
     </nav>

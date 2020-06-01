@@ -4,6 +4,7 @@ import SearchElement from "./SearchElement";
 const SearchResults = ({ ads }) => {
   return (
     <div>
+      <span>пронађено огласа: {ads.length}</span>
       {ads.length === 0 ? (
         <p>Нема огласа...</p>
       ) : (

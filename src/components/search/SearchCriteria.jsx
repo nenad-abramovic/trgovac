@@ -5,8 +5,8 @@ import styles from "./SearchCriteria.module.css";
 import { getAds } from "../../utilities/services";
 
 const SearchCriteria = ({ filterAds }) => {
-  const places = usePlaces();
-  const categories = useCategories();
+  const [places] = usePlaces();
+  const [categories] = useCategories();
   const [criteria, setCriteria] = useState({ category: "%", place: "%" });
 
   const selectCriteria = (e) => {

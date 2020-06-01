@@ -3,25 +3,17 @@ import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import { getAds } from "../../utilities/services";
 import SearchCriteria from "./SearchCriteria";
-import { useLocation } from "react-router-dom";
+import usePlaces from "../../utilities/places";
+import useCategories from "../../utilities/categories";
+import SortResults from "./SortResults";
 
 const Search = () => {
-  const location = useLocation();
   const [ads, setAds] = useState({ all: [], filtered: [], success: false });
+  const [places, setPlaces] = usePlaces();
+  const [categories, setCategories] = useCategories();
+
   useEffect(() => {
-    if (location.state) {
-      console.log("aaaaaa", location.state);
-      getAds(location.state.category)
-        .then((data) => {
-          if (data.success) {
-            setAds({ all: data.data, filtered: data.data, success: true });
-          } else {
-            setAds((prevState) => ({ ...prevState, success: false }));
-          }
-        })
-        .catch(() => setAds((prevState) => ({ ...prevState, success: false })));
-    }
-    getAds()
+    getAds(categories.currentCategory, places.currentPlace)
       .then((data) => {
         if (data.success) {
           setAds({ all: data.data, filtered: data.data, success: true });
@@ -30,20 +22,21 @@ const Search = () => {
         }
       })
       .catch(() => setAds((prevState) => ({ ...prevState, success: false })));
-  }, [location.state]);
+  }, []);
 
   if (ads.success)
     return (
       <div>
         <SearchBar ads={ads.all} filterAds={setAds} />
         <SearchCriteria filterAds={setAds} />
+        <SortResults ads={ads} sortAds={setAds} />
         <SearchResults ads={ads.filtered} />
       </div>
     );
 
   return (
     <div>
-      <p>Грешка при добављању огласа са сервера.</p>
+      <p>Сачекајте...</p>
     </div>
   );
 };
