@@ -26,7 +26,7 @@ const commentAd = async (req, res, next) => {
 
     await pool.query({
       text: "INSERT INTO comments(text, user_uuid, ad_uuid) VALUES($1, $2, $3)",
-      values: [req.body.text, userData.rows[0].user_uuid, req.body.ad_uuid],
+      values: [req.body.text, userData?.rows[0]?.user_uuid, req.body.ad_uuid],
     });
 
     return res.status(201).json({
