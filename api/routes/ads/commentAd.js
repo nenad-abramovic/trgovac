@@ -4,13 +4,13 @@ const { header, body, validationResult } = require("express-validator");
 
 const newCommentValidation = [
   header("Authorization", "Токен није испоручен.").exists(),
-  body("text", "Тело коментара није испоручено.").exists(),
+  body("text", "Тело коментара није испоручено.").isLength({ min: 1 }),
   body("adUUID", "Оглас није испоручен.").isUUID(),
 ];
 
 const commentAd = async (req, res, next) => {
   try {
-    let email = verifyToken(req.header["Authorization"].split(" ")[1]);
+    let email = verifyToken(req.header.Authorization.split(" ")[1]);
     let errors = validationResult(req);
     if (!(errors.isEmpty() && email)) {
       return res.status(400).json({
