@@ -8,7 +8,7 @@ const addAdValidator = [
   body("description", "Опис огласа није испоручен.").isLength({ min: 1 }),
   body("price", "Износ није испоручен.").isCurrency(),
   body("categoryUUID", "Категорија огласа није испоручена.").exists(),
-  body("image", "Слика није испоручена.").optional().isBase64(),
+  body("image", "Слика није испоручена.").optional(),
 ];
 
 const addAd = async (req, res, next) => {

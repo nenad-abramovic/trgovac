@@ -64,7 +64,7 @@ const NewAd = () => {
         {categories.success ? (
           <select
             defaultValue=""
-            name="category_uuid"
+            name="categoryUUID"
             ref={register({ required: "изаберите категорију" })}
           >
             <option style={{ display: "none" }} value="">
@@ -82,7 +82,7 @@ const NewAd = () => {
         ) : (
           <p>сачекајте...</p>
         )}
-        {errors.category_uuid && <p>{errors.category_uuid.message}</p>}
+        {errors.categoryUUID && <p>{errors.categoryUUID.message}</p>}
       </div>
       <div>
         <label htmlFor="image">Слика предмета</label>
