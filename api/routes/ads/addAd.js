@@ -13,7 +13,7 @@ const addAdValidator = [
 
 const addAd = async (req, res, next) => {
   try {
-    let email = verifyToken(req.headers["Authorization"].split(" ")[1]);
+    let email = verifyToken(req.headers.authorization.split(" ")[1]);
     let errors = validationResult(req);
 
     if (!(errors.isEmpty() && email)) {
