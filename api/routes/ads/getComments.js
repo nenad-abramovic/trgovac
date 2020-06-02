@@ -21,7 +21,7 @@ const getComments = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      ...data.rows,
+      data: data.rows,
     });
   } catch (e) {
     return res.status(500).json({

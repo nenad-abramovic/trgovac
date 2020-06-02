@@ -14,7 +14,7 @@ const Ad = () => {
   const getAdComments = (adUUID) => {
     getComments(adUUID).then((data) => {
       if (data.success) {
-        setAdComments(data.data);
+        setAdComments({ data: data.data, success: true });
       }
     });
   };
@@ -30,7 +30,7 @@ const Ad = () => {
       <h4>{ad.fullname}</h4>
       <h4>{ad.place}</h4>
       <p>{ad.description}</p>
-      <CommentList comments={adComments.data} />
+      <CommentList comments={adComments} />
       <NewComment adUUID={ad.ad_uuid} getAdComments={getAdComments} />
     </div>
   );
