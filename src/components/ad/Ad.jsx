@@ -4,19 +4,23 @@ import NewComment from "./NewComment";
 import { useLocation } from "react-router-dom";
 import { getComments } from "../../utilities/services";
 
-const Ad = ({ match }) => {
+const Ad = () => {
   const { ad } = useLocation().state;
   const [adComments, setAdComments] = useState({
     data: [],
     success: false,
   });
 
-  useEffect(() => {
-    getComments(ad.ad_uuid).then((data) => {
+  const getAdComments = (adUUID) => {
+    getComments(adUUID).then((data) => {
       if (data.success) {
         setAdComments(data.data);
       }
     });
+  };
+
+  useEffect(() => {
+    getAdComments(ad.ad_uuid);
   }, [ad.ad_uuid]);
 
   return (
@@ -27,7 +31,7 @@ const Ad = ({ match }) => {
       <h4>{ad.place}</h4>
       <p>{ad.description}</p>
       <CommentList comments={adComments.data} />
-      <NewComment adUUID={ad.ad_uuid} />
+      <NewComment adUUID={ad.ad_uuid} getAdComments={getAdComments} />
     </div>
   );
 };
