@@ -11,7 +11,6 @@ const newCommentValidation = [
 const commentAd = async (req, res, next) => {
   try {
     let email = verifyToken(req.header("Authorization").split(" ")[1]);
-    console.log("aa", email);
     let errors = validationResult(req);
     if (!(errors.isEmpty() && email)) {
       return res.status(400).json({
@@ -20,19 +19,15 @@ const commentAd = async (req, res, next) => {
       });
     }
 
-    console.log("a");
     let userData = await pool.query({
       text: "SELECT user_uuid FROM users WHERE email=$1",
       values: [email],
     });
-
-    console.log("b", userData);
     await pool.query({
       text: "INSERT INTO comments(text, user_uuid, ad_uuid) VALUES($1, $2, $3)",
       values: [req.body.text, userData.rows[0].user_uuid, req.body.ad_uuid],
     });
 
-    console.log("c");
     return res.status(201).json({
       success: true,
     });
