@@ -12,12 +12,12 @@ const Ad = ({ match }) => {
   });
 
   useEffect(() => {
-    getComments().then((data) => {
+    getComments(ad.ad_uuid).then((data) => {
       if (data.success) {
         setAdComments(data.data);
       }
     });
-  }, []);
+  }, [ad.ad_uuid]);
 
   return (
     <div>

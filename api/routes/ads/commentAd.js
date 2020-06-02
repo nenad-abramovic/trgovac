@@ -10,7 +10,9 @@ const newCommentValidation = [
 
 const commentAd = async (req, res, next) => {
   try {
+    console.log("aaa", req.header);
     let email = verifyToken(req.header.Authorization.split(" ")[1]);
+    console.log("aa", email);
     let errors = validationResult(req);
     if (!(errors.isEmpty() && email)) {
       return res.status(400).json({
