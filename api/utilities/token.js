@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const signToken = (email) => {
   return jwt.sign({ sub: email }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "2 minutes",
+    expiresIn: "30 minutes",
   });
 };
 
