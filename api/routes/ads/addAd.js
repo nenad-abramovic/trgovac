@@ -37,7 +37,7 @@ const addAd = async (req, res, next) => {
         req.body.price,
         req.body.categoryUUID,
         userData.rows[0].user_uuid,
-        req.body.image,
+        Buffer.from(req.body.image).toString("base64"),
       ],
     });
 
