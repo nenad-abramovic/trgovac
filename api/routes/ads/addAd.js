@@ -30,14 +30,14 @@ const addAd = async (req, res, next) => {
 
     await pool.query({
       text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image) 
-            VALUES($1, $2, $3, $4, $5, decode($6, 'base64'))`,
+            VALUES($1, $2, $3::numeric::money, $4, $5, decode($6, 'base64'))`,
       values: [
         req.body.title,
         req.body.description,
         req.body.price,
         req.body.categoryUUID,
         userData.rows[0].user_uuid,
-        Buffer.from(req.body.image).toString("base64"),
+        Buffer.from(req.body.image.toString()).toString("base64"),
       ],
     });
 
