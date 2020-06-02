@@ -4,13 +4,13 @@ const { param, validationResult } = require("express-validator");
 const commentsValidation = [param("ad_uuid", "Није прослеђен оглас.").exists()];
 
 const getComments = async (req, res, next) => {
-  // let errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   return res.status(400).json({
-  //     success: false,
-  //     errors: errors.array(),
-  //   });
-  // }
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array(),
+    });
+  }
 
   try {
     let data = await pool.query({
