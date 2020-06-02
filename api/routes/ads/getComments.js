@@ -18,7 +18,6 @@ const getComments = async (req, res, next) => {
         "SELECT text, created_at, fullname, user_uuid FROM comments JOIN users USING(user_uuid) WHERE ad_uuid=$1",
       values: [req.params.ad_uuid],
     });
-    console.log("komentari", data.rows);
     return res.status(200).json({
       success: true,
       data: data.rows,

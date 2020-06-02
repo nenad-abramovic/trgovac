@@ -26,22 +26,23 @@ a:hover {
 
 input,
 button,
-select {
+select,
+textarea {
   background-color: aquamarine;
   border: 0;
   font-size: 1rem;
   border-radius: 2px;
   box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
-}
-
-input {
-  width: 100%;
+  padding: 0.5rem;
 }
 
 input,
-button,
-select {
-  padding: 0.5rem;
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
 }
 
 button {
@@ -53,4 +54,10 @@ input:hover,
 input:focus,
 select:hover {
   box-shadow: 0rem 0rem 1rem 3px rgba(127, 255, 212, 0.4);
+}
+
+input[type="file"] {
+  width: auto;
+  background-color: transparent;
+  box-shadow: none;
 }

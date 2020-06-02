@@ -1,27 +1,28 @@
 const { header, body, validationResult } = require("express-validator");
 const pool = require("../../db");
+const { verifyToken } = require("../../utilities/token");
 
 const addAdValidator = [
   header("Authorization", "Токен није испоручен.").exists(),
-  body("title", "Наслов огласа није испоручен.").exists().isLength({ min: 2 }),
-  body("description", "Опис огласа није испоручен.").exists(),
+  body("title", "Наслов огласа није испоручен.").isLength({ min: 1 }),
+  body("description", "Опис огласа није испоручен.").isLength({ min: 1 }),
   body("price", "Износ није испоручен.").isCurrency(),
   body("categoryUUID", "Категорија огласа није испоручена.").exists(),
   body("image", "Слика није испоручена.").optional().isBase64(),
 ];
 
 const addAd = async (req, res, next) => {
-  let email = verifyToken(req.header["Authorization"].split(" ")[1]);
-  let errors = validationResult(req);
-
-  if (!(errors.isEmpty() && email)) {
-    return res.status(400).json({
-      success: false,
-      errors: errors.array(),
-    });
-  }
-
   try {
+    let email = verifyToken(req.headers["Authorization"].split(" ")[1]);
+    let errors = validationResult(req);
+
+    if (!(errors.isEmpty() && email)) {
+      return res.status(400).json({
+        success: false,
+        errors: errors.array(),
+      });
+    }
+
     let userData = await pool.query({
       text: "SELECT user_uuid FROM users WHERE email=$1",
       values: [email],
@@ -34,7 +35,7 @@ const addAd = async (req, res, next) => {
         req.body.title,
         req.body.description,
         req.body.price,
-        req.body.category_uuid,
+        req.body.categoryUUID,
         userData.rows[0].user_uuid,
         req.body.image,
       ],

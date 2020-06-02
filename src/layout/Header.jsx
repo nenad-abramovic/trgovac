@@ -5,15 +5,15 @@ import UserContext from "../utilities/user";
 
 const links = [
   {
-    to: "",
+    to: "/",
     text: "најновији огласи",
   },
   {
-    to: "new_ad",
+    to: "/new_ad",
     text: "поставите оглас",
   },
   {
-    to: "profile",
+    to: "/profile",
     text: "профил",
   },
 ];

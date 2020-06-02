@@ -3,13 +3,6 @@
   margin-top: 2rem;
 }
 
-.form div {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin: 1rem 0;
-}
-
 .form h2 {
   margin: 0;
   color: aquamarine;
@@ -17,4 +10,8 @@
 
 .form input {
   margin: 1rem 0;
+}
+
+.form input[type="number"] {
+  width: 200px;
 }

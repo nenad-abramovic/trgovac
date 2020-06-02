@@ -83,4 +83,30 @@ const addComment = async (text, adUUID) => {
   }
 };
 
-export { getAds, getAd, registerUser, loginUser, addComment, getComments };
+const addAd = async (adData) => {
+  try {
+    let { token } = JSON.parse(window.localStorage.getItem("userData"));
+    let data = await fetch(`${ADS}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(adData),
+    });
+    let json = await data.json();
+    return json;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export {
+  getAds,
+  getAd,
+  registerUser,
+  loginUser,
+  addComment,
+  getComments,
+  addAd,
+};
