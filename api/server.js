@@ -7,7 +7,7 @@ const placesRouter = require("./routes/places/placesRouter");
 const app = express();
 app.use(express.json());
 
-app.use("/", express.static("build"));
+app.use(express.static("build"));
 
 app.use("/users", usersRouter);
 app.use("/ads", adsRouter);
