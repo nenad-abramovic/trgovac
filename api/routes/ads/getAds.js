@@ -66,7 +66,7 @@ const getAds = async (req, res, next) => {
     }
     console.log(
       "c",
-      data.rows.filter((a) => a.title)
+      data.rows.map((a) => a.title)
     );
 
     return res.status(200).json({
