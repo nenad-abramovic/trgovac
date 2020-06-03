@@ -66,7 +66,7 @@ const getAds = async (req, res, next) => {
         values: [req.query.category, req.query.place],
       });
     }
-    console.log("c");
+    console.log("c", data.rows);
 
     return res.status(200).json({
       success: true,
