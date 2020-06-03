@@ -32,7 +32,6 @@ const adsValidation = [
 ];
 
 const getAds = async (req, res, next) => {
-  console.log("a");
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -43,7 +42,6 @@ const getAds = async (req, res, next) => {
 
   try {
     let data;
-    console.log("b");
 
     if (req.param.user_uuid) {
       data = await pool.query({
@@ -66,7 +64,10 @@ const getAds = async (req, res, next) => {
         values: [req.query.category, req.query.place],
       });
     }
-    console.log("c", data.rows);
+    console.log(
+      "c",
+      data.rows.filter((a) => a.title)
+    );
 
     return res.status(200).json({
       success: true,
