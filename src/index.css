@@ -2,7 +2,8 @@
 
 @font-face {
   font-family: "Play";
-  src: local("Play"), url("./fonts/AnonymousPro-Regular.ttf") format("truetype");
+  src: local("Play"),
+    url("./assets/fonts/AnonymousPro-Regular.ttf") format("truetype");
 }
 
 * {

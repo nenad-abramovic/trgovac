@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./SearchElement.module.css";
 import { Link } from "react-router-dom";
+import noImage from "../../assets/images/no_image.jpeg";
 
 const SearchElement = ({ ad }) => {
+  useEffect(() => {
+    console.log(ad);
+  }, []);
   return (
     <div className={styles.container}>
       <div>
@@ -18,12 +22,16 @@ const SearchElement = ({ ad }) => {
         <p>продавац: {ad.fullname}</p>
         <p>број телефона: {ad.phone_number}</p>
       </div>
-      <img
-        src={`data:image/png;base64,${btoa(
-          String.fromCharCode(...new Uint8Array(ad.image.data))
-        )}`}
-        alt={`Слика за ${ad.title}`}
-      />
+      {ad.image ? (
+        <img
+          src={`data:image/png;base64,${btoa(
+            String.fromCharCode(...new Uint8Array(ad.image.data))
+          )}`}
+          alt={`Слика за ${ad.title}`}
+        />
+      ) : (
+        <img src={noImage} alt={`Слика за ${ad.title}`} />
+      )}
     </div>
   );
 };
