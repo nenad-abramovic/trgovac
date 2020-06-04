@@ -1,0 +1,8 @@
+.container {
+  text-align: left;
+  margin: 2rem 0;
+}
+
+.container > h2 {
+  color: aquamarine;
+}

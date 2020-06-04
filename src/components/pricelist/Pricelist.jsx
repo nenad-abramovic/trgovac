@@ -6,7 +6,7 @@ const PriceList = () => {
   const history = useHistory();
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className={styles.title}>
         Све наше услуге су бесплатне! Хвала Вам на поверењу!
       </h2>

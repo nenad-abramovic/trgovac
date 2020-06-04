@@ -7,21 +7,18 @@ import { updateUser } from "../../utilities/services";
 import { useHistory } from "react-router-dom";
 
 const Profile = () => {
-  const {
-    user: { data },
-  } = useContext(UserContext);
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const history = useHistory();
-  const [places] = usePlaces();
+  const places = usePlaces()[0];
   const place = places.data.find(
-    (place) => place.place_uuid === data.place_uuid
+    (place) => place.place_uuid === user.data.place_uuid
   )?.name;
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     defaultValues: {
-      fullname: data.fullname,
-      phoneNumber: data.phone_number,
-      place_uuid: data.place_uuid,
+      fullname: user.data.fullname,
+      phoneNumber: user.data.phone_number,
+      place_uuid: user.data.place_uuid,
     },
   });
 
@@ -48,25 +45,19 @@ const Profile = () => {
       </div>
       <div>
         <p>Е-маил</p>
-        <h3>{data.email}</h3>
+        <h3>{user.data.email}</h3>
       </div>
       <div>
         <p>Име и презиме</p>
         <input
           type="text"
-          value={data.fullname}
           name="fullname"
           ref={register({ required: "Унесите Ваше име и презиме." })}
         />
       </div>
       <div>
         <p>Број телефона</p>
-        <input
-          type="text"
-          value={data.phone_number}
-          name="phoneNumber"
-          ref={register()}
-        />
+        <input type="text" name="phoneNumber" ref={register} />
       </div>
       <div>
         <p>Место пребивалишта</p>

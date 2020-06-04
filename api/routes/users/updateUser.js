@@ -13,7 +13,6 @@ const updateUserValidation = [
 
 const updateUser = async (req, res, next) => {
   try {
-    console.log("saddsada", req.header("Authorization"));
     let email = verifyToken(req.header("Authorization").split(" ")[1]);
     let errors = validationResult(req);
 
@@ -23,7 +22,7 @@ const updateUser = async (req, res, next) => {
         errors: errors.array(),
       });
     }
-    console.log("aaa", email);
+
     let data = await pool.query({
       text:
         "UPDATE users SET fullname=$1, place_uuid=$2, phone_number=$3 WHERE email=$4 RETURNING *",
@@ -34,7 +33,7 @@ const updateUser = async (req, res, next) => {
         email,
       ],
     });
-    console.log(data.rows);
+
     return res.status(200).json({
       success: true,
       ...data.rows[0],

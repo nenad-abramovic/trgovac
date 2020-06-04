@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { addComment } from "../../utilities/services";
+import styles from "./NewComment.module.css";
 
 const NewComment = ({ getAdComments, adUUID }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -19,7 +20,7 @@ const NewComment = ({ getAdComments, adUUID }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <p>Ваш коментар</p>
       <input
         type="text"

@@ -32,7 +32,7 @@ const SearchCriteria = ({ filterAds }) => {
         <p>категорија</p>
         {categories.success ? (
           <select id="category" onChange={selectCriteria}>
-            <option value="%">изабери категорију</option>
+            <option value="%">све</option>
             {categories.data.map((category) => (
               <option key={category.category_uuid} value={category.name}>
                 {category.name.toLowerCase()}
@@ -47,7 +47,7 @@ const SearchCriteria = ({ filterAds }) => {
         <p>место</p>
         {places.success ? (
           <select id="place" onChange={selectCriteria}>
-            <option value="%">изабери место</option>
+            <option value="%">сва места</option>
             {places.data.map((place) => (
               <option key={place.place_uuid} value={place.name}>
                 {place.name.toLowerCase()}

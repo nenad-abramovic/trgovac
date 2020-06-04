@@ -3,6 +3,7 @@ import CommentList from "./CommentList";
 import NewComment from "./NewComment";
 import { useLocation } from "react-router-dom";
 import { getComments } from "../../utilities/services";
+import styles from "./Ad.module.css";
 
 const Ad = () => {
   const { ad } = useLocation().state;
@@ -24,11 +25,11 @@ const Ad = () => {
   }, [ad.ad_uuid]);
 
   return (
-    <div>
-      <h3>{ad.title}</h3>
-      <h4>{ad.price}</h4>
-      <h4>{ad.fullname}</h4>
-      <h4>{ad.place}</h4>
+    <div className={styles.container}>
+      <h2>{ad.title}</h2>
+      <h3>{ad.price}</h3>
+      <h3>{ad.fullname}</h3>
+      <h3>{ad.place}</h3>
       <p>{ad.description}</p>
       <CommentList comments={adComments} />
       <NewComment adUUID={ad.ad_uuid} getAdComments={getAdComments} />
