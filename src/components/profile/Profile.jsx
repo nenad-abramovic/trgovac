@@ -2,45 +2,82 @@ import React, { useContext } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../../utilities/user";
 import usePlaces from "../../utilities/places";
+import { useForm } from "react-hook-form";
+import { updateUser } from "../../utilities/services";
+import { useHistory } from "react-router-dom";
 
 const Profile = () => {
   const {
     user: { data },
   } = useContext(UserContext);
+  const user = useContext(UserContext);
+  const history = useHistory();
   const [places] = usePlaces();
   const place = places.data.find(
     (place) => place.place_uuid === data.place_uuid
   )?.name;
+  const { register, handleSubmit, errors } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      fullname: data.fullname,
+      phoneNumber: data.phone_number,
+      place_uuid: data.place_uuid,
+    },
+  });
+
+  const onSubmit = async (userData) => {
+    try {
+      let data = await updateUser(userData);
+      if (data.success) {
+        delete data.success;
+        user.setUser(data);
+        window.localStorage.setItem("userData", JSON.stringify(data));
+        history.push("/");
+      } else {
+        alert("Грешка са сервером. Покушајте поново.");
+      }
+    } catch (e) {
+      alert("Грешка са сервером. Покушајте поново.");
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h2>Ваш профил</h2>
       </div>
       <div>
-        <p>е-маил</p>
+        <p>Е-маил</p>
         <h3>{data.email}</h3>
       </div>
       <div>
-        <p>име и презиме</p>
-        <input type="text" value={data.fullname} />
+        <p>Име и презиме</p>
+        <input
+          type="text"
+          value={data.fullname}
+          name="fullname"
+          ref={register({ required: "Унесите Ваше име и презиме." })}
+        />
       </div>
       <div>
-        <p>број телефона</p>
+        <p>Број телефона</p>
         <input type="text" value={data.phone_number} />
       </div>
       <div>
-        <p>место пребивалишта</p>
+        <p>Место пребивалишта</p>
         <select defaultValue={place}>
-          <option value="">изабери место</option>
+          <option value="" style={{ display: "none" }}>
+            изабери место
+          </option>
           {places.data.map((place) => (
-            <option key={place.place_uuid} value={place.name}>
+            <option key={place.place_uuid} value={place.place_uuid}>
               {place.name.toLowerCase()}
             </option>
           ))}
         </select>
       </div>
-      <button>потврди промене</button>
-    </div>
+      <button type="submit">Ажурирај</button>
+    </form>
   );
 };
 

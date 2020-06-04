@@ -52,6 +52,24 @@ const loginUser = async (userData) => {
   }
 };
 
+const updateUser = async (userData) => {
+  try {
+    let { token } = JSON.parse(window.localStorage.getItem("userData"));
+    let data = await fetch(`${USERS}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userData),
+    });
+    let json = await data.json();
+    return json;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const getComments = async (ad_uuid) => {
   try {
     let data = await fetch(`${ADS}${COMMENTS}/${ad_uuid}`);
@@ -106,6 +124,7 @@ export {
   getAd,
   registerUser,
   loginUser,
+  updateUser,
   addComment,
   getComments,
   addAd,
