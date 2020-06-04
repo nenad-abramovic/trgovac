@@ -61,11 +61,20 @@ const Profile = () => {
       </div>
       <div>
         <p>Број телефона</p>
-        <input type="text" value={data.phone_number} />
+        <input
+          type="text"
+          value={data.phone_number}
+          name="phoneNumber"
+          ref={register()}
+        />
       </div>
       <div>
         <p>Место пребивалишта</p>
-        <select defaultValue={place}>
+        <select
+          defaultValue={place}
+          name="placeUUID"
+          ref={register({ minLength: 1 })}
+        >
           <option value="" style={{ display: "none" }}>
             изабери место
           </option>
