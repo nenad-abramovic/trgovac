@@ -13,7 +13,7 @@ const updateUserValidation = [
 
 const updateUser = async (req, res, next) => {
   try {
-    console.log("saddsada");
+    console.log("saddsada", req.headers.аuthorization);
     let email = verifyToken(req.headers.аuthorization.split(" ")[1]);
     let errors = validationResult(req);
 
