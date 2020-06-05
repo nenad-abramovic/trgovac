@@ -8,7 +8,7 @@ const Footer = () => {
       <Link to="/register">Региструјте се</Link>
       <Link to="/pricelist">Ценовник</Link>
       <label>&copy;абрамовић ненад 2020</label>
-      <a href="http://localhost:4000">АПИ Документација</a>
+      <Link to="/docs">АПИ Документација</Link>
       <span className={styles.totop} onClick={() => window.scrollTo(0, 0)}>
         на врх
       </span>

@@ -1,0 +1,10 @@
+.container {
+  text-align: left;
+  color: white;
+  background-color: white;
+  margin: 2rem;
+  border: 1px solid aquamarine;
+  height: 80vh;
+  padding: 0.5rem;
+  overflow: scroll;
+}

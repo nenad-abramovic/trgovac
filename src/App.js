@@ -15,6 +15,8 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Profile from "./components/profile/Profile";
 import PriceList from "./components/pricelist/Pricelist";
 import NewAd from "./components/newAd/NewAd";
+import Docs from "./components/docs/Docs.jsx";
+import SwaggerUI from "swagger-ui-react";
 
 function App() {
   const [user, setUser] = useState(
@@ -23,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+      <SwaggerUI url="https://petstore.swagger.io/v2/swagger.json" />
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
           <Header />
@@ -38,6 +41,7 @@ function App() {
                 <Route path="/pricelist" component={PriceList} />
                 <PrivateRoute path="/profile" component={Profile} />
                 <PrivateRoute path="/new_ad" component={NewAd} />
+                <Route path="/docs" component={Docs} />
               </Switch>
             </Main>
           </div>
