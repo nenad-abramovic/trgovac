@@ -13,7 +13,7 @@
     { "name": "category", "description": "Category retrieval" },
     { "name": "place", "description": "Place retrieval" }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "paths": {
     "/users": {
       "post": {
@@ -35,7 +35,7 @@
           {
             "name": "password",
             "in": "body",
-            "description": "New user password.",
+            "description": "New user password",
             "required": true,
             "type": "string",
             "format": "password"
