@@ -4,10 +4,8 @@ import "swagger-ui-react/swagger-ui.css";
 import spec from "./spec.json";
 import styles from "./Docs.module.css";
 
-const Docs = () => (
+export default () => (
   <div className={styles.container}>
     <SwaggerUI spec={spec} />
   </div>
 );
-
-export default Docs;
