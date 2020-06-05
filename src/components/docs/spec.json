@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "трговац.цом апликација.",
+    "description": "трговац.цом application.",
     "version": "1.0.54",
     "title": "Трговац"
   },
@@ -13,13 +13,94 @@
       "description": "Operations about user"
     },
     {
-      "name": "pet",
-      "description": "Продај непотребне ствари и купи оне које ти требају."
+      "name": "ad",
+      "description": "Operations about ads"
     },
-    { "name": "store", "description": "Access to Petstore orders" }
+    { "name": "category", "description": "Category retrieval" },
+    { "name": "place", "description": "Place retrieval" }
   ],
   "schemes": ["http"],
   "paths": {
+    "/users": {
+      "post": {
+        "tags": ["user"],
+        "summary": "registers user",
+        "description": "",
+        "operationId": "registerUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "E-mail of new user",
+            "required": true,
+            "type": "string",
+            "format": "email"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "New user password.",
+            "required": true,
+            "type": "string",
+            "format": "password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": { "$ref": "#/definitions/UserRegisterResponse" }
+          },
+          "400": { "description": "not all parameters have been supplied" },
+          "500": { "description": "server error" }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": ["category"],
+        "summary": "retrieve all categories",
+        "operationId": "getCategories",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "boolean" },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "category_uuid": { "type": "string", "format": "uuid" },
+                      "name": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": { "type": "boolean" },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [{ "type": "object" }, { "type": "string" }]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/pet/{petId}/uploadImage": {
       "post": {
         "tags": ["pet"],
@@ -547,6 +628,23 @@
   },
 
   "definitions": {
+    "UserRegisterResponse": {
+      "type": "object",
+      "properties": {
+        "success": { "type": "boolean" },
+        "token": { "type": "string", "format": "uuid" },
+        "data": {
+          "type": "object",
+          "properties": {
+            "user_uuid": { "type": "string", "format": "uuid" },
+            "email": { "type": "string", "format": "email" },
+            "fullname": { "type": "string" },
+            "phone_number": { "type": "string" },
+            "place_uuid": { "type": "string", "format": "uuid" }
+          }
+        }
+      }
+    },
     "ApiResponse": {
       "type": "object",
       "properties": {

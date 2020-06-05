@@ -6,13 +6,6 @@ router.get("/", async (req, res, next) => {
   try {
     let data = await pool.query("SELECT * FROM categories");
 
-    if (data.rows.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "Нема категорија...",
-      });
-    }
-
     return res.status(200).json({
       success: true,
       data: data.rows,
