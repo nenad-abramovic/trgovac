@@ -8,10 +8,10 @@
   overflow: scroll;
   box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
 }
-/* 
-.container div {
-  background-color: aquamarine !important;
-} */
+.container *,
+.container *:hover {
+  text-transform: none;
+}
 
 .container button {
   box-shadow: none;

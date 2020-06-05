@@ -8,14 +8,8 @@
   "host": "trgovac.herokuapp.com",
   "basePath": "/",
   "tags": [
-    {
-      "name": "user",
-      "description": "Operations about user"
-    },
-    {
-      "name": "ad",
-      "description": "Operations about ads"
-    },
+    { "name": "user", "description": "Operations about user" },
+    { "name": "ad", "description": "Operations about ads" },
     { "name": "category", "description": "Category retrieval" },
     { "name": "place", "description": "Place retrieval" }
   ],
@@ -91,9 +85,7 @@
                 "success": { "type": "boolean" },
                 "errors": {
                   "type": "array",
-                  "items": {
-                    "anyOf": [{ "type": "object" }, { "type": "string" }]
-                  }
+                  "items": { "type": "object" }
                 }
               }
             }

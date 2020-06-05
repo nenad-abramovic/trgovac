@@ -6,7 +6,7 @@ const addAdValidator = [
   header("Authorization", "Токен није испоручен.").exists(),
   body("title", "Наслов огласа није испоручен.").isLength({ min: 1 }),
   body("description", "Опис огласа није испоручен.").isLength({ min: 1 }),
-  body("price", "Износ није испоручен.").isCurrency(),
+  body("price", "Износ није испоручен.").isNumeric(),
   body("categoryUUID", "Категорија огласа није испоручена.").exists(),
   body("image", "Слика није испоручена.").optional(),
 ];

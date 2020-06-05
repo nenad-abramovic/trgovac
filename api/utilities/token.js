@@ -10,7 +10,7 @@ const verifyToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET_KEY).sub;
   } catch (e) {
-    return false;
+    return e;
   }
 };
 
