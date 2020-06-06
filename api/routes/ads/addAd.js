@@ -35,9 +35,9 @@ const addAd = async (req, res) => {
 
     console.log("aaaa", req.body.image);
 
-    await pool.query({
+    let data = await pool.query({
       text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image) 
-            VALUES($1, $2, $3::money, $4, $5, decode($6, 'base64'))`,
+            VALUES($1, $2, $3::money, $4, $5, decode($6, 'base64')) RETURNING ad_uuid`,
       values: [
         req.body.title,
         req.body.description,
@@ -48,7 +48,17 @@ const addAd = async (req, res) => {
       ],
     });
 
-    return res.status(201).end();
+    data = await pool.query({
+      text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
+        FROM ads
+        JOIN users USING(user_uuid) 
+        JOIN categories USING(category_uuid)
+        JOIN places USING(place_uuid)
+        WHERE ad_uuid=$1`,
+      values: [data.rows[0].ad_uuid],
+    });
+
+    return res.status(201).json(data.rows[0]);
   } catch (e) {
     return res.status(500).end();
   }

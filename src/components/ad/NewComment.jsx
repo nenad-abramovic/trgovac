@@ -7,12 +7,9 @@ const NewComment = ({ setAdComments, adUUID }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async ({ text }) => {
-    try {
-      let data = await addComment(text, adUUID);
-      setAdComments(data);
-    } catch (e) {
-      alert("Грешка. Коментар није послат.");
-    }
+    addComment(text, adUUID)
+      .then((data) => setAdComments(data))
+      .catch((e) => alert("Грешка. Коментар није послат."));
   };
 
   return (

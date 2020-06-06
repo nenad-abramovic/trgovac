@@ -6,8 +6,8 @@ const CommentList = ({ comments }) => {
   return (
     <div className={styles.container}>
       <h2>Коментари</h2>
-      {comments.map((comment) => (
-        <Comment key={comment.comment_uuid} comment={comment} />
+      {comments.map((comment, index) => (
+        <Comment key={index} comment={comment} />
       ))}
     </div>
   );

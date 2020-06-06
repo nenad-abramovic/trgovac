@@ -1,3 +1,4 @@
+import RequestError from "./error";
 const ADS = "/ads";
 const USERS = "/users";
 const COMMENTS = "/comments";
@@ -8,9 +9,12 @@ const getAds = (category, place) => {
       if (res.status === 200) {
         return res.json();
       } else if (res.status === 400) {
-        throw new Error("Прослеђени параметри нису валидни.");
+        throw new RequestError(
+          res.status,
+          "Прослеђени параметри нису валидни."
+        );
       } else {
-        throw new Error("Грешка са сервером.");
+        throw new RequestError(res.status, "Грешка са сервером.");
       }
     }
   );
@@ -21,9 +25,12 @@ const getAd = (ad_uuid) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error("Корисников идентификациони број није валидан.");
+      throw new RequestError(
+        res.status,
+        "Корисников идентификациони број није валидан."
+      );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -37,11 +44,12 @@ const registerUser = (userData) => {
     if (res.status === 201) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error(
+      throw new RequestError(
+        res.status,
         "Е-маил или шифра нису прослеђени или шифра није потврђена."
       );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -55,11 +63,11 @@ const loginUser = (userData) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error("Е-маил или шифра нису прослеђени.");
+      throw new RequestError(res.status, "Е-маил или шифра нису прослеђени.");
     } else if (res.status === 403) {
-      throw new Error("Е-маил или шифра нису добри.");
+      throw new RequestError(res.status, "Е-маил или шифра нису добри.");
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -77,13 +85,17 @@ const updateUser = (userData) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error(
+      throw new RequestError(
+        res.status,
         "Име и презиме или место пребивалишта нису прослеђени или нису валидни."
       );
     } else if (res.status === 401) {
-      throw new Error("Корисник није верификован. Молимо улогујте се.");
+      throw new RequestError(
+        res.status,
+        "Корисник није верификован. Молимо улогујте се."
+      );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -93,11 +105,12 @@ const getComments = (ad_uuid) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error(
+      throw new RequestError(
+        res.status,
         "Идентификациони број огласа није прослеђен или није валидан."
       );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -118,13 +131,17 @@ const addComment = (text, adUUID) => {
     if (res.status === 201) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error(
+      throw new RequestError(
+        res.status,
         "Коментар није прослеђен или идентификациони број огласа није исправан."
       );
     } else if (res.status === 401) {
-      throw new Error("Корисник није верификован. Молимо улогујте се.");
+      throw new RequestError(
+        res.status,
+        "Корисник није верификован. Молимо улогујте се."
+      );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -142,13 +159,17 @@ const addAd = (adData) => {
     if (res.status === 201) {
       return res.json();
     } else if (res.status === 400) {
-      throw new Error(
+      throw new RequestError(
+        res.status,
         "Нису прослеђени сви непоходни подаци о огласу или нису исправно форматирани."
       );
     } else if (res.status === 401) {
-      throw new Error("Корисник није верификован. Молимо улогујте се.");
+      throw new RequestError(
+        res.status,
+        "Корисник није верификован. Молимо улогујте се."
+      );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };
@@ -168,11 +189,17 @@ const deleteAd = (adUUID) => {
     if (res.status === 200) {
       return res;
     } else if (res.status === 400) {
-      throw new Error("Није прослеђен идентификациони број огласа.");
+      throw new RequestError(
+        res.status,
+        "Није прослеђен идентификациони број огласа."
+      );
     } else if (res.status === 401) {
-      throw new Error("Корисник није верификован. Молимо улогујте се.");
+      throw new RequestError(
+        res.status,
+        "Корисник није верификован. Молимо улогујте се."
+      );
     } else {
-      throw new Error("Грешка са сервером.");
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
   });
 };

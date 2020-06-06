@@ -1,30 +1,25 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import UserContext from "../../utilities/user";
 import styles from "./NewAd.module.css";
 import { addAd } from "../../utilities/services";
 import { categories } from "../../utilities/categories";
 
 const NewAd = () => {
   const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
-  const user = useContext(UserContext);
   const history = useHistory();
 
   const onSubmit = async (userData) => {
-    try {
-      let data = await addAd(userData);
-      if (data.success) {
-        delete data.success;
-        user.setUser(data);
-        window.localStorage.setItem("userData", JSON.stringify(data));
-        history.push("/");
-      } else {
-        alert("Грешка са сервером. Покушајте поново.");
-      }
-    } catch (e) {
-      alert("Грешка са сервером. Покушајте поново.");
-    }
+    addAd(userData)
+      .then((data) => {
+        history.push({ pathname: `/ad/${data.ad_uuid}`, state: { ...data } });
+      })
+      .catch((e) => {
+        if (e.status === 401) {
+          history.push("/login");
+        }
+        alert(e.message);
+      });
   };
 
   return (

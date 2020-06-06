@@ -3,6 +3,17 @@
   margin: 2rem 0;
 }
 
-.container > h2 {
+.container h2 {
   color: aquamarine;
+}
+
+.container img {
+  border: 1px solid aquamarine;
+  height: 200px;
+  width: 200px;
+}
+
+.adInfo {
+  display: flex;
+  align-items: center;
 }

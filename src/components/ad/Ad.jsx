@@ -24,12 +24,22 @@ const Ad = () => {
 
   return (
     <div className={styles.container}>
-      <h2>{ad.title}</h2>
-      <h3>{ad.price}</h3>
-      <h3>{ad.fullname}</h3>
-      <h3>{ad.place}</h3>
-      <p>{ad.description}</p>
-      <p>{errorMessage}</p>
+      <div className={styles.adInfo}>
+        <div>
+          <h2>{ad.title}</h2>
+          <h3>{ad.price}</h3>
+          <h3>{ad.fullname}</h3>
+          <h3>{ad.place}</h3>
+          <p>{ad.description}</p>
+          <p>{errorMessage}</p>
+        </div>
+        <div>
+          <img
+            src={`data:image/png;base64,${ad.image}`}
+            alt={`Слика за ${ad.image}`}
+          />
+        </div>
+      </div>
       <CommentList comments={adComments} />
       <NewComment adUUID={ad.ad_uuid} setAdComments={setAdComments} />
     </div>
