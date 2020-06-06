@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./CategoryList.module.css";
 import { categories, changeCategory } from "../utilities/categories";
 import { useHistory } from "react-router-dom";
