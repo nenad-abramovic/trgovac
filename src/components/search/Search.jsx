@@ -2,33 +2,65 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import { getAds } from "../../utilities/services";
-import SearchCriteria from "./SearchCriteria";
+import SearchCriteriaa from "./SearchCriteria";
 import usePlaces from "../../utilities/places";
-import useCategories from "../../utilities/categories";
+import {
+  categories,
+  changeCategory,
+  subscribe,
+  unsubscribe,
+} from "../../utilities/categories";
 import SortResults from "./SortResults";
 
 const Search = () => {
-  const [ads, setAds] = useState({ all: [], filtered: [], success: false });
-  const [places] = usePlaces();
-  const [categories] = useCategories();
+  const [ads, setAds] = useState({
+    all: [],
+    filtered: [],
+    success: false,
+    errorMessage: "",
+  });
+  const [currentCategory, setCurrentCategory] = useState(
+    categories.currentValue
+  );
+  const [places, setPlaces] = usePlaces();
 
   useEffect(() => {
-    getAds(categories.currentCategory, places.currentPlace)
-      .then((data) => {
-        if (data.success) {
-          setAds({ all: data.data, filtered: data.data, success: true });
-        } else {
-          setAds((prevState) => ({ ...prevState, success: false }));
-        }
-      })
-      .catch(() => setAds((prevState) => ({ ...prevState, success: false })));
-  }, [categories.currentCategory, places.currentPlace]);
+    let f = () => setCurrentCategory(categories.currentValue);
+    subscribe(f);
+    return unsubscribe(f);
+  }, []);
+
+  useEffect(() => {
+    console.log(categories.currentValue);
+    getAds(categories.currentValue, places.currentValue)
+      .then((data) =>
+        setAds({ all: data, filtered: data, success: true, errorMessage: "" })
+      )
+      .catch((e) =>
+        setAds((prevState) => ({
+          ...prevState,
+          success: false,
+          errorMessage: e.message,
+        }))
+      );
+  }, [currentCategory, places.currentValue]);
 
   if (ads.success)
     return (
       <div>
         <SearchBar ads={ads.all} filterAds={setAds} />
-        <SearchCriteria filterAds={setAds} />
+        <SearchCriteriaa
+          data={categories}
+          label="категорије"
+          setCurrentValue={changeCategory}
+          defaultValue="све"
+        />
+        <SearchCriteriaa
+          data={places}
+          label="места"
+          setCurrentValue={setPlaces}
+          defaultValue="сва места"
+        />
         <SortResults ads={ads} sortAds={setAds} />
         <SearchResults ads={ads.filtered} />
       </div>
@@ -36,7 +68,7 @@ const Search = () => {
 
   return (
     <div>
-      <p>Сачекајте...</p>
+      <p>{ads.errorMessage || "Сачекајте..."}</p>
     </div>
   );
 };

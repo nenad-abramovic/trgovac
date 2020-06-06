@@ -4,13 +4,12 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../utilities/user";
 import styles from "./NewAd.module.css";
 import { addAd } from "../../utilities/services";
-import useCategories from "../../utilities/categories";
+import { categories } from "../../utilities/categories";
 
 const NewAd = () => {
   const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
   const user = useContext(UserContext);
   const history = useHistory();
-  const [categories] = useCategories();
 
   const onSubmit = async (userData) => {
     try {

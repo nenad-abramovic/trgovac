@@ -5,12 +5,7 @@ const SortResults = ({ ads, sortAds }) => {
   const handleChange = (e) => {
     let value = e.target.value;
     let tmp = [...ads.filtered];
-    if (value === "num_price") {
-      tmp = tmp.map((x) => ({
-        ...x,
-        num_price: parseInt(x.price.replace(/\$|,/g, "")),
-      }));
-    }
+
     tmp.sort((a, b) => {
       return a[value] > b[value] ? 1 : a[value] < b[value] ? -1 : 0;
     });

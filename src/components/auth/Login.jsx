@@ -13,14 +13,9 @@ const Login = () => {
   const onSubmit = async (userData) => {
     try {
       let data = await loginUser(userData);
-      if (data.success) {
-        delete data.success;
-        user.setUser(data);
-        window.localStorage.setItem("userData", JSON.stringify(data));
-        history.push("/");
-      } else {
-        alert("Грешка са сервером. Покушајте поново.");
-      }
+      user.setUser(data);
+      window.localStorage.setItem("userData", JSON.stringify(data));
+      history.push("/");
     } catch (e) {
       alert("Грешка са сервером. Покушајте поново.");
     }

@@ -10,7 +10,7 @@ const adsValidation = [
         text: "SELECT * FROM categories WHERE name=$1",
         values: [value],
       });
-      return data.rowCount === 0;
+      return data.rowCount !== 0;
     }),
   query("place")
     .optional({ checkFalsy: true })
@@ -19,7 +19,7 @@ const adsValidation = [
         text: "SELECT * FROM places WHERE name=$1",
         values: [value],
       });
-      return data.rowCount === 0;
+      return data.rowCount !== 0;
     }),
 ];
 
