@@ -10,6 +10,6 @@ router.post("/", addAdValidator, addAd);
 router.delete("/", deleteAdValidation, deleteAd);
 router.post("/comments", newCommentValidation, commentAd);
 router.get("/", adsValidation, getAds);
-router.get("/comments/:ad_uuid", commentsValidation, getComments);
+router.get("/comments/:adUUID", commentsValidation, getComments);
 
 module.exports = router;

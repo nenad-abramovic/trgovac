@@ -3,17 +3,13 @@ import { useForm } from "react-hook-form";
 import { addComment } from "../../utilities/services";
 import styles from "./NewComment.module.css";
 
-const NewComment = ({ getAdComments, adUUID }) => {
+const NewComment = ({ setAdComments, adUUID }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async ({ text }) => {
     try {
       let data = await addComment(text, adUUID);
-      if (data.success) {
-        getAdComments(adUUID);
-      } else {
-        alert("Грешка. Коментар није послат.");
-      }
+      setAdComments(data);
     } catch (e) {
       alert("Грешка. Коментар није послат.");
     }

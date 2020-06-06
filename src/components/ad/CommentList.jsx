@@ -6,13 +6,9 @@ const CommentList = ({ comments }) => {
   return (
     <div className={styles.container}>
       <h2>Коментари</h2>
-      {comments.success ? (
-        comments.data.map((comment) => (
-          <Comment key={comment.comment_uuid} comment={comment} />
-        ))
-      ) : (
-        <p>Нема коментара.</p>
-      )}
+      {comments.map((comment) => (
+        <Comment key={comment.comment_uuid} comment={comment} />
+      ))}
     </div>
   );
 };

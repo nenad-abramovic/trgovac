@@ -10,18 +10,16 @@ const Ad = () => {
   const [adComments, setAdComments] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const getAdComments = (adUUID) => {
-    getComments(adUUID)
+  useEffect(() => {
+    getComments(ad.ad_uuid)
       .then((data) => {
+        console.log(data);
         setAdComments(data);
       })
       .catch((error) => {
+        console.log(error);
         setErrorMessage(error.message);
       });
-  };
-
-  useEffect(() => {
-    getAdComments(ad.ad_uuid);
   }, [ad.ad_uuid]);
 
   return (
@@ -33,7 +31,7 @@ const Ad = () => {
       <p>{ad.description}</p>
       <p>{errorMessage}</p>
       <CommentList comments={adComments} />
-      <NewComment adUUID={ad.ad_uuid} getAdComments={getAdComments} />
+      <NewComment adUUID={ad.ad_uuid} setAdComments={setAdComments} />
     </div>
   );
 };
