@@ -4,12 +4,7 @@ import SearchResults from "./SearchResults";
 import { getAds } from "../../utilities/services";
 import SearchCriteriaa from "./SearchCriteria";
 import usePlaces from "../../utilities/places";
-import {
-  categories,
-  changeCategory,
-  subscribe,
-  unsubscribe,
-} from "../../utilities/categories";
+import { useCategories } from "../../utilities/categories";
 import SortResults from "./SortResults";
 
 const Search = () => {
@@ -19,19 +14,10 @@ const Search = () => {
     success: false,
     errorMessage: "",
   });
-  const [currentCategory, setCurrentCategory] = useState(
-    categories.currentValue
-  );
   const [places, setPlaces] = usePlaces();
+  const [categories, setCategories] = useCategories();
 
   useEffect(() => {
-    let f = () => setCurrentCategory(categories.currentValue);
-    subscribe(f);
-    return unsubscribe(f);
-  }, []);
-
-  useEffect(() => {
-    console.log(categories.currentValue);
     getAds(categories.currentValue, places.currentValue)
       .then((data) =>
         setAds({ all: data, filtered: data, success: true, errorMessage: "" })
@@ -43,7 +29,7 @@ const Search = () => {
           errorMessage: e.message,
         }))
       );
-  }, [currentCategory, places.currentValue]);
+  }, [categories.currentValue, places.currentValue]);
 
   if (ads.success)
     return (
@@ -52,7 +38,7 @@ const Search = () => {
         <SearchCriteriaa
           data={categories}
           label="категорије"
-          setCurrentValue={changeCategory}
+          setCurrentValue={setCategories}
           defaultValue="све"
         />
         <SearchCriteriaa

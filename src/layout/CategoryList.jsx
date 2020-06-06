@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./CategoryList.module.css";
-import { categories, changeCategory } from "../utilities/categories";
+import CategoryContext, { useCategories } from "../utilities/categories";
 import { useHistory } from "react-router-dom";
 
 const CategoryList = () => {
   const history = useHistory();
+  const [categories, setCategories] = useCategories();
+  const { currentCategory, setCurrentCategory } = useContext(CategoryContext);
 
   const handleClick = (currentValue) => {
-    changeCategory(currentValue);
-    console.log(history.location);
+    setCurrentCategory(currentValue);
+    console.log(currentCategory);
     history.push("/");
   };
 

@@ -16,35 +16,41 @@ import Profile from "./components/profile/Profile";
 import PriceList from "./components/pricelist/Pricelist";
 import NewAd from "./components/newAd/NewAd";
 import Docs from "./components/docs/Docs.jsx";
+import CategoryContext from "./utilities/categories";
 
 function App() {
   const [user, setUser] = useState(
     JSON.parse(window.localStorage.getItem("userData"))
   );
+  const [currentCategory, setCurrentCategory] = useState("%");
 
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
-        <Router>
-          <Header />
-          <div className="container">
-            <CategoryList />
-            <Main>
-              <Switch>
-                <Route exact path="/" component={Search} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
-                <Route path="/ad/:ad_uuid" component={Ad} />
-                <Route path="/user_ads/:user_uuid" component={Search} />
-                <Route path="/pricelist" component={PriceList} />
-                <PrivateRoute path="/profile" component={Profile} />
-                <PrivateRoute path="/new_ad" component={NewAd} />
-                <Route path="/docs" component={Docs} />
-              </Switch>
-            </Main>
-          </div>
-          <Footer />
-        </Router>
+        <CategoryContext.Provider
+          value={{ currentCategory, setCurrentCategory }}
+        >
+          <Router>
+            <Header />
+            <div className="container">
+              <CategoryList />
+              <Main>
+                <Switch>
+                  <Route exact path="/" component={Search} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/ad/:ad_uuid" component={Ad} />
+                  <Route path="/user_ads/:user_uuid" component={Search} />
+                  <Route path="/pricelist" component={PriceList} />
+                  <PrivateRoute path="/profile" component={Profile} />
+                  <PrivateRoute path="/new_ad" component={NewAd} />
+                  <Route path="/docs" component={Docs} />
+                </Switch>
+              </Main>
+            </div>
+            <Footer />
+          </Router>
+        </CategoryContext.Provider>
       </UserContext.Provider>
     </div>
   );

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const usePlaces = () => {
   const [places, setPlaces] = useState({
     data: [],
+    success: false,
     currentValue: "%",
   });
 
