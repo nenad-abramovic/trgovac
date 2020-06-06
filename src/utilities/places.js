@@ -3,30 +3,31 @@ import { useState, useEffect } from "react";
 const usePlaces = () => {
   const [places, setPlaces] = useState({
     data: [],
-    success: false,
     currentValue: "%",
   });
 
   useEffect(() => {
     fetch("/places")
-      .then((data) => data.json())
-      .then((json) => {
-        if (json.success) {
-          setPlaces((prevState) => ({
-            ...prevState,
-            data: json.data,
-            success: true,
-          }));
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
         } else {
           setPlaces((prevState) => ({
             ...prevState,
-            data: [],
             success: false,
+            data: [],
           }));
         }
       })
+      .then((data) =>
+        setPlaces((prevState) => ({ ...prevState, success: true, data }))
+      )
       .catch(() =>
-        setPlaces((prevState) => ({ ...prevState, data: [], success: false }))
+        setPlaces((prevState) => ({
+          ...prevState,
+          success: false,
+          data: [],
+        }))
       );
   }, []);
 

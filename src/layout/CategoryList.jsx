@@ -15,7 +15,7 @@ const CategoryList = () => {
 
   return (
     <nav className={styles.categories}>
-      <h3 className={styles.title}>категорије</h3>
+      <h3 className={styles.title}>Категорије</h3>
       <ul>
         {categories.success ? (
           categories.data.map((category) => (
@@ -26,7 +26,7 @@ const CategoryList = () => {
             </li>
           ))
         ) : (
-          <li>Сачекајте...</li>
+          <li>Нема категорија...</li>
         )}
       </ul>
     </nav>

@@ -9,27 +9,25 @@ const useCategories = () => {
 
   useEffect(() => {
     fetch("/categories")
-      .then((data) => data.json())
-      .then((json) => {
-        if (json.success) {
-          setCategories((prevState) => ({
-            ...prevState,
-            data: json.data,
-            success: true,
-          }));
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
         } else {
           setCategories((prevState) => ({
             ...prevState,
-            data: [],
             success: false,
+            data: [],
           }));
         }
       })
+      .then((data) =>
+        setCategories((prevState) => ({ ...prevState, success: true, data }))
+      )
       .catch(() =>
         setCategories((prevState) => ({
           ...prevState,
-          data: [],
           success: false,
+          data: [],
         }))
       );
   }, []);

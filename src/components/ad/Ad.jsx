@@ -7,17 +7,17 @@ import styles from "./Ad.module.css";
 
 const Ad = () => {
   const { ad } = useLocation().state;
-  const [adComments, setAdComments] = useState({
-    data: [],
-    success: false,
-  });
+  const [adComments, setAdComments] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const getAdComments = (adUUID) => {
-    getComments(adUUID).then((data) => {
-      if (data.success) {
-        setAdComments({ data: data.data, success: true });
-      }
-    });
+    getComments(adUUID)
+      .then((data) => {
+        setAdComments(data);
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
   };
 
   useEffect(() => {
@@ -31,6 +31,7 @@ const Ad = () => {
       <h3>{ad.fullname}</h3>
       <h3>{ad.place}</h3>
       <p>{ad.description}</p>
+      <p>{errorMessage}</p>
       <CommentList comments={adComments} />
       <NewComment adUUID={ad.ad_uuid} getAdComments={getAdComments} />
     </div>
