@@ -116,7 +116,7 @@ const getComments = (ad_uuid) => {
 };
 
 const addComment = (text, adUUID) => {
-  let { token } = JSON.parse(window.localStorage.getItem("userData"));
+  let token = JSON.parse(window.localStorage.getItem("userData"))?.token;
   return fetch(`${ADS}${COMMENTS}`, {
     method: "POST",
     headers: {

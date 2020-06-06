@@ -4,6 +4,7 @@ import NewComment from "./NewComment";
 import { useLocation } from "react-router-dom";
 import { getComments } from "../../utilities/services";
 import styles from "./Ad.module.css";
+import noImage from "../../assets/images/no_image.jpeg";
 
 const Ad = () => {
   const { ad } = useLocation().state;
@@ -27,7 +28,7 @@ const Ad = () => {
       <div className={styles.adInfo}>
         <div>
           <h2>{ad.title}</h2>
-          <h3>{ad.price}</h3>
+          <h3>{ad.price} динара</h3>
           <h3>{ad.fullname}</h3>
           <h3>{ad.place}</h3>
           <p>{ad.description}</p>
@@ -35,8 +36,12 @@ const Ad = () => {
         </div>
         <div>
           <img
-            src={`data:image/png;base64,${ad.image}`}
-            alt={`Слика за ${ad.image}`}
+            src={
+              ad.image.length === 20
+                ? `data:image/png;base64,${ad.image}`
+                : noImage
+            }
+            alt={`Слика за ${ad.title}`}
           />
         </div>
       </div>

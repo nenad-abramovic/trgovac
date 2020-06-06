@@ -15,7 +15,7 @@ const Login = () => {
       let data = await loginUser(userData);
       user.setUser(data);
       window.localStorage.setItem("userData", JSON.stringify(data));
-      history.push("/");
+      history.push(history.location?.state?.from || "/");
     } catch (e) {
       alert("Грешка са сервером. Покушајте поново.");
     }

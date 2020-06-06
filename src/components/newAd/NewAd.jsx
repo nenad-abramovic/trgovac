@@ -12,13 +12,14 @@ const NewAd = () => {
   const onSubmit = async (userData) => {
     addAd(userData)
       .then((data) => {
-        history.push({ pathname: `/ad/${data.ad_uuid}`, state: { ...data } });
+        history.push({ pathname: `/ad/${data.ad_uuid}`, state: { ad: data } });
       })
       .catch((e) => {
         if (e.status === 401) {
+          window.localStorage.removeItem("userData");
+          alert(e.message);
           history.push("/login");
         }
-        alert(e.message);
       });
   };
 
