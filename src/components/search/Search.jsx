@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import { getAds } from "../../utilities/services";
 import SearchCriteriaa from "./SearchCriteria";
 import usePlaces from "../../utilities/places";
-import { useCategories } from "../../utilities/categories";
+import CategoryContext from "../../utilities/categories";
 import SortResults from "./SortResults";
 
 const Search = () => {
+  const { categories, setCategories } = useContext(CategoryContext);
   const [ads, setAds] = useState({
     all: [],
     filtered: [],
@@ -15,7 +16,6 @@ const Search = () => {
     errorMessage: "",
   });
   const [places, setPlaces] = usePlaces();
-  const [categories, setCategories] = useCategories();
 
   useEffect(() => {
     getAds(categories.currentValue, places.currentValue)

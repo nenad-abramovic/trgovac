@@ -22,14 +22,12 @@ function App() {
   const [user, setUser] = useState(
     JSON.parse(window.localStorage.getItem("userData"))
   );
-  const [currentCategory, setCurrentCategory] = useState("%");
+  const [categories, setCategories] = useState();
 
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
-        <CategoryContext.Provider
-          value={{ currentCategory, setCurrentCategory }}
-        >
+        <CategoryContext.Provider value={{ categories, setCategories }}>
           <Router>
             <Header />
             <div className="container">
