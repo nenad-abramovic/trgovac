@@ -25,6 +25,7 @@ const Profile = () => {
       .then((data) => {
         setUser(data);
         window.localStorage.setItem("userData", JSON.stringify(data));
+        setUser(null);
         history.push("/");
       })
       .catch((e) => {
