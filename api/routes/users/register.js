@@ -18,13 +18,10 @@ const registerValidation = [
   ),
 ];
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      errors: errors.array(),
-    });
+    return res.status(400).end();
   }
 
   try {
@@ -34,20 +31,14 @@ const register = async (req, res, next) => {
       values: [req.body.email, password],
     });
 
-    let token = signToken(data.rows[0].email);
+    let userData = data.rows[0];
+    let token = signToken(userData.email);
+    userData.token = token;
+    delete userData.password;
 
-    delete data.rows[0].password;
-
-    return res.status(200).json({
-      success: true,
-      token,
-      data: data.rows[0],
-    });
+    return res.status(200).json(userData);
   } catch (e) {
-    return res.status(500).json({
-      success: false,
-      errors: e,
-    });
+    return res.status(500).end();
   }
 };
 

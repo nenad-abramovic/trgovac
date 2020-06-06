@@ -8,25 +8,19 @@ const loginValidation = [
   body("password", "Шифра није прослеђена").exists(),
 ];
 
-const login = async (req, res, next) => {
-  let errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      errors: errors.array(),
-    });
-  }
-
+const login = async (req, res) => {
   try {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).end();
+    }
+
     let data = await pool.query({
       text: "SELECT * FROM users WHERE email=$1",
       values: [req.body.email],
     });
-    if (data.rows.length === 0) {
-      return res.status(403).json({
-        success: false,
-        message: "Е-маил или шифра нису валидни.",
-      });
+    if (data.rowCount === 0) {
+      return res.status(403).end();
     }
 
     const match = await bcrypt.compare(
@@ -37,24 +31,16 @@ const login = async (req, res, next) => {
     if (match) {
       let token = signToken(data.rows[0].email);
 
-      delete data.rows[0].password;
+      let userData = data.rows[0];
+      delete userData.password;
+      userData.token = token;
 
-      return res.status(201).json({
-        success: true,
-        token,
-        data: data.rows[0],
-      });
+      return res.status(201).json(userData);
     }
 
-    return res.status(403).json({
-      success: false,
-      message: "Е-маил или шифра нису валидни.",
-    });
+    return res.status(403).end();
   } catch (e) {
-    return res.status(500).json({
-      success: false,
-      errors: e,
-    });
+    return res.status(500).end();
   }
 };
 

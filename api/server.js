@@ -14,7 +14,7 @@ app.use("/ads", adsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/places", placesRouter);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.redirect("back");
 });
 

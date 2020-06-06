@@ -11,16 +11,17 @@ const updateUserValidation = [
     .isMobilePhone("sr-RS"),
 ];
 
-const updateUser = async (req, res, next) => {
+const updateUser = async (req, res) => {
   try {
-    let email = verifyToken(req.header("Authorization").split(" ")[1]);
     let errors = validationResult(req);
 
-    if (!(errors.isEmpty() && email)) {
-      return res.status(400).json({
-        success: false,
-        errors: errors.array(),
-      });
+    if (!errors.isEmpty()) {
+      return res.status(400).end();
+    }
+
+    let email = verifyToken(req.header("Authorization").split(" ")[1]);
+    if (!errors.isEmpty()) {
+      return res.status(401).end();
     }
 
     let data = await pool.query({
@@ -34,15 +35,12 @@ const updateUser = async (req, res, next) => {
       ],
     });
 
-    return res.status(200).json({
-      success: true,
-      ...data.rows[0],
-    });
+    let userData = data.rows[0];
+    userData.token = req.header("Authorization").split(" ")[1];
+
+    return res.status(200).json(userData);
   } catch (e) {
-    return res.status(500).json({
-      success: false,
-      errors: e,
-    });
+    return res.status(500).end();
   }
 };
 

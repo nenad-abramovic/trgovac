@@ -11,22 +11,27 @@ const addAdValidator = [
   body("image", "Слика није испоручена.").optional(),
 ];
 
-const addAd = async (req, res, next) => {
+const addAd = async (req, res) => {
   try {
-    let email = verifyToken(req.headers.authorization.split(" ")[1]);
     let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).end();
+    }
 
-    if (!(errors.isEmpty() && email)) {
-      return res.status(400).json({
-        success: false,
-        errors: errors.array(),
-      });
+    let email = verifyToken(req.header("Authorization").split(" ")[1]);
+    if (!email) {
+      return res.status(401).end();
     }
 
     let userData = await pool.query({
       text: "SELECT user_uuid FROM users WHERE email=$1",
       values: [email],
     });
+    if (userData.rowCount === 0) {
+      return res.status(401).end();
+    }
+
+    console.log("aaaa", req.body.image);
 
     await pool.query({
       text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image) 
@@ -41,14 +46,9 @@ const addAd = async (req, res, next) => {
       ],
     });
 
-    return res.status(201).json({
-      success: true,
-    });
+    return res.status(201).end();
   } catch (e) {
-    return res.status(500).json({
-      success: false,
-      errors: e,
-    });
+    return res.status(500).end();
   }
 };
 
