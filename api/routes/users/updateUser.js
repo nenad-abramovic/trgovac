@@ -3,12 +3,10 @@ const pool = require("../../db");
 const { verifyToken } = require("../../utilities/token");
 
 const updateUserValidation = [
-  header("Authorization", "Токен није испоручен.").exists(),
-  body("fullname", "Име је неисправно.").matches(/^.{3,}$/),
-  body("placeUUID", "Место пребивалишта је неисправно.").isUUID(),
-  body("phoneNumber", "Број телефона је неисправан")
-    .optional({ checkFalsy: true })
-    .isMobilePhone("sr-RS"),
+  header("Authorization").exists(),
+  body("fullname").matches(/^.{3,}$/),
+  body("placeUUID").isUUID(),
+  body("phoneNumber").optional({ checkFalsy: true }).isMobilePhone("sr-RS"),
 ];
 
 const updateUser = async (req, res) => {
@@ -20,7 +18,7 @@ const updateUser = async (req, res) => {
     }
 
     let email = verifyToken(req.header("Authorization").split(" ")[1]);
-    if (!errors.isEmpty()) {
+    if (!email) {
       return res.status(401).end();
     }
 
@@ -36,6 +34,7 @@ const updateUser = async (req, res) => {
     });
 
     let userData = data.rows[0];
+    delete userData.password;
     userData.token = req.header("Authorization").split(" ")[1];
 
     return res.status(200).json(userData);

@@ -3,8 +3,8 @@ const { header, body, validationResult } = require("express-validator");
 const { verifyToken } = require("../../utilities/token");
 
 const deleteAdValidation = [
-  header("Authorization", "Токен није испоручен.").exists(),
-  body("adUUID", "Оглас није испоручен.").isUUID(),
+  header("Authorization").exists(),
+  body("adUUID").isUUID(),
 ];
 
 const deleteAd = async (req, res) => {
@@ -15,13 +15,12 @@ const deleteAd = async (req, res) => {
     }
 
     let email = verifyToken(req.header("Authorization").split(" ")[1]);
-    if (!errors.isEmpty()) {
+    if (!email) {
       return res.status(401).end();
     }
 
     await pool.query({
-      text:
-        "DELETE FROM ads JOIN users USING(user_uuid) WHERE ad_uuid=$1 AND email=$2",
+      text: "DELETE ads FROM ads WHERE ad_uuid=$1 AND email=$2",
       values: [req.body.adUUID, email],
     });
 

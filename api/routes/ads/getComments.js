@@ -1,7 +1,7 @@
 const pool = require("../../db");
 const { param, validationResult } = require("express-validator");
 
-const commentsValidation = [param("ad_uuid", "Није прослеђен оглас.").exists()];
+const commentsValidation = [param("adUUID").isUUID()];
 
 const getComments = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ const getComments = async (req, res) => {
     let data = await pool.query({
       text:
         "SELECT text, created_at, fullname, user_uuid FROM comments JOIN users USING(user_uuid) WHERE ad_uuid=$1",
-      values: [req.params.ad_uuid],
+      values: [req.params.adUUID],
     });
     return res.status(200).json(data.rows);
   } catch (e) {

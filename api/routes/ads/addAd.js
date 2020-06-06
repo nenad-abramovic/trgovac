@@ -3,12 +3,14 @@ const pool = require("../../db");
 const { verifyToken } = require("../../utilities/token");
 
 const addAdValidator = [
-  header("Authorization", "Токен није испоручен.").exists(),
-  body("title", "Наслов огласа није испоручен.").isLength({ min: 1 }),
-  body("description", "Опис огласа није испоручен.").isLength({ min: 1 }),
-  body("price", "Износ није испоручен.").isNumeric(),
-  body("categoryUUID", "Категорија огласа није испоручена.").exists(),
-  body("image", "Слика није испоручена.").optional(),
+  header("Authorization").exists(),
+  body("title").isLength({ min: 1 }),
+  body("description").isLength({ min: 1 }),
+  body("price")
+    .isNumeric()
+    .custom((value) => value >= 1),
+  body("categoryUUID").isUUID(),
+  body("image").optional({ checkFalsy: true }),
 ];
 
 const addAd = async (req, res) => {

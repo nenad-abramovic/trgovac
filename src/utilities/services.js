@@ -2,121 +2,179 @@ const ADS = "/ads";
 const USERS = "/users";
 const COMMENTS = "/comments";
 
-const getAds = async (category = "%", place = "%") => {
-  try {
-    let data = await fetch(
-      encodeURI(`${ADS}?category=${category}&place=${place}`)
-    );
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const getAds = (category, place) => {
+  return fetch(encodeURI(`${ADS}?category=${category}&place=${place}`)).then(
+    (res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else if (res.status === 400) {
+        throw new Error("Прослеђени параметри нису валидни.");
+      } else {
+        throw new Error("Грешка са сервером.");
+      }
+    }
+  );
 };
 
-const getAd = async (ad_uuid) => {
-  try {
-    let data = await fetch(`${ADS}/${ad_uuid}`);
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const getAd = (ad_uuid) => {
+  return fetch(`${ADS}/${ad_uuid}`).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error("Корисников идентификациони број није валидан.");
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
-const registerUser = async (userData) => {
-  try {
-    let data = await fetch(`${USERS}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    });
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const registerUser = (userData) => {
+  return fetch(`${USERS}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  }).then((res) => {
+    if (res.status === 201) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error(
+        "Е-маил или шифра нису прослеђени или шифра није потврђена."
+      );
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
-const loginUser = async (userData) => {
-  try {
-    let data = await fetch(`${USERS}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    });
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const loginUser = (userData) => {
+  return fetch(`${USERS}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error("Е-маил или шифра нису прослеђени.");
+    } else if (res.status === 403) {
+      throw new Error("Е-маил или шифра нису добри.");
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
-const updateUser = async (userData) => {
-  try {
-    let { token } = JSON.parse(window.localStorage.getItem("userData"));
-    let data = await fetch(`${USERS}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(userData),
-    });
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const updateUser = (userData) => {
+  let { token } = JSON.parse(window.localStorage.getItem("userData"));
+  return fetch(`${USERS}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(userData),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error(
+        "Име и презиме или место пребивалишта нису прослеђени или нису валидни."
+      );
+    } else if (res.status === 401) {
+      throw new Error("Корисник није верификован. Молимо улогујте се.");
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
-const getComments = async (ad_uuid) => {
-  try {
-    let data = await fetch(`${ADS}${COMMENTS}/${ad_uuid}`);
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const getComments = (ad_uuid) => {
+  return fetch(`${ADS}${COMMENTS}/${ad_uuid}`).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error(
+        "Идентификациони број огласа није прослеђен или није валидан."
+      );
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
-const addComment = async (text, adUUID) => {
-  try {
-    let { token } = JSON.parse(window.localStorage.getItem("userData"));
-    let data = await fetch(`${ADS}${COMMENTS}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        text,
-        adUUID,
-      }),
-    });
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const addComment = (text, adUUID) => {
+  let { token } = JSON.parse(window.localStorage.getItem("userData"));
+  return fetch(`${ADS}${COMMENTS}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      text,
+      adUUID,
+    }),
+  }).then((res) => {
+    if (res.status === 201) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error(
+        "Коментар није прослеђен или идентификациони број огласа није исправан."
+      );
+    } else if (res.status === 401) {
+      throw new Error("Корисник није верификован. Молимо улогујте се.");
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
-const addAd = async (adData) => {
-  try {
-    let { token } = JSON.parse(window.localStorage.getItem("userData"));
-    let data = await fetch(`${ADS}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(adData),
-    });
-    let json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
+const addAd = (adData) => {
+  let { token } = JSON.parse(window.localStorage.getItem("userData"));
+  return fetch(`${ADS}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(adData),
+  }).then((res) => {
+    if (res.status === 201) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new Error(
+        "Нису прослеђени сви непоходни подаци о огласу или нису исправно форматирани."
+      );
+    } else if (res.status === 401) {
+      throw new Error("Корисник није верификован. Молимо улогујте се.");
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
+};
+
+const deleteAd = (adUUID) => {
+  let { token } = JSON.parse(window.localStorage.getItem("userData"));
+  return fetch(`${ADS}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      adUUID,
+    }),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res;
+    } else if (res.status === 400) {
+      throw new Error("Није прослеђен идентификациони број огласа.");
+    } else if (res.status === 401) {
+      throw new Error("Корисник није верификован. Молимо улогујте се.");
+    } else {
+      throw new Error("Грешка са сервером.");
+    }
+  });
 };
 
 export {
@@ -128,4 +186,5 @@ export {
   addComment,
   getComments,
   addAd,
+  deleteAd,
 };

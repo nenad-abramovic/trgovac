@@ -2,9 +2,7 @@ const pool = require("../../db");
 const { body, query, validationResult } = require("express-validator");
 
 const adsValidation = [
-  body("userUUID", "Није прослеђен оглас.")
-    .optional({ checkFalsy: true })
-    .isUUID(),
+  body("userUUID").optional({ checkFalsy: true }).isUUID(),
   query("category")
     .optional({ checkFalsy: true })
     .custom(async (value) => {
@@ -12,10 +10,7 @@ const adsValidation = [
         text: "SELECT * FROM categories WHERE name=$1",
         values: [value],
       });
-      if (data.rows.length !== 0) {
-        return true;
-      }
-      return false;
+      return data.rowCount === 0;
     }),
   query("place")
     .optional({ checkFalsy: true })
@@ -24,10 +19,7 @@ const adsValidation = [
         text: "SELECT * FROM places WHERE name=$1",
         values: [value],
       });
-      if (data.rows.length !== 0) {
-        return true;
-      }
-      return false;
+      return data.rowCount === 0;
     }),
 ];
 

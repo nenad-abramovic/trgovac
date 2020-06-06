@@ -6,14 +6,11 @@ const { signToken } = require("../../utilities/token");
 const SALT = 10;
 
 const registerValidation = [
-  body("email", "Е-маил није валидан.").isEmail(),
-  body(
-    "password",
-    "Шифра мора садржати минимум 8 карактера. Једно мало, једно велико слово и један број."
-  )
+  body("email").isEmail(),
+  body("password")
     .isLength({ min: 8 })
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/),
-  body("confirmPassword", "Шифре се не подударају.").custom(
+  body("confirmPassword").custom(
     (value, { req }) => value === req.body.password
   ),
 ];
@@ -36,7 +33,7 @@ const register = async (req, res) => {
     userData.token = token;
     delete userData.password;
 
-    return res.status(200).json(userData);
+    return res.status(201).json(userData);
   } catch (e) {
     return res.status(500).end();
   }

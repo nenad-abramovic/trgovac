@@ -3,10 +3,7 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const { signToken } = require("../../utilities/token");
 
-const loginValidation = [
-  body("email", "Е-маил није валидан").isEmail(),
-  body("password", "Шифра није прослеђена").exists(),
-];
+const loginValidation = [body("email").isEmail(), body("password").exists()];
 
 const login = async (req, res) => {
   try {
@@ -29,13 +26,12 @@ const login = async (req, res) => {
     );
 
     if (match) {
-      let token = signToken(data.rows[0].email);
-
       let userData = data.rows[0];
+      let token = signToken(userData.email);
       delete userData.password;
       userData.token = token;
 
-      return res.status(201).json(userData);
+      return res.status(200).json(userData);
     }
 
     return res.status(403).end();

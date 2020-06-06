@@ -3,9 +3,9 @@ const { verifyToken } = require("../../utilities/token");
 const { header, body, validationResult } = require("express-validator");
 
 const newCommentValidation = [
-  header("Authorization", "Токен није испоручен.").exists(),
-  body("text", "Тело коментара није испоручено.").isLength({ min: 1 }),
-  body("adUUID", "Оглас није испоручен.").isUUID(),
+  header("Authorization").exists(),
+  body("text").isLength({ min: 1 }),
+  body("adUUID").isUUID(),
 ];
 
 const commentAd = async (req, res) => {
@@ -33,7 +33,12 @@ const commentAd = async (req, res) => {
       values: [req.body.text, userData.rows[0].user_uuid, req.body.adUUID],
     });
 
-    return res.status(201).end();
+    let data = await pool.query({
+      text:
+        "SELECT text, created_at, fullname, user_uuid FROM comments JOIN users USING(user_uuid) WHERE ad_uuid=$1",
+      values: [req.body.adUUID],
+    });
+    return res.status(201).json(data.rows);
   } catch (e) {
     return res.status(500).end();
   }
