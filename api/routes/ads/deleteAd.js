@@ -21,7 +21,7 @@ const deleteAd = async (req, res) => {
 
     await pool.query({
       text:
-        "DELETE FROM ads USING users WHERE user_uuid=users.user_uuid AND ad_uuid=$1 AND email=$2",
+        "DELETE FROM ads USING users WHERE ads.user_uuid=users.user_uuid AND ad_uuid=$1 AND email=$2",
       values: [req.body.adUUID, email],
     });
 
