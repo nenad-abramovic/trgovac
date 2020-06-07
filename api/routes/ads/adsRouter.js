@@ -9,7 +9,7 @@ const { commentsValidation, getComments } = require("./getComments");
 router.post("/", addAdValidator, addAd);
 router.delete("/", deleteAdValidation, deleteAd);
 router.post("/comments", newCommentValidation, commentAd);
-router.get("/", adsValidation, getAds);
+router.get("/:userUUID", adsValidation, getAds);
 router.get("/comments/:adUUID", commentsValidation, getComments);
 
 module.exports = router;

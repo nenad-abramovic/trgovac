@@ -20,6 +20,18 @@ const getAds = (category, place) => {
   );
 };
 
+const getUserAds = (userUUID) => {
+  return fetch(encodeURI(`${ADS}/${userUUID}`)).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new RequestError(res.status, "Прослеђени параметри нису валидни.");
+    } else {
+      throw new RequestError(res.status, "Грешка са сервером.");
+    }
+  });
+};
+
 const getAd = (ad_uuid) => {
   return fetch(`${ADS}/${ad_uuid}`).then((res) => {
     if (res.status === 200) {
@@ -206,6 +218,7 @@ const deleteAd = (adUUID) => {
 
 export {
   getAds,
+  getUserAds,
   getAd,
   registerUser,
   loginUser,

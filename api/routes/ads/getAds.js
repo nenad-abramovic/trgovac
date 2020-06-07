@@ -1,8 +1,8 @@
 const pool = require("../../db");
-const { body, query, validationResult } = require("express-validator");
+const { param, query, validationResult } = require("express-validator");
 
 const adsValidation = [
-  body("userUUID").optional({ checkFalsy: true }).isUUID(),
+  param("userUUID").optional({ checkFalsy: true }).isUUID(),
   query("category")
     .optional({ checkFalsy: true })
     .custom(async (value) => {
@@ -32,7 +32,7 @@ const getAds = async (req, res) => {
 
     let data;
 
-    if (req.param.user_uuid) {
+    if (req.param.userUUID) {
       data = await pool.query({
         text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
         FROM ads
