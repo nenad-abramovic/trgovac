@@ -33,6 +33,7 @@ const getAds = async (req, res) => {
     let data;
 
     if (req.param.userUUID) {
+      console.log("a", req.param.userUUID);
       data = await pool.query({
         text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
         FROM ads
@@ -43,6 +44,7 @@ const getAds = async (req, res) => {
         values: [req.param.userUUID],
       });
     } else {
+      console.log("b");
       data = await pool.query({
         text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
           FROM ads
