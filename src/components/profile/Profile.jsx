@@ -33,7 +33,7 @@ const Profile = () => {
       .then((data) => {
         setUser(data);
         window.localStorage.setItem("userData", JSON.stringify(data));
-        history.push("/");
+        alert("Профил ажуриран!");
       })
       .catch((e) => {
         if (e.status === 401) {
@@ -119,16 +119,25 @@ const Profile = () => {
           </select>
           {errors.placeUUID && <p>{errors.placeUUID.message}</p>}
         </div>
-        <button type="submit">Ажурирај</button>
+        <button type="submit">ажурирај</button>
       </form>
       <h2 className={styles.title}>Ваши огласи</h2>
       <div>
-        {userAds.map((ad) => (
-          <div key={ad.ad_uuid} className={styles.container}>
-            <SearchElement ad={ad} />
-            <button onClick={() => handleClick(ad)}>&times;</button>
+        {userAds.length !== 0 ? (
+          userAds.map((ad) => (
+            <div key={ad.ad_uuid} className={styles.container}>
+              <SearchElement ad={ad} />
+              <button onClick={() => handleClick(ad)}>&times;</button>
+            </div>
+          ))
+        ) : (
+          <div className={styles.noAds}>
+            <p>Нема огласа...</p>
+            <button onClick={() => history.push("/new_ad")}>
+              додајте оглас
+            </button>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
