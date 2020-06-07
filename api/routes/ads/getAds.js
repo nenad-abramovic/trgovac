@@ -1,8 +1,7 @@
 const pool = require("../../db");
-const { param, query, validationResult } = require("express-validator");
+const { query, validationResult } = require("express-validator");
 
 const adsValidation = [
-  param("userUUID").optional({ checkFalsy: true }).isUUID(),
   query("category")
     .optional({ checkFalsy: true })
     .custom(async (value) => {
@@ -30,31 +29,15 @@ const getAds = async (req, res) => {
       return res.status(400).end();
     }
 
-    let data;
-
-    if (req.param.userUUID) {
-      console.log("a", req.param.userUUID);
-      data = await pool.query({
-        text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
-        FROM ads
-        JOIN users USING(user_uuid) 
-        JOIN categories USING(category_uuid)
-        JOIN places USING(place_uuid)
-        WHERE user_uuid=$1`,
-        values: [req.param.userUUID],
-      });
-    } else {
-      console.log("b");
-      data = await pool.query({
-        text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
+    let data = await pool.query({
+      text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
           FROM ads
           JOIN users USING(user_uuid) 
           JOIN categories USING(category_uuid)
           JOIN places USING(place_uuid)
           WHERE categories.name ILIKE COALESCE($1, '%') AND places.name ILIKE COALESCE($2, '%')`,
-        values: [req.query.category, req.query.place],
-      });
-    }
+      values: [req.query.category, req.query.place],
+    });
 
     return res.status(200).json(data.rows);
   } catch (e) {
