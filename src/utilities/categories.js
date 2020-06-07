@@ -8,36 +8,34 @@ const useCategories = () => {
     success: false,
     data: [],
   });
-  useEffect(
-    () =>
-      fetch("/categories")
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json();
-          } else {
-            setCategories((prevState) => ({
-              ...prevState,
-              success: false,
-              data: [],
-            }));
-          }
-        })
-        .then((data) =>
-          setCategories((prevState) => ({
-            ...prevState,
-            success: true,
-            data,
-          }))
-        )
-        .catch(() =>
+  useEffect(() => {
+    fetch("/categories")
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
           setCategories((prevState) => ({
             ...prevState,
             success: false,
             data: [],
-          }))
-        ),
-    []
-  );
+          }));
+        }
+      })
+      .then((data) =>
+        setCategories((prevState) => ({
+          ...prevState,
+          success: true,
+          data,
+        }))
+      )
+      .catch(() =>
+        setCategories((prevState) => ({
+          ...prevState,
+          success: false,
+          data: [],
+        }))
+      );
+  }, []);
   return { categories, setCategories };
 };
 

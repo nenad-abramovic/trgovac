@@ -13,12 +13,6 @@ const Profile = () => {
   const places = usePlaces()[0];
   const [userAds, setUserAds] = useState([]);
 
-  useEffect(() => {
-    getUserAds(user.user_uuid).then((data) => {
-      setUserAds(data);
-    });
-  }, [user.user_uuid]);
-
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -27,6 +21,12 @@ const Profile = () => {
       placeUUID: user.place_uuid,
     },
   });
+
+  useEffect(() => {
+    getUserAds(user.user_uuid).then((data) => {
+      setUserAds(data);
+    });
+  }, [user.user_uuid]);
 
   const onSubmit = async (userData) => {
     updateUser(userData)
@@ -124,7 +124,7 @@ const Profile = () => {
       <h2 className={styles.title}>Ваши огласи</h2>
       <div>
         {userAds.map((ad) => (
-          <div className={styles.container}>
+          <div key={ad.ad_uuid} className={styles.container}>
             <SearchElement ad={ad} />
             <button onClick={() => handleClick(ad)}>&times;</button>
           </div>
