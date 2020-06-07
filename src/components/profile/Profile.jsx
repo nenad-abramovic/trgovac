@@ -5,7 +5,6 @@ import usePlaces from "../../utilities/places";
 import { useForm } from "react-hook-form";
 import { updateUser, getUserAds } from "../../utilities/services";
 import { useHistory } from "react-router-dom";
-import SearchResults from "../search/SearchResults";
 import SearchElement from "../search/SearchElement";
 
 const Profile = () => {
@@ -18,7 +17,7 @@ const Profile = () => {
     getUserAds(user.user_uuid).then((data) => {
       setUserAds(data);
     });
-  }, []);
+  }, [user.user_uuid]);
 
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange",

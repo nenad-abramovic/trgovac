@@ -7,12 +7,15 @@
   height: 80vh;
   overflow: scroll;
   box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
+  background-color: aquamarine;
 }
 .container *,
 .container *:hover {
   text-transform: none;
 }
 
-.container button {
+.container button,
+.container input,
+.container textarea {
   box-shadow: none;
 }

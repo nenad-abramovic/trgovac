@@ -15,6 +15,69 @@
   ],
   "schemes": ["https"],
   "paths": {
+    "/ad": {
+      "post": {
+        "tags": ["ad"],
+        "summary": "create ad",
+        "operationId": "adAd",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "User token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of new ad",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Ad description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "body",
+            "description": "Price of advertised product",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "categoryUUID",
+            "in": "body",
+            "description": "Identification number of product category",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "image",
+            "in": "body",
+            "description": "Image of product",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": { "$ref": "#/definitions/UserRegisterResponse" }
+          },
+          "400": { "description": "not all parameters have been supplied" },
+          "500": { "description": "server error" }
+        }
+      }
+    },
     "/users": {
       "post": {
         "tags": ["user"],
