@@ -50,8 +50,14 @@ const Profile = () => {
       });
   };
 
-  const handleClick = (adUUID) => {
-    deleteAd(adUUID)
+  const handleClick = (ad) => {
+    let adTitle = prompt(
+      `Да ли заиста желите да обришете оглас? Унесите назив огласа (${ad.title}) да би сте потврдили брисање.`
+    );
+    if (adTitle !== ad.title) {
+      return;
+    }
+    deleteAd(ad.ad_uuid)
       .then(() => {
         getUserAds(user.user_uuid).then((data) => {
           setUserAds(data);
@@ -72,7 +78,7 @@ const Profile = () => {
     <div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <h2>Ваш профил</h2>
+          <h2 className={styles.title}>Ваш профил</h2>
         </div>
         <div>
           <p>Е-маил</p>
@@ -112,12 +118,12 @@ const Profile = () => {
         </div>
         <button type="submit">Ажурирај</button>
       </form>
-      <p>oglasi</p>
+      <h2 className={styles.title}>Ваши огласи</h2>
       <div>
         {userAds.map((ad) => (
           <div className={styles.container}>
             <SearchElement ad={ad} />
-            <button onClick={() => handleClick(ad.ad_uuid)}>&times;</button>
+            <button onClick={() => handleClick(ad)}>&times;</button>
           </div>
         ))}
       </div>

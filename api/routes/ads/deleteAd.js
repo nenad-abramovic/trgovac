@@ -18,12 +18,13 @@ const deleteAd = async (req, res) => {
     if (!email) {
       return res.status(401).end();
     }
-
+    console.log("aaa");
     await pool.query({
       text:
         "DELETE ads FROM ads JOIN users USING(user_uuid) WHERE ad_uuid=$1 AND email=$2",
       values: [req.body.adUUID, email],
     });
+    console.log("bbb");
 
     return res.status(200).end();
   } catch (e) {

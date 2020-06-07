@@ -1,13 +1,18 @@
 .form {
   text-align: left;
-}
-
-.form > div {
   margin: 2rem 0;
 }
 
-.form h2,
-.form h3 {
+h2 {
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.form > div {
+  margin: 1.5rem 0;
+}
+
+.title {
   color: aquamarine;
 }
 
