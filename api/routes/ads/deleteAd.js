@@ -19,6 +19,21 @@ const deleteAd = async (req, res) => {
       return res.status(401).end();
     }
 
+    let data = await pool.query({
+      text:
+        "SELECT * FROM ads JOIN users USING(user_uuid) WHERE ad_uuid=$1 AND email=$2",
+      values: [req.body.adUUID, email],
+    });
+
+    if (data.rowCount === 0) {
+      return res.status(401).end();
+    }
+
+    await pool.query({
+      text: "DELETE FROM comments WHERE ad_uuid=$1",
+      values: [req.body.adUUID],
+    });
+
     await pool.query({
       text:
         "DELETE FROM ads USING users WHERE ads.user_uuid=users.user_uuid AND ad_uuid=$1 AND email=$2",
@@ -27,7 +42,6 @@ const deleteAd = async (req, res) => {
 
     return res.status(200).end();
   } catch (e) {
-    console.log(e);
     return res.status(500).end();
   }
 };
