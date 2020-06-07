@@ -17,7 +17,7 @@ const SearchCriteria = ({ data, setCurrentValue, label, defaultValue }) => {
         <select
           id="category"
           onChange={selectCriteria}
-          defaultValue={data.currentValue}
+          value={data.currentValue}
         >
           <option value="%">{defaultValue}</option>
           {data.data.map((item, index) => (

@@ -22,7 +22,7 @@ const SortResults = ({ ads, sortAds }) => {
         <p>сортирај према</p>
         <select onChange={handleChange}>
           <option value="created_at">датум објављивања</option>
-          <option value="num_price">цена</option>
+          <option value="price">цена</option>
         </select>
       </div>
       <button onClick={reverseAds}>
