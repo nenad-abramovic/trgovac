@@ -6,8 +6,6 @@ const userAdsValidation = [
 ];
 
 const getUserAds = async (req, res) => {
-  console.log("bbb");
-
   try {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -23,6 +21,8 @@ const getUserAds = async (req, res) => {
         WHERE user_uuid=$1`,
       values: [req.param.userUUID],
     });
+
+    console.log("bbb", req.param.userUUID, data.rows);
 
     return res.status(200).json(data.rows);
   } catch (e) {
