@@ -25,12 +25,12 @@ const Profile = () => {
       .then((data) => {
         setUser(data);
         window.localStorage.setItem("userData", JSON.stringify(data));
-        setUser(null);
         history.push("/");
       })
       .catch((e) => {
         if (e.status === 401) {
           window.localStorage.removeItem("userData");
+          setUser(null);
           alert(e.message);
           history.push({
             pathname: "/login",

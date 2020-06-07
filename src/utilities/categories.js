@@ -1,35 +1,45 @@
-import { createContext } from "react";
+import { createContext, useState, useEffect } from "react";
 
-let categories = { currentValue: "%", success: false, data: [] };
-const CategoryContext = createContext(categories);
+const CategoryContext = createContext();
 
-fetch("/categories")
-  .then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else {
-      categories = {
-        currentValue: "%",
-        success: false,
-        data: [],
-      };
-    }
-  })
-  .then(
-    (data) =>
-      (categories = {
-        currentValue: "%",
-        success: true,
-        data,
-      })
-  )
-  .catch(
+const useCategories = () => {
+  const [categories, setCategories] = useState({
+    currentValue: "%",
+    success: false,
+    data: [],
+  });
+  useEffect(
     () =>
-      (categories = {
-        currentValue: "%",
-        success: false,
-        data: [],
-      })
+      fetch("/categories")
+        .then((res) => {
+          if (res.status === 200) {
+            return res.json();
+          } else {
+            setCategories((prevState) => ({
+              ...prevState,
+              success: false,
+              data: [],
+            }));
+          }
+        })
+        .then((data) =>
+          setCategories((prevState) => ({
+            ...prevState,
+            success: true,
+            data,
+          }))
+        )
+        .catch(() =>
+          setCategories((prevState) => ({
+            ...prevState,
+            success: false,
+            data: [],
+          }))
+        ),
+    []
   );
+  return { categories, setCategories };
+};
 
 export default CategoryContext;
+export { useCategories };

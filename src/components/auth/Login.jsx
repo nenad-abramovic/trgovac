@@ -17,7 +17,7 @@ const Login = () => {
       window.localStorage.setItem("userData", JSON.stringify(data));
       history.push(history.location?.state?.from || "/");
     } catch (e) {
-      alert("Грешка са сервером. Покушајте поново.");
+      alert(e.message);
     }
   };
 

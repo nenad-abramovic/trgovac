@@ -16,13 +16,13 @@ import Profile from "./components/profile/Profile";
 import PriceList from "./components/pricelist/Pricelist";
 import NewAd from "./components/newAd/NewAd";
 import Docs from "./components/docs/Docs.jsx";
-import CategoryContext from "./utilities/categories";
+import CategoryContext, { useCategories } from "./utilities/categories";
 
 function App() {
   const [user, setUser] = useState(
     JSON.parse(window.localStorage.getItem("userData"))
   );
-  const [categories, setCategories] = useState();
+  const { categories, setCategories } = useCategories();
 
   return (
     <div className="App">
