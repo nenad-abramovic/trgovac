@@ -23,6 +23,7 @@ const adsValidation = [
 ];
 
 const getAds = async (req, res) => {
+  console.log("aaa");
   try {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {

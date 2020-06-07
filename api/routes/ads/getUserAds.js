@@ -6,6 +6,8 @@ const userAdsValidation = [
 ];
 
 const getUserAds = async (req, res) => {
+  console.log("bbb");
+
   try {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
