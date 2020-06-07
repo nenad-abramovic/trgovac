@@ -10,3 +10,19 @@
 .form h3 {
   color: aquamarine;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.container > div {
+  flex: 1;
+  margin: 0 1rem 0 0;
+}
+
+.container > button {
+  color: red;
+  font-size: 5rem;
+}

@@ -3,7 +3,7 @@ import styles from "./Profile.module.css";
 import UserContext from "../../utilities/user";
 import usePlaces from "../../utilities/places";
 import { useForm } from "react-hook-form";
-import { updateUser, getUserAds } from "../../utilities/services";
+import { updateUser, getUserAds, deleteAd } from "../../utilities/services";
 import { useHistory } from "react-router-dom";
 import SearchElement from "../search/SearchElement";
 
@@ -44,6 +44,24 @@ const Profile = () => {
             pathname: "/login",
             state: { from: history.location },
           });
+        } else {
+          alert(e.message);
+        }
+      });
+  };
+
+  const handleClick = (adUUID) => {
+    deleteAd(adUUID)
+      .then(() => {
+        getUserAds(user.user_uuid).then((data) => {
+          setUserAds(data);
+        });
+      })
+      .catch((e) => {
+        if (e.status === 401) {
+          window.localStorage.removeItem("userData");
+          alert(e.message);
+          history.push("/login");
         } else {
           alert(e.message);
         }
@@ -97,7 +115,10 @@ const Profile = () => {
       <p>oglasi</p>
       <div>
         {userAds.map((ad) => (
-          <SearchElement ad={ad} />
+          <div className={styles.container}>
+            <SearchElement ad={ad} />
+            <button onClick={() => handleClick(ad.ad_uuid)}>&times;</button>
+          </div>
         ))}
       </div>
     </div>

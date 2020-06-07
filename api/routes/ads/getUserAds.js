@@ -22,8 +22,6 @@ const getUserAds = async (req, res) => {
       values: [req.params.userUUID],
     });
 
-    console.log("bbb", req.params.userUUID, data.rows);
-
     return res.status(200).json(data.rows);
   } catch (e) {
     return res.status(500).end();
