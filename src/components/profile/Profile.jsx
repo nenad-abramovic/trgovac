@@ -67,7 +67,10 @@ const Profile = () => {
         if (e.status === 401) {
           window.localStorage.removeItem("userData");
           alert(e.message);
-          history.push("/login");
+          history.push({
+            pathname: "/login",
+            state: { from: history.location },
+          });
         } else {
           alert(e.message);
         }
