@@ -19,10 +19,10 @@ const getUserAds = async (req, res) => {
         JOIN categories USING(category_uuid)
         JOIN places USING(place_uuid)
         WHERE user_uuid=$1`,
-      values: [req.param.userUUID],
+      values: [req.params.userUUID],
     });
 
-    console.log("bbb", req.param.userUUID, data.rows);
+    console.log("bbb", req.params.userUUID, data.rows);
 
     return res.status(200).json(data.rows);
   } catch (e) {
