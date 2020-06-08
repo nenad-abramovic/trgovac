@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import styles from "./NewAd.module.css";
@@ -9,17 +9,47 @@ const NewAd = () => {
   const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
   const history = useHistory();
   const { categories } = useContext(CategoryContext);
+  const imageRef = useRef(null);
+  const [image, setImage] = useState({ base64Image: "", type: "" });
 
-  const onSubmit = async (userData) => {
-    addAd(userData)
+  const handleChange = (e) => {
+    let imageFile = e.target.files[0];
+    if (imageFile > 204800) {
+      return alert("Слика мора бити мања од 200KB");
+    }
+
+    let reader = new FileReader();
+    reader.readAsDataURL(imageFile);
+    reader.addEventListener("load", () => {
+      let type = reader.result.substring(
+        reader.result.indexOf("/") + 1,
+        reader.result.indexOf(";")
+      );
+      if (!/(png|jpeg|jpg|gif|bmp)/.test(type)) {
+        return alert("Слика мора бити у png, jpeg, jpg, gif или bmp формату.");
+      }
+
+      let base64Image = reader.result.split("base64,")[1];
+      setImage({ base64Image, type });
+    });
+  };
+
+  const onSubmit = (userData) => {
+    addAd(userData, image)
       .then((data) => {
-        history.push({ pathname: `/ad/${data.ad_uuid}`, state: { ad: data } });
+        history.push({
+          pathname: `/ad/${data.ad_uuid}`,
+          state: { ad: data },
+        });
       })
       .catch((e) => {
         if (e.status === 401) {
           window.localStorage.removeItem("userData");
           alert(e.message);
-          history.push("/login");
+          history.push({
+            pathname: "/login",
+            state: { from: history.location },
+          });
         } else if (e.status === 403) {
           alert(e.message);
           history.push("/profile");
@@ -85,7 +115,13 @@ const NewAd = () => {
       </div>
       <div>
         <label htmlFor="image">Слика предмета</label>
-        <input id="image" type="file" name="image" ref={register} />
+        <input
+          id="image"
+          type="file"
+          name="image"
+          ref={imageRef}
+          onChange={handleChange}
+        />
       </div>
       <div>
         <button type="submit">поставите оглас</button>

@@ -32,28 +32,27 @@ const addAd = async (req, res) => {
     if (userData.rowCount === 0) {
       return res.status(401).end();
     }
-    console.log("a", userData.rows[0]);
+
     if (!userData.rows[0].fullname || !userData.rows[0].place_uuid) {
       return res.status(403).end();
     }
 
-    console.log("aaaa", req.body.image);
-
     let data = await pool.query({
-      text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image) 
-            VALUES($1, $2, $3::money, $4, $5, decode($6, 'base64')) RETURNING ad_uuid`,
+      text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image, image_type) 
+            VALUES($1, $2, $3::money, $4, $5, decode($6, 'base64')), $7 RETURNING ad_uuid`,
       values: [
         req.body.title,
         req.body.description,
         req.body.price,
         req.body.categoryUUID,
         userData.rows[0].user_uuid,
-        Buffer.from(req.body.image.toString()).toString("base64"),
+        req.body.image.base64Image,
+        req.body.image.type,
       ],
     });
 
     data = await pool.query({
-      text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, place_uuid, fullname, phone_number 
+      text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, image_type, place_uuid, fullname, phone_number 
         FROM ads
         JOIN users USING(user_uuid) 
         JOIN categories USING(category_uuid)

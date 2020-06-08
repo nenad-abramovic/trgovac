@@ -4,7 +4,7 @@ import NewComment from "./NewComment";
 import { useLocation, Link } from "react-router-dom";
 import { getComments } from "../../utilities/services";
 import styles from "./Ad.module.css";
-import noImage from "../../assets/images/no_image.jpeg";
+// import noImage from "../../assets/images/no_image.jpeg";
 
 const Ad = () => {
   const { ad } = useLocation().state;
@@ -38,14 +38,7 @@ const Ad = () => {
           <p>{errorMessage}</p>
         </div>
         <div>
-          <img
-            src={
-              ad.image.length === 20
-                ? `data:image/png;base64,${ad.image}`
-                : noImage
-            }
-            alt={`Слика за ${ad.title}`}
-          />
+          <img src={`${ad.image}`} alt={`Слика за ${ad.title}`} />
         </div>
       </div>
       <CommentList comments={adComments} />

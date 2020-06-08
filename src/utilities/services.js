@@ -158,8 +158,10 @@ const addComment = (text, adUUID) => {
   });
 };
 
-const addAd = (adData) => {
+const addAd = (adData, image) => {
   let { token } = JSON.parse(window.localStorage.getItem("userData"));
+  adData.image = image;
+
   return fetch(`${ADS}`, {
     method: "POST",
     headers: {
