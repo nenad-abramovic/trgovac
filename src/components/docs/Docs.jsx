@@ -5,6 +5,6 @@ import styles from "./Docs.module.css";
 
 export default () => (
   <div className={styles.container}>
-    <SwaggerUI url="https://trgovac.herokuapp.com" />
+    <SwaggerUI url="https://trgovac.herokuapp.com/api/docs/spec.json" />
   </div>
 );
