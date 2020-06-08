@@ -9,10 +9,12 @@ app.use(express.json());
 
 app.use(express.static("build"));
 
-app.use("/users", usersRouter);
-app.use("/ads", adsRouter);
-app.use("/categories", categoriesRouter);
-app.use("/places", placesRouter);
+app.use("api/users", usersRouter);
+app.use("api/ads", adsRouter);
+app.use("api/categories", categoriesRouter);
+app.use("api/places", placesRouter);
+
+app.use("api/docs", (req, res) => res.sendFile("./spec.json"));
 
 app.use((req, res) => {
   res.redirect("back");

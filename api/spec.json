@@ -1,0 +1,763 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Трговац",
+    "version": "1.0.54",
+    "description": "трговац.цом application.",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://trgovac.herokuapp.com/api",
+      "variables": {}
+    }
+  ],
+  "tags": [
+    {
+      "name": "ad",
+      "description": "Operations about ads"
+    },
+    {
+      "name": "category",
+      "description": "Category retrieval"
+    },
+    {
+      "name": "place",
+      "description": "Place retrieval"
+    },
+    {
+      "name": "user",
+      "description": "Operations about users"
+    }
+  ],
+  "paths": {
+    "/ads": {
+      "get": {
+        "summary": "Retrieve all ads",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "аудио"
+                }
+              }
+            }
+          },
+          {
+            "name": "place",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "београд"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return all ads",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "ad_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "cateogry_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "image": {
+                      "type": "string",
+                      "format": "base64"
+                    },
+                    "image_type": {
+                      "type": "string"
+                    },
+                    "place_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Query parameters haven't been provided"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "ad"
+        ]
+      },
+      "post": {
+        "summary": "Create new ad",
+        "description": "",
+        "operationId": "",
+        "requestBody": {
+          "description": "Ad to add to database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "title",
+                  "description",
+                  "price",
+                  "categoryUUID"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "патике"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "нове патике неношене"
+                  },
+                  "price": {
+                    "type": "number",
+                    "minimum": 1,
+                    "example": 2300
+                  },
+                  "categoryUUID": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "base64Image": {
+                        "type": "string",
+                        "format": "base64"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "png",
+                          "jpeg",
+                          "jpg",
+                          "gif",
+                          "bmp"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return newly created ad",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "ad_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "cateogry_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "image": {
+                      "type": "string",
+                      "format": "base64"
+                    },
+                    "image_type": {
+                      "type": "string"
+                    },
+                    "place_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not all required parameters have been provided"
+          },
+          "401": {
+            "description": "User can't be authenticated"
+          },
+          "403": {
+            "description": "User haven't completed profile creation"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "ad"
+        ]
+      }
+    },
+    "/ads/{userUUID}": {
+      "get": {
+        "summary": "Retrieve ads for specific user",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "userUUID",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "67308591-16d5-4c05-b7e5-4621a360809b"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Default error sample response"
+          }
+        },
+        "tags": [
+          "ad"
+        ]
+      }
+    },
+    "/ads/{adUUID}": {
+      "delete": {
+        "summary": "Remove ad",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "adUUID",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "730b54ec-8875-4734-9815-5538dd72dde1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ad successfully deleted"
+          },
+          "400": {
+            "description": "Ad uuid haven't been provided"
+          },
+          "401": {
+            "description": "User can't be authenticated"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "ad"
+        ]
+      }
+    },
+    "/ads/comments": {
+      "post": {
+        "summary": "Create comment for specific ad",
+        "description": "",
+        "operationId": "",
+        "requestBody": {
+          "description": "Ad to add to database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "text",
+                  "adUUID"
+                ],
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "example": "коментар на оглас"
+                  },
+                  "adUUID": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return commented ad comments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not all required parameters have been provided"
+          },
+          "401": {
+            "description": "User can't be authenticated"
+          },
+          "403": {
+            "description": "User haven't completed profile creation"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "ad"
+        ]
+      }
+    },
+    "/ads/comments/{adUUID}": {
+      "get": {
+        "summary": "Retrieve comments for specific ad",
+        "description": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "adUUID",
+            "in": "path",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "730b54ec-8875-4734-9815-5538dd72dde1"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return commented ad comments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not all required parameters have been provided"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "ad"
+        ]
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Retireve categories",
+        "description": "",
+        "operationId": "",
+        "responses": {
+          "200": {
+            "description": "Return categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "category_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "category"
+        ]
+      }
+    },
+    "/places": {
+      "get": {
+        "summary": "Retrieve places",
+        "description": "",
+        "operationId": "",
+        "responses": {
+          "200": {
+            "description": "Return places",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "place_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "place"
+        ]
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Create new user",
+        "description": "",
+        "operationId": "",
+        "requestBody": {
+          "description": "User to add to database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "email",
+                  "password",
+                  "confirmPassword"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/",
+                    "minLength": 8
+                  },
+                  "confrimPassword": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "place_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not all required parameters have been provided"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "user"
+        ]
+      },
+      "put": {
+        "summary": "Update user information",
+        "description": "",
+        "operationId": "",
+        "requestBody": {
+          "description": "User information to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "fullname",
+                  "placeUUID",
+                  "phoneNumber"
+                ],
+                "properties": {
+                  "fullname": {
+                    "type": "string"
+                  },
+                  "placeUUID": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "place_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not all required parameters have been provided"
+          },
+          "401": {
+            "description": "User can't be authenticated"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Login user",
+        "description": "",
+        "operationId": "",
+        "requestBody": {
+          "description": "User information for login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "passsword": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "user_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "fullname": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "place_uuid": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not all required parameters have been provided"
+          },
+          "403": {
+            "description": "Provided data doesn't match any user"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        },
+        "tags": [
+          "user"
+        ]
+      }
+    }
+  }
+}

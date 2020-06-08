@@ -8,7 +8,7 @@ const { userAdsValidation, getUserAds } = require("./getUserAds");
 const { commentsValidation, getComments } = require("./getComments");
 
 router.post("/", addAdValidator, addAd);
-router.delete("/", deleteAdValidation, deleteAd);
+router.delete("/:adUUID", deleteAdValidation, deleteAd);
 router.post("/comments", newCommentValidation, commentAd);
 router.get("/", adsValidation, getAds);
 router.get("/:userUUID", userAdsValidation, getUserAds);

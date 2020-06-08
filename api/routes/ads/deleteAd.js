@@ -1,10 +1,10 @@
 const pool = require("../../db");
-const { header, body, validationResult } = require("express-validator");
+const { header, param, validationResult } = require("express-validator");
 const { verifyToken } = require("../../utilities/token");
 
 const deleteAdValidation = [
   header("Authorization").exists(),
-  body("adUUID").isUUID(),
+  param("adUUID").isUUID(),
 ];
 
 const deleteAd = async (req, res) => {
@@ -22,7 +22,7 @@ const deleteAd = async (req, res) => {
     let data = await pool.query({
       text:
         "SELECT * FROM ads JOIN users USING(user_uuid) WHERE ad_uuid=$1 AND email=$2",
-      values: [req.body.adUUID, email],
+      values: [req.params.adUUID, email],
     });
 
     if (data.rowCount === 0) {
@@ -31,13 +31,13 @@ const deleteAd = async (req, res) => {
 
     await pool.query({
       text: "DELETE FROM comments WHERE ad_uuid=$1",
-      values: [req.body.adUUID],
+      values: [req.params.adUUID],
     });
 
     await pool.query({
       text:
         "DELETE FROM ads USING users WHERE ads.user_uuid=users.user_uuid AND ad_uuid=$1 AND email=$2",
-      values: [req.body.adUUID, email],
+      values: [req.params.adUUID, email],
     });
 
     return res.status(200).end();

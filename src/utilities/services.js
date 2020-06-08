@@ -1,27 +1,25 @@
 import RequestError from "./error";
+const API = "/api";
 const ADS = "/ads";
 const USERS = "/users";
 const COMMENTS = "/comments";
 
 const getAds = (category, place) => {
-  return fetch(encodeURI(`${ADS}?category=${category}&place=${place}`)).then(
-    (res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else if (res.status === 400) {
-        throw new RequestError(
-          res.status,
-          "Прослеђени параметри нису валидни."
-        );
-      } else {
-        throw new RequestError(res.status, "Грешка са сервером.");
-      }
+  return fetch(
+    encodeURI(`${API}${ADS}?category=${category}&place=${place}`)
+  ).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    } else if (res.status === 400) {
+      throw new RequestError(res.status, "Прослеђени параметри нису валидни.");
+    } else {
+      throw new RequestError(res.status, "Грешка са сервером.");
     }
-  );
+  });
 };
 
 const getUserAds = (userUUID) => {
-  return fetch(`${ADS}/${userUUID}`).then((res) => {
+  return fetch(`${API}${ADS}/${userUUID}`).then((res) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
@@ -33,7 +31,7 @@ const getUserAds = (userUUID) => {
 };
 
 const getAd = (ad_uuid) => {
-  return fetch(`${ADS}/${ad_uuid}`).then((res) => {
+  return fetch(`${API}${ADS}/${ad_uuid}`).then((res) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
@@ -48,7 +46,7 @@ const getAd = (ad_uuid) => {
 };
 
 const registerUser = (userData) => {
-  return fetch(`${USERS}`, {
+  return fetch(`${API}${USERS}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
@@ -67,7 +65,7 @@ const registerUser = (userData) => {
 };
 
 const loginUser = (userData) => {
-  return fetch(`${USERS}/login`, {
+  return fetch(`${API}${USERS}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
@@ -86,7 +84,7 @@ const loginUser = (userData) => {
 
 const updateUser = (userData) => {
   let { token } = JSON.parse(window.localStorage.getItem("userData"));
-  return fetch(`${USERS}`, {
+  return fetch(`${API}${USERS}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -113,7 +111,7 @@ const updateUser = (userData) => {
 };
 
 const getComments = (ad_uuid) => {
-  return fetch(`${ADS}${COMMENTS}/${ad_uuid}`).then((res) => {
+  return fetch(`${API}${ADS}${COMMENTS}/${ad_uuid}`).then((res) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
@@ -129,7 +127,7 @@ const getComments = (ad_uuid) => {
 
 const addComment = (text, adUUID) => {
   let token = JSON.parse(window.localStorage.getItem("userData"))?.token;
-  return fetch(`${ADS}${COMMENTS}`, {
+  return fetch(`${API}${ADS}${COMMENTS}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -162,7 +160,7 @@ const addAd = (adData, image) => {
   let { token } = JSON.parse(window.localStorage.getItem("userData"));
   adData.image = image;
 
-  return fetch(`${ADS}`, {
+  return fetch(`${API}${ADS}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -195,15 +193,12 @@ const addAd = (adData, image) => {
 
 const deleteAd = (adUUID) => {
   let { token } = JSON.parse(window.localStorage.getItem("userData"));
-  return fetch(`${ADS}`, {
+  return fetch(`${API}${ADS}/${adUUID}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
-      adUUID,
-    }),
   }).then((res) => {
     if (res.status === 200) {
       return res;
