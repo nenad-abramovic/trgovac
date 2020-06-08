@@ -14,9 +14,7 @@ app.use("/api/ads", adsRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/places", placesRouter);
 
-app.use("api/docs", (req, res) =>
-  res.sendFile("spec.json", { root: __dirname })
-);
+app.use("/api/docs", (req, res) => res.sendFile("./spec.json"));
 
 app.use((req, res) => {
   res.redirect("back");

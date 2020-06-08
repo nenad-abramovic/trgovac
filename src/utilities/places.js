@@ -8,7 +8,7 @@ const usePlaces = () => {
   });
 
   useEffect(() => {
-    fetch("/places")
+    fetch("/api/places")
       .then((res) => {
         if (res.status === 200) {
           return res.json();

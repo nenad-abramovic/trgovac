@@ -9,7 +9,7 @@ const useCategories = () => {
     data: [],
   });
   useEffect(() => {
-    fetch("/categories")
+    fetch("/api/categories")
       .then((res) => {
         if (res.status === 200) {
           return res.json();
