@@ -20,6 +20,9 @@ const NewAd = () => {
           window.localStorage.removeItem("userData");
           alert(e.message);
           history.push("/login");
+        } else if (e.status === 403) {
+          alert(e.message);
+          history.push("/profile");
         }
       });
   };

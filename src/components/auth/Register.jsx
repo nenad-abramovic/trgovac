@@ -13,20 +13,16 @@ const Register = () => {
   const history = useHistory();
   const watchPassword = watch("password");
 
-  const onSubmit = async (userData) => {
-    try {
-      let data = await registerUser(userData);
-      if (data.success) {
-        delete data.success;
+  const onSubmit = (userData) => {
+    registerUser(userData)
+      .then((data) => {
         user.setUser(data);
         window.localStorage.setItem("userData", JSON.stringify(data));
         history.push("/profile");
-      } else {
-        alert("Грешка са сервером. Покушајте поново.");
-      }
-    } catch (e) {
-      alert("Грешка са сервером. Покушајте поново.");
-    }
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
   };
 
   return (

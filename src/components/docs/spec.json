@@ -1,27 +1,26 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
+    "title": "Трговац",
     "description": "трговац.цом application.",
-    "version": "1.0.54",
-    "title": "Трговац"
+    "version": "1.0.54"
   },
-  "host": "trgovac.herokuapp.com",
-  "basePath": "/",
+  "servers": [
+    {
+      "url": "https://trgovac.herokuapp.com"
+    }
+  ],
   "tags": [
-    { "name": "user", "description": "Operations about user" },
     { "name": "ad", "description": "Operations about ads" },
     { "name": "category", "description": "Category retrieval" },
-    { "name": "place", "description": "Place retrieval" }
+    { "name": "place", "description": "Place retrieval" },
+    { "name": "user", "description": "Operations about user" }
   ],
-  "schemes": ["https"],
   "paths": {
     "/ads": {
       "post": {
         "tags": ["ad"],
-        "summary": "create ad",
-        "operationId": "adAd",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "summary": "creates new ad",
         "parameters": [
           {
             "name": "Authorization",
@@ -29,45 +28,56 @@
             "description": "User token",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "title",
-            "in": "body",
-            "description": "Title of new ad",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "description",
-            "in": "body",
-            "description": "Ad description",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "price",
-            "in": "body",
-            "description": "Price of advertised product",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "categoryUUID",
-            "in": "body",
-            "description": "Identification number of product category",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "name": "image",
-            "in": "body",
-            "description": "Image of product",
-            "required": false,
-            "type": "string",
-            "format": "byte"
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": [
+                  {
+                    "name": "title",
+                    "in": "body",
+                    "description": "Title of new ad",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "description",
+                    "in": "body",
+                    "description": "Ad description",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "price",
+                    "in": "body",
+                    "description": "Price of advertised product",
+                    "required": true,
+                    "type": "number"
+                  },
+                  {
+                    "name": "categoryUUID",
+                    "in": "body",
+                    "description": "Identification number of product category",
+                    "required": true,
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  {
+                    "name": "image",
+                    "in": "body",
+                    "description": "Image of product",
+                    "required": false,
+                    "type": "string",
+                    "format": "byte"
+                  }
+                ]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "successful operation",

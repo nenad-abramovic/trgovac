@@ -21,7 +21,7 @@ const getAds = (category, place) => {
 };
 
 const getUserAds = (userUUID) => {
-  return fetch(encodeURI(`${ADS}/${userUUID}`)).then((res) => {
+  return fetch(`${ADS}/${userUUID}`).then((res) => {
     if (res.status === 200) {
       return res.json();
     } else if (res.status === 400) {
@@ -179,6 +179,11 @@ const addAd = (adData) => {
       throw new RequestError(
         res.status,
         "Корисник није верификован. Молимо улогујте се."
+      );
+    } else if (res.status === 403) {
+      throw new RequestError(
+        res.status,
+        "Молимо попуните профил пре него што почнете да постављате огласе."
       );
     } else {
       throw new RequestError(res.status, "Грешка са сервером.");

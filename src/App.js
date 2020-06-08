@@ -17,6 +17,7 @@ import PriceList from "./components/pricelist/Pricelist";
 import NewAd from "./components/newAd/NewAd";
 import Docs from "./components/docs/Docs.jsx";
 import CategoryContext, { useCategories } from "./utilities/categories";
+import UserAds from "./components/userAds/UserAds";
 
 function App() {
   const [user, setUser] = useState(
@@ -37,8 +38,8 @@ function App() {
                   <Route exact path="/" component={Search} />
                   <Route path="/login" component={Login} />
                   <Route path="/register" component={Register} />
-                  <Route path="/ad/:ad_uuid" component={Ad} />
-                  <Route path="/user_ads/:user_uuid" component={Search} />
+                  <Route path="/ad" component={Ad} />
+                  <Route path="/user_ads/:user_uuid" component={UserAds} />
                   <Route path="/pricelist" component={PriceList} />
                   <PrivateRoute path="/profile" component={Profile} />
                   <PrivateRoute path="/new_ad" component={NewAd} />

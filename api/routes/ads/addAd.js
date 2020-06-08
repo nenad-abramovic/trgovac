@@ -33,6 +33,10 @@ const addAd = async (req, res) => {
       return res.status(401).end();
     }
 
+    if (!userData.rows[0].fullname || !userData.rows[0].place_uuid) {
+      return res.status(403).end();
+    }
+
     console.log("aaaa", req.body.image);
 
     let data = await pool.query({
