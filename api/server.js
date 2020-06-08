@@ -9,10 +9,10 @@ app.use(express.json());
 
 app.use(express.static("build"));
 
-app.use("api/users", usersRouter);
-app.use("api/ads", adsRouter);
-app.use("api/categories", categoriesRouter);
-app.use("api/places", placesRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/ads", adsRouter);
+app.use("/api/categories", categoriesRouter);
+app.use("/api/places", placesRouter);
 
 app.use("api/docs", (req, res) =>
   res.sendFile("spec.json", { root: __dirname })
