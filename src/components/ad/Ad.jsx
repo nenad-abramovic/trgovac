@@ -38,7 +38,10 @@ const Ad = () => {
           <p>{errorMessage}</p>
         </div>
         <div>
-          <img src={`${ad.image}`} alt={`Слика за ${ad.title}`} />
+          <img
+            src={`data:image/${ad.image_type};base64,${ad.base64Image}`}
+            alt={`Слика за ${ad.title}`}
+          />
         </div>
       </div>
       <CommentList comments={adComments} />

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import styles from "./NewAd.module.css";
@@ -9,7 +9,6 @@ const NewAd = () => {
   const { register, handleSubmit, errors } = useForm({ mode: "onChange" });
   const history = useHistory();
   const { categories } = useContext(CategoryContext);
-  const imageRef = useRef(null);
   const [image, setImage] = useState({ base64Image: "", type: "" });
 
   const handleChange = (e) => {
@@ -115,13 +114,7 @@ const NewAd = () => {
       </div>
       <div>
         <label htmlFor="image">Слика предмета</label>
-        <input
-          id="image"
-          type="file"
-          name="image"
-          ref={imageRef}
-          onChange={handleChange}
-        />
+        <input id="image" type="file" name="image" onChange={handleChange} />
       </div>
       <div>
         <button type="submit">поставите оглас</button>

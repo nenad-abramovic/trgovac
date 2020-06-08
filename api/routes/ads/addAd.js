@@ -39,7 +39,7 @@ const addAd = async (req, res) => {
 
     let data = await pool.query({
       text: `INSERT INTO ads(title, description, price, category_uuid, user_uuid, image, image_type) 
-            VALUES($1, $2, $3::money, $4, $5, decode($6, 'base64')), $7 RETURNING ad_uuid`,
+            VALUES($1, $2, $3::money, $4, $5, decode($6, 'base64'), $7) RETURNING ad_uuid`,
       values: [
         req.body.title,
         req.body.description,
