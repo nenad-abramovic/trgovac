@@ -10,15 +10,16 @@ const Login = () => {
   const user = useContext(UserContext);
   const history = useHistory();
 
-  const onSubmit = async (userData) => {
-    try {
-      let data = await loginUser(userData);
-      user.setUser(data);
-      window.localStorage.setItem("userData", JSON.stringify(data));
-      history.push(history.location?.state?.from || "/");
-    } catch (e) {
-      alert(e.message);
-    }
+  const onSubmit = (userData) => {
+    loginUser(userData)
+      .then((data) => {
+        user.setUser(data);
+        window.localStorage.setItem("userData", JSON.stringify(data));
+        history.push(history.location?.state?.from || "/");
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
   };
 
   return (

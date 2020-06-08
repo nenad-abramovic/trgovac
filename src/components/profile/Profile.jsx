@@ -28,7 +28,7 @@ const Profile = () => {
     });
   }, [user.user_uuid]);
 
-  const onSubmit = async (userData) => {
+  const onSubmit = (userData) => {
     updateUser(userData)
       .then((data) => {
         setUser(data);

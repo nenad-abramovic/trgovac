@@ -10,7 +10,7 @@ const NewComment = ({ setAdComments, adUUID }) => {
   const history = useHistory();
   const { register, handleSubmit, errors, reset } = useForm();
 
-  const onSubmit = async ({ text }) => {
+  const onSubmit = ({ text }) => {
     addComment(text, adUUID)
       .then((data) => {
         setAdComments(data);
