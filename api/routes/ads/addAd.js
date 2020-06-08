@@ -26,7 +26,7 @@ const addAd = async (req, res) => {
     }
 
     let userData = await pool.query({
-      text: "SELECT user_uuid FROM users WHERE email=$1",
+      text: "SELECT user_uuid, fullname, place_uuid FROM users WHERE email=$1",
       values: [email],
     });
     if (userData.rowCount === 0) {

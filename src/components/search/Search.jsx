@@ -6,6 +6,7 @@ import SearchCriteriaa from "./SearchCriteria";
 import usePlaces from "../../utilities/places";
 import CategoryContext from "../../utilities/categories";
 import SortResults from "./SortResults";
+import styles from "./Search.module.css";
 
 const Search = () => {
   const { categories, setCategories } = useContext(CategoryContext);
@@ -53,7 +54,7 @@ const Search = () => {
     );
 
   return (
-    <div>
+    <div className={styles.infoMsg}>
       <p>{ads.errorMessage || "Сачекајте..."}</p>
     </div>
   );
