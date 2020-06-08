@@ -12,7 +12,7 @@ const SearchElement = ({ ad }) => {
             {ad.title}
           </Link>
         </h3>
-        <p>цена: {ad.price}</p>
+        <p>цена: {ad.price} динара</p>
         <p>
           датум објављивања: {new Date(ad.created_at).toLocaleString("sr-Cyrl")}
         </p>
@@ -21,7 +21,9 @@ const SearchElement = ({ ad }) => {
       </div>
       <img
         src={
-          ad.image.length !== 20 ? `data:image/png;base64,${ad.image}` : noImage
+          ad.image_type
+            ? `data:image/${ad.image_type};base64,${ad.image}`
+            : noImage
         }
         alt={`Слика за ${ad.title}`}
       />

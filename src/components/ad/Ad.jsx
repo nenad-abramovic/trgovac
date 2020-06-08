@@ -4,7 +4,7 @@ import NewComment from "./NewComment";
 import { useLocation, Link } from "react-router-dom";
 import { getComments } from "../../utilities/services";
 import styles from "./Ad.module.css";
-// import noImage from "../../assets/images/no_image.jpeg";
+import noImage from "../../assets/images/no_image.jpeg";
 
 const Ad = () => {
   const { ad } = useLocation().state;
@@ -39,7 +39,11 @@ const Ad = () => {
         </div>
         <div>
           <img
-            src={`data:image/${ad.image_type};base64,${ad.base64Image}`}
+            src={
+              ad.image_type
+                ? `data:image/${ad.image_type};base64,${ad.image}`
+                : noImage
+            }
             alt={`Слика за ${ad.title}`}
           />
         </div>
