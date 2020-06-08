@@ -17,7 +17,6 @@ const SearchElement = ({ ad }) => {
           датум објављивања: {new Date(ad.created_at).toLocaleString("sr-Cyrl")}
         </p>
         <p>продавац: {ad.fullname}</p>
-        <p>број телефона: {ad.phone_number}</p>
       </div>
       <img
         src={
