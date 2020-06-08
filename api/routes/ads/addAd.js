@@ -32,7 +32,7 @@ const addAd = async (req, res) => {
     if (userData.rowCount === 0) {
       return res.status(401).end();
     }
-
+    console.log("a", userData.rows[0]);
     if (!userData.rows[0].fullname || !userData.rows[0].place_uuid) {
       return res.status(403).end();
     }

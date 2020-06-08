@@ -85,7 +85,7 @@ const NewAd = () => {
       </div>
       <div>
         <label htmlFor="image">Слика предмета</label>
-        <input id="image" type="file" name="image" ref={register()} />
+        <input id="image" type="file" name="image" ref={register} />
       </div>
       <div>
         <button type="submit">поставите оглас</button>
