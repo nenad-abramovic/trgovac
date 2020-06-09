@@ -27,6 +27,7 @@ const NewComment = ({ setAdComments, adUUID }) => {
           });
         } else {
           alert(e.message);
+          history.push("/profile");
         }
       });
   };

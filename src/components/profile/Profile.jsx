@@ -152,7 +152,10 @@ const Profile = () => {
         ) : (
           <div className={styles.noAds}>
             <p>Нема огласа...</p>
-            <button onClick={() => history.push("/new_ad")}>
+            <button
+              onClick={() => history.push("/new_ad")}
+              disabled={!(user.fullname || user.place_uuid)}
+            >
               додајте оглас
             </button>
           </div>

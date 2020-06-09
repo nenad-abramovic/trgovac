@@ -16,12 +16,10 @@ const Ad = () => {
   useEffect(() => {
     getComments(ad.ad_uuid)
       .then((data) => {
-        console.log(data);
         setAdComments(data);
       })
-      .catch((error) => {
-        console.log(error);
-        setErrorMessage(error.message);
+      .catch((e) => {
+        setErrorMessage(e.message);
       });
   }, [ad.ad_uuid]);
 

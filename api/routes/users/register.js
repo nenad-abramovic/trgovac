@@ -21,6 +21,14 @@ const register = async (req, res) => {
     return res.status(400).end();
   }
 
+  let userData = await pool.query({
+    text: "SELECT * FROM users WHERE email=$1",
+    values: [req.body.email],
+  });
+  if (userData.rowCount !== 0) {
+    return res.status(401).end();
+  }
+
   try {
     let password = await bcrypt.hash(req.body.password, SALT);
     let data = await pool.query({

@@ -8,40 +8,49 @@ const getAds = (category, place) => {
   return fetch(
     encodeURI(`${API}${ADS}?category=${category}&place=${place}`)
   ).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(res.status, "Прослеђени параметри нису валидни.");
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res.json();
+      case 400:
+        message = "Прослеђени параметри нису валидни.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
 const getUserAds = (userUUID) => {
   return fetch(`${API}${ADS}/${userUUID}`).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(res.status, "Прослеђени параметри нису валидни.");
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res.json();
+      case 400:
+        message = "Корисников идентификациони број није валидан.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
 const getAd = (ad_uuid) => {
   return fetch(`${API}${ADS}/${ad_uuid}`).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Корисников идентификациони број није валидан."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res.json();
+      case 400:
+        message = "Идентификациони број огласа није валидан.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
@@ -51,16 +60,20 @@ const registerUser = (userData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
   }).then((res) => {
-    if (res.status === 201) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Е-маил или шифра нису прослеђени или шифра није потврђена."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 201:
+        return res.json();
+      case 400:
+        message = "Е-маил или шифра нису прослеђени или шифра није потврђена.";
+        break;
+      case 401:
+        message = "Е-маил је већ у употреби.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
@@ -70,15 +83,20 @@ const loginUser = (userData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
   }).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(res.status, "Е-маил или шифра нису прослеђени.");
-    } else if (res.status === 403) {
-      throw new RequestError(res.status, "Е-маил или шифра нису добри.");
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res.json();
+      case 400:
+        message = "Е-маил или шифра нису прослеђени.";
+        break;
+      case 403:
+        message = "Е-маил или шифра нису добри.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
@@ -92,36 +110,38 @@ const updateUser = (userData) => {
     },
     body: JSON.stringify(userData),
   }).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Име и презиме или место пребивалишта нису прослеђени или нису валидни."
-      );
-    } else if (res.status === 401) {
-      throw new RequestError(
-        res.status,
-        "Корисник није верификован. Молимо улогујте се."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res.json();
+      case 400:
+        message =
+          "Име и презиме или место пребивалишта нису прослеђени или нису валидни.";
+        break;
+      case 401:
+        message = "Корисник није верификован. Молимо улогујте се.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
 const getComments = (ad_uuid) => {
   return fetch(`${API}${ADS}${COMMENTS}/${ad_uuid}`).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Идентификациони број огласа није прослеђен или није валидан."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res.json();
+      case 400:
+        message =
+          "Идентификациони број огласа није прослеђен или није валидан.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
@@ -138,21 +158,25 @@ const addComment = (text, adUUID) => {
       adUUID,
     }),
   }).then((res) => {
-    if (res.status === 201) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Коментар није прослеђен или идентификациони број огласа није исправан."
-      );
-    } else if (res.status === 401) {
-      throw new RequestError(
-        res.status,
-        "Корисник није верификован. Молимо улогујте се."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 201:
+        return res.json();
+      case 400:
+        message =
+          "Коментар није прослеђен или идентификациони број огласа није исправан.";
+        break;
+      case 401:
+        message = "Корисник није верификован. Молимо улогујте се.";
+        break;
+      case 403:
+        message =
+          "Молимо попуните профил пре него што почнете да постављате огласе.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
@@ -168,26 +192,24 @@ const addAd = (adData, image) => {
     },
     body: JSON.stringify(adData),
   }).then((res) => {
-    if (res.status === 201) {
-      return res.json();
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Нису прослеђени сви непоходни подаци о огласу или нису исправно форматирани."
-      );
-    } else if (res.status === 401) {
-      throw new RequestError(
-        res.status,
-        "Корисник није верификован. Молимо улогујте се."
-      );
-    } else if (res.status === 403) {
-      throw new RequestError(
-        res.status,
-        "Молимо попуните профил пре него што почнете да постављате огласе."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 201:
+        return res.json();
+      case 400:
+        message = "Није прослеђен идентификациони број огласа.";
+        break;
+      case 401:
+        message = "Корисник није верификован. Молимо улогујте се.";
+        break;
+      case 403:
+        message =
+          "Молимо попуните профил пре него што почнете да коментаришете огласе.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 
@@ -200,21 +222,20 @@ const deleteAd = (adUUID) => {
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    if (res.status === 200) {
-      return res;
-    } else if (res.status === 400) {
-      throw new RequestError(
-        res.status,
-        "Није прослеђен идентификациони број огласа."
-      );
-    } else if (res.status === 401) {
-      throw new RequestError(
-        res.status,
-        "Корисник није верификован. Молимо улогујте се."
-      );
-    } else {
-      throw new RequestError(res.status, "Грешка са сервером.");
+    let message = "";
+    switch (res.status) {
+      case 200:
+        return res;
+      case 400:
+        message = "Није прослеђен идентификациони број огласа.";
+        break;
+      case 401:
+        message = "Корисник није верификован. Молимо улогујте се.";
+        break;
+      default:
+        message = "Грешка са сервером.";
     }
+    throw new RequestError(res.status, message);
   });
 };
 

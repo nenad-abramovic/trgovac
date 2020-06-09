@@ -19,7 +19,7 @@ const UserAds = ({ match }) => {
     <div>
       <h2 className={styles.title}>Огласи корисника {userAds[0]?.fullname}</h2>
       {userAds.map((ad) => (
-        <SearchElement ad={ad} />
+        <SearchElement key={ad.ad_uuid} ad={ad} />
       ))}
     </div>
   );
