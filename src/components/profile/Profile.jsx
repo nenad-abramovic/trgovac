@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../../utilities/user";
 import usePlaces from "../../utilities/places";
@@ -12,6 +12,7 @@ const Profile = () => {
   const history = useHistory();
   const places = usePlaces()[0];
   const [userAds, setUserAds] = useState([]);
+  const selectRef = useRef(null);
 
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
@@ -28,7 +29,16 @@ const Profile = () => {
     });
   }, [user.user_uuid]);
 
+  useEffect(() => {
+    setTimeout(() => (selectRef.current.value = user.place_uuid), 0);
+  });
+
   const onSubmit = (userData) => {
+    if (selectRef.current.value === "") {
+      return alert("Изаберите место пребивалишта.");
+    }
+    userData.placeUUID = selectRef.current.value;
+
     updateUser(userData)
       .then((data) => {
         setUser(data);
@@ -104,8 +114,6 @@ const Profile = () => {
             ref={register({
               validate: (value) => {
                 let number = value.replace(/\D/, "");
-                console.log(number);
-                console.log(/^(3816\d{7,8}|06\d{7,8})$/.test(number));
                 return /^(3816\d{7,8}|06\d{7,8})$/.test(number);
               },
             })}
@@ -116,15 +124,17 @@ const Profile = () => {
         </div>
         <div>
           <p>Место пребивалишта</p>
-          <select name="placeUUID" ref={register({ minLength: 1 })}>
+          <select name="placeUUID" ref={selectRef}>
             <option value="" style={{ display: "none" }}>
               изабери место
             </option>
-            {places.data.map((place) => (
-              <option key={place.place_uuid} value={place.place_uuid}>
-                {place.name.toLowerCase()}
-              </option>
-            ))}
+            {places.data.map((place) => {
+              return (
+                <option key={place.place_uuid} value={place.place_uuid}>
+                  {place.name.toLowerCase()}
+                </option>
+              );
+            })}
           </select>
           {errors.placeUUID && <p>{errors.placeUUID.message}</p>}
         </div>
