@@ -21,11 +21,15 @@ const commentAd = async (req, res) => {
     }
 
     let userData = await pool.query({
-      text: "SELECT user_uuid FROM users WHERE email=$1",
+      text: "SELECT user_uuid, fullname, place_uuid FROM users WHERE email=$1",
       values: [email],
     });
     if (userData.rowCount === 0) {
       return res.status(401).end();
+    }
+
+    if (!userData.rows[0].fullname || !userData.rows[0].place_uuid) {
+      return res.status(403).end();
     }
 
     await pool.query({
