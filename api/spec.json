@@ -32,6 +32,15 @@
       "description": "Operations about users"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
   "paths": {
     "/ads": {
       "get": {
@@ -125,9 +134,7 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "ad"
-        ]
+        "tags": ["ad"]
       },
       "post": {
         "summary": "Create new ad",
@@ -138,12 +145,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "title",
-                  "description",
-                  "price",
-                  "categoryUUID"
-                ],
+                "required": ["title", "description", "price", "categoryUUID"],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -171,13 +173,7 @@
                       },
                       "type": {
                         "type": "string",
-                        "enum": [
-                          "png",
-                          "jpeg",
-                          "jpg",
-                          "gif",
-                          "bmp"
-                        ]
+                        "enum": ["png", "jpeg", "jpg", "gif", "bmp"]
                       }
                     }
                   }
@@ -253,9 +249,12 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "ad"
-        ]
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ad"]
       }
     },
     "/ads/{userUUID}": {
@@ -284,9 +283,7 @@
             "description": "Default error sample response"
           }
         },
-        "tags": [
-          "ad"
-        ]
+        "tags": ["ad"]
       }
     },
     "/ads/{adUUID}": {
@@ -324,9 +321,12 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "ad"
-        ]
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ad"]
       }
     },
     "/ads/comments": {
@@ -339,10 +339,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "text",
-                  "adUUID"
-                ],
+                "required": ["text", "adUUID"],
                 "properties": {
                   "text": {
                     "type": "string",
@@ -396,9 +393,12 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "ad"
-        ]
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ad"]
       }
     },
     "/ads/comments/{adUUID}": {
@@ -455,9 +455,7 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "ad"
-        ]
+        "tags": ["ad"]
       }
     },
     "/categories": {
@@ -488,9 +486,7 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "category"
-        ]
+        "tags": ["category"]
       }
     },
     "/places": {
@@ -521,9 +517,7 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "place"
-        ]
+        "tags": ["place"]
       }
     },
     "/users": {
@@ -536,11 +530,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "email",
-                  "password",
-                  "confirmPassword"
-                ],
+                "required": ["email", "password", "confirmPassword"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -601,9 +591,7 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       },
       "put": {
         "summary": "Update user information",
@@ -614,11 +602,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "fullname",
-                  "placeUUID",
-                  "phoneNumber"
-                ],
+                "required": ["fullname", "placeUUID", "phoneNumber"],
                 "properties": {
                   "fullname": {
                     "type": "string"
@@ -678,9 +662,12 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "user"
-        ]
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["user"]
       }
     },
     "/users/login": {
@@ -693,10 +680,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -754,9 +738,7 @@
             "description": "Server error"
           }
         },
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     }
   }
