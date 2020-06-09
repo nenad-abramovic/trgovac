@@ -3,7 +3,7 @@
   "info": {
     "title": "Трговац",
     "version": "1.0.54",
-    "description": "трговац.цом application.",
+    "description": "трговац.цом application. For testing purposes authorization token `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhQGEuYWEiLCJpYXQiOjE1OTE2ODAwNjcsImV4cCI6MTU5NDI3MjA2N30.mCavh-am4E-AzNOHKynUE7OGNCeiSAXgzi8yer44S9g` can be used",
     "license": {
       "name": "MIT"
     }
