@@ -98,16 +98,25 @@ const Profile = () => {
         </div>
         <div>
           <p>Број телефона</p>
-          <input type="text" name="phoneNumber" ref={register} />
-          {errors.phoneNumber && <p>{errors.phoneNumber.message}</p>}
+          <input
+            type="text"
+            name="phoneNumber"
+            ref={register({
+              validate: (value) => {
+                let number = value.replace(/\D/, "");
+                console.log(number);
+                console.log(/^(3816\d{7,8}|06\d{7,8})$/.test(number));
+                return /^(3816\d{7,8}|06\d{7,8})$/.test(number);
+              },
+            })}
+          />
+          {errors.phoneNumber?.type === "validate" && (
+            <p>Унесите валидан број телефона.</p>
+          )}
         </div>
         <div>
           <p>Место пребивалишта</p>
-          <select
-            name="placeUUID"
-            ref={register({ minLength: 1 })}
-            defaultValue={user.place_uuid}
-          >
+          <select name="placeUUID" ref={register({ minLength: 1 })}>
             <option value="" style={{ display: "none" }}>
               изабери место
             </option>

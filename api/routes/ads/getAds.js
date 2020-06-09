@@ -35,7 +35,8 @@ const getAds = async (req, res) => {
           JOIN users USING(user_uuid) 
           JOIN categories USING(category_uuid)
           JOIN places USING(place_uuid)
-          WHERE categories.name ILIKE COALESCE($1, '%') AND places.name ILIKE COALESCE($2, '%')`,
+          WHERE categories.name ILIKE COALESCE($1, '%') AND places.name ILIKE COALESCE($2, '%')
+          ORDER BY created_at DESC`,
       values: [req.query.category, req.query.place],
     });
 

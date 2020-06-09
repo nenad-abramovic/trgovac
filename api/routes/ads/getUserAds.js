@@ -18,7 +18,8 @@ const getUserAds = async (req, res) => {
         JOIN users USING(user_uuid) 
         JOIN categories USING(category_uuid)
         JOIN places USING(place_uuid)
-        WHERE user_uuid=$1`,
+        WHERE user_uuid=$1
+        ORDER BY created_at DESC`,
       values: [req.params.userUUID],
     });
 
