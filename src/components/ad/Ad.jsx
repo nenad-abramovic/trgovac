@@ -28,7 +28,7 @@ const Ad = () => {
       <div className={styles.adInfo}>
         <div>
           <h2>{ad.title}</h2>
-          <h3>{ad.price} динара</h3>
+          <h3>{ad.price.toFixed(2)} динара</h3>
           <h3>{ad.fullname}</h3>
           <h3>{ad.phone_number}</h3>
           <h3>

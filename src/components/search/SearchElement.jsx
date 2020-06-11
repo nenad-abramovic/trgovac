@@ -12,7 +12,7 @@ const SearchElement = ({ ad }) => {
             {ad.title}
           </Link>
         </h3>
-        <p>цена: {ad.price} динара</p>
+        <p>цена: {ad.price.toFixed(2)} динара</p>
         <p>
           датум објављивања: {new Date(ad.created_at).toLocaleString("sr-Cyrl")}
         </p>
