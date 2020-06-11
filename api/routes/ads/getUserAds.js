@@ -13,7 +13,7 @@ const getUserAds = async (req, res) => {
     }
 
     let data = await pool.query({
-      text: `SELECT ad_uuid, created_at, title, description, price::numeric, category_uuid, user_uuid, encode(image, 'base64') as image, image_type, place_uuid, fullname, phone_number 
+      text: `SELECT ad_uuid, created_at, title, description, price::numeric::float8, category_uuid, user_uuid, encode(image, 'base64') as image, image_type, place_uuid, fullname, phone_number 
         FROM ads
         JOIN users USING(user_uuid) 
         JOIN categories USING(category_uuid)
