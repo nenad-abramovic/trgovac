@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./Profile.module.css";
 import UserContext from "../../utilities/user";
 import usePlaces from "../../utilities/places";
@@ -12,14 +12,13 @@ const Profile = () => {
   const history = useHistory();
   const places = usePlaces()[0];
   const [userAds, setUserAds] = useState([]);
-  const selectRef = useRef(null);
+  const [userPlace, setUserPlace] = useState(user.place_uuid);
 
   const { register, handleSubmit, errors } = useForm({
     mode: "onChange",
     defaultValues: {
       fullname: user.fullname,
       phoneNumber: user.phone_number,
-      placeUUID: user.place_uuid,
     },
   });
 
@@ -29,15 +28,11 @@ const Profile = () => {
     });
   }, [user.user_uuid]);
 
-  useEffect(() => {
-    setTimeout(() => (selectRef.current.value = user.place_uuid), 0);
-  });
-
   const onSubmit = (userData) => {
-    if (selectRef.current.value === "") {
+    if (userPlace === "") {
       return alert("Изаберите место пребивалишта.");
     }
-    userData.placeUUID = selectRef.current.value;
+    userData.placeUUID = userPlace;
 
     updateUser(userData)
       .then((data) => {
@@ -124,7 +119,11 @@ const Profile = () => {
         </div>
         <div>
           <p>Место пребивалишта</p>
-          <select name="placeUUID" ref={selectRef}>
+          <select
+            name="placeUUID"
+            value={userPlace}
+            onChange={(e) => setUserPlace(e.target.value)}
+          >
             <option value="" style={{ display: "none" }}>
               изабери место
             </option>
