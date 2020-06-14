@@ -1,6 +1,6 @@
 import RequestError from "./error";
 const API = "/api";
-const ADS = "/ads";
+const ADS = "/products";
 const USERS = "/users";
 const COMMENTS = "/comments";
 

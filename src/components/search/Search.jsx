@@ -55,7 +55,10 @@ const Search = () => {
 
   return (
     <div className={styles.infoMsg}>
-      <p>{ads.errorMessage || "Сачекајте..."}</p>
+      <p>
+        {`Десила се грешка! Можда користите adblocker.
+          ГРЕШКА: ${ads.errorMessage}` || "Сачекајте..."}
+      </p>
     </div>
   );
 };

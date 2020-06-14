@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(express.static("build"));
 
 app.use("/api/users", usersRouter);
-app.use("/api/ads", adsRouter);
+app.use("/api/products", adsRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/places", placesRouter);
 
