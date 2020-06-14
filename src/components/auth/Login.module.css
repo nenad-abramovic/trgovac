@@ -1,18 +1,18 @@
 .form {
-  text-align: left;
   margin-top: 2rem;
+  text-align: left;
 }
 
 .form div {
+  align-items: baseline;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
   margin: 1rem 0;
 }
 
 .form h2 {
-  margin: 0;
   color: aquamarine;
+  margin: 0;
 }
 
 .form input {

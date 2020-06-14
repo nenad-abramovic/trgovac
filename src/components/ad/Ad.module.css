@@ -1,6 +1,6 @@
 .container {
-  text-align: left;
   margin: 2rem 0;
+  text-align: left;
 }
 
 .container h2 {
@@ -14,7 +14,7 @@
 }
 
 .adInfo {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }

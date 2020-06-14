@@ -25,15 +25,15 @@
 }
 
 .navigation ul {
-  margin: 0;
   list-style-type: none;
+  margin: 0;
 }
 
 .navigation li {
-  display: inline-block;
-  padding: 0 0.3rem;
-  line-height: 2rem;
   border-right: 1px solid aquamarine;
+  display: inline-block;
+  line-height: 2rem;
+  padding: 0 0.3rem;
 }
 
 .navigation li:last-child {

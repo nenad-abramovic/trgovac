@@ -13,6 +13,10 @@
   text-transform: lowercase;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   background-color: black;
   color: rgba(255, 255, 255, 0.8);

@@ -1,14 +1,13 @@
 .container {
-  text-align: left;
-  color: white;
-  background-color: white;
-  margin: 2rem 0;
-  border: 1px solid aquamarine;
-  height: 80vh;
-  width: 635px;
-  overflow: scroll;
-  box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
   background-color: aquamarine;
+  border: 1px solid aquamarine;
+  box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
+  color: white;
+  height: 80vh;
+  margin: 2rem 0;
+  overflow: scroll;
+  text-align: left;
+  width: 635px;
 }
 .container *,
 .container *:hover {

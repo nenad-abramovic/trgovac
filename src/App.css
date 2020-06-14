@@ -2,22 +2,22 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 900px;
-  justify-content: space-between;
   min-height: 100vh;
-  text-align: center;
+  justify-content: space-between;
   padding: 1rem;
+  text-align: center;
+  width: 900px;
 }
 
 .container {
+  align-items: flex-start;
   display: flex;
   flex: 1;
-  align-items: flex-start;
 }
 
 a {
-  text-decoration: none;
   color: aquamarine;
+  text-decoration: none;
 }
 
 a:hover {
@@ -30,9 +30,9 @@ select,
 textarea {
   background-color: aquamarine;
   border: 0;
-  font-size: 1rem;
   border-radius: 2px;
   box-shadow: 0rem 0rem 1rem 1px rgba(127, 255, 212, 0.4);
+  font-size: 1rem;
   padding: 0.5rem;
 }
 
@@ -57,7 +57,7 @@ select:hover {
 }
 
 input[type="file"] {
-  width: auto;
   background-color: transparent;
   box-shadow: none;
+  width: auto;
 }
