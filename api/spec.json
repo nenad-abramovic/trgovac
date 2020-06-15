@@ -42,7 +42,7 @@
     }
   },
   "paths": {
-    "/ads": {
+    "/products": {
       "get": {
         "summary": "Retrieve all ads",
         "description": "",
@@ -257,7 +257,7 @@
         "tags": ["ad"]
       }
     },
-    "/ads/{userUUID}": {
+    "/products/{userUUID}": {
       "get": {
         "summary": "Retrieve ads for specific user",
         "description": "",
@@ -286,7 +286,7 @@
         "tags": ["ad"]
       }
     },
-    "/ads/{adUUID}": {
+    "/products/{adUUID}": {
       "delete": {
         "summary": "Remove ad",
         "description": "",
@@ -329,7 +329,7 @@
         "tags": ["ad"]
       }
     },
-    "/ads/comments": {
+    "/products/comments": {
       "post": {
         "summary": "Create comment for specific ad",
         "description": "",
@@ -401,7 +401,7 @@
         "tags": ["ad"]
       }
     },
-    "/ads/comments/{adUUID}": {
+    "/products/comments/{adUUID}": {
       "get": {
         "summary": "Retrieve comments for specific ad",
         "description": "",
